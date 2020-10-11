@@ -1,0 +1,23 @@
+baseURL = "https://blog.trentfridey.com/"
+languageCode = "en-us"
+title = "The Derivation"
+theme = "archie"
+paginate=5
+ignoreFiles = ["/posts/.*/ltximg"]
+[params]
+  math = true
+
+[[menu.main]]
+name = "Home"
+url = "/"
+weight = 1
+
+[[menu.main]]
+name = "About"
+url = "/about"
+weight = 3
+
+[[menu.main]]
+name = "Tags"
+url = "/tags"
+weight = 4

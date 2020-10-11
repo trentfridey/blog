@@ -1,0 +1,9 @@
+[submodule "themes/cactus"]
+	path = themes/cactus
+	url = https://github.com/monkeyWzr/hugo-theme-cactus.git
+[submodule "themes/archie"]
+	path = themes/archie
+	url = https://github.com/athul/archie.git
+[submodule "themes/amperage"]
+	path = themes/amperage
+	url = https://github.com/asurbernardo/amperage.git

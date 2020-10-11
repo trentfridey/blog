@@ -1,0 +1,19 @@
+#+TITLE: Statistics of NPS 
+#+AUTHOR: Trent Fridey
+#+DATE: 2020-10-06
+
+The Net Promoter Score can be considered as a statistic measuring population differences:
+
+$$
+NPS = p_{\text{promoters}} - p_{\text{demoters}}
+$$
+
+If we give one survey, what is the probability that we will have an NPS of 0.3?
+
+Well, considering that if we take a large enough survey, the NPS estimator:
+
+$$
+\hat{NPS} = \hat{p}_{\text{promoters}} - \hat{p}_{\text{demoters}}
+$$
+
+is normally distributed, with $E[\hat{NPS}] = NPS$ and $V[\hat{NPS}] = $  
