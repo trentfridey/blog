@@ -1,0 +1,29 @@
+
+#+TITLE: Microcanonical Statistical Mechanics and Hylomorphism 
+#+AUTHOR: Trent Fridey
+#+DATE: 2020-10-06
+#+SUMMARY: Even before Quantum Mechanics made interpreting atomic physics hard, there were hints that atomism was not the only interpretation.
+#+DRAFT: true
+#+TAGS[]: quantum physics
+
+In basic mechanics, we usually study the dynamics of a system of a few physical objects.
+If we are clever enough, and the system has enough symmetry, we can write down equations to predict the position and momentum of each of the objects.
+
+As we scale up the number of objects in our system, it becomes harder to do this.
+The canonical problem is that if each object has a position vector $\vec{r}$ and a momentum vector $\vec{p}$, then to keep track of $N$ such objects, we would require $6N$ variables.
+
+Instead, we use thermodynamics and statistical mechanics.
+In doing so, there is a very subtle yet important shift in perspective that comes from distinguishing *microstates* and *macrostates* of the system.
+
+The microstates are the set of unique possible states that the system could be in.
+The macrostates are a classification of the microstates according to a summary variable -- usually the total energy.
+
+As it may be hinted in the terms, there can be multiple microstates per macrostate -- which is denoted the *multiplicity* of the macrostate.
+
+Calculating the multiplicity allows us to assign a probability for the system to be in a specific macrostate.
+This probability -- and the related notion of entropy -- is what the rest of statistical mechanics and thermodynamics hinges on.
+It factors into the second law of thermodynamics, which may be formulated as stating that energy in the system will spontaneously flow until it reaches its most likely macrostate.
+
+The shift in characterizing the system in terms of microstates to macrostate represents a shift in perspective that places the "parts" as less fundamental than the "whole".
+I should qualify this -- the parts, or microstates, are still real on their own.
+The shift is epistemological -- we employ the notion of macrostates because it is infeasible to keep track of every microstate.

@@ -1,0 +1,46 @@
+#+DRAFT: true
+#+TITLE: Fisher Information and Physics
+#+AUTHOR: Trent Fridey
+#+TAGS[]: physics statistics quantum
+#+DATE: 2020
+#+SUMMARY: Forming an estimate of parameters of the population via small samples allows us to get a grip on important characteristics of a population without exhaustive sample sizes. The trade-off is in how close the estimators can get to the actual parameter. This has deep consequences for both classical and quantum physics
+
+
+* Fisher's Inequality
+
+  Our starting point is in classical statistics, looking at population statistics.
+  Forming an estimate of parameters of the population via small samples allows us to get a grip on important characteristics of a population without exhaustive sample sizes.
+  The trade-off is in how close the estimators can get to the actual parameter.
+
+  From classical statistics, this is due to the random nature of samples.
+  If a sample is modeled a random variable with an underlying distribution, then any estimator made from it will inherit the random nature.
+  This means that the estimator will, in general, have a non-zero expected value and variance.
+
+  /Fisher's inequality/ puts a lower bound on the variance of the estimator.
+
+** Expected Value of an Estimator
+
+   The *bias* of an estimator $\hat{\theta}$ of a population parameter $\theta$ is defined as:
+
+   $$
+   b(\hat{\theta}) = E[\hat{\theta}] - \theta
+   $$
+ 
+** Variance of an Estimator 
+
+  
+   
+  $$
+  V[\hat{\theta}] \geq
+  \left(1 + \frac{\partial b}{\partial \theta}\right) /
+  \left(\frac{\partial P}{\partial \theta}\right)^2
+  $$
+
+  
+  
+
+* Fisher Information
+
+** In Classical Mechanics
+
+** In Quantum Mechanics

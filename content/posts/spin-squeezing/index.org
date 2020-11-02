@@ -1,0 +1,68 @@
+#+TITLE: Spin Squeezing 
+#+AUTHOR: Trent Fridey
+#+DATE: 2020-10-10
+#+DRAFT: true
+#+SUMMARY: In this post we look at the method of /spin squeezing/, which is a way to increase the precision of a quantum measurement by using entanglement.
+#+TAGS[]: quantum statistics physics
+
+* The Setup
+  
+  Let's consider a quantum system of $N$ spin-$1/2$ particles.
+  These spins are prepared in a /coherent/ state:
+
+  $$
+  \left| \theta, \phi \right\rangle = \bigotimes_{i=1}^N  \left[
+    \cos{\left(\frac{\theta}{2}\right)}|0\rangle +
+    e^{i\phi}\sin\left({\frac{\theta}{2}}\right)|1\rangle
+  \right]
+  $$
+
+** Bloch Sphere
+  If we calculate the expected value of the total spin operator of this state:
+
+  $$
+  \vec{S} = \sum_{i=1}^N \vec{S}_i
+  \qquad
+  \vec{S}_i = \frac{1}{2}\left(\sigma^x_i \hat{x} + \sigma^y_i \hat{y} + \sigma^z_i \hat{z}\right) 
+  $$
+
+  we get a nice geometric result:
+
+  $$
+  \left\langle \theta, \phi \right| \vec{S} \left| \theta, \phi \right\rangle =
+  \frac{N}{2}\cos{\theta}\cos{\phi}\hat{x} + 
+  \frac{N}{2}\sin{\theta}\cos{\phi}\hat{y} +
+  \frac{N}{2}\sin{\phi}\hat{z}
+  $$
+
+  
+** Bloch Sphere with Spread
+  Looking at the spread of the total spin operator in this state $\Delta \vec{S} = \left\langle \vec{S}\cdot\vec{S} \right\rangle - \left\langle \vec{S} \right\rangle^2$
+  
+# Calculation of spread goes here
+# Also include graphic on sphere
+  
+* Introducing Squeezing
+
+** Definition of Squeezing Operator
+
+   The *spin squeezing operator* is defined as:
+
+   $$
+   U(\varphi) = \exp\left(-\frac{i}{2}\varphi \sum_{i \neq j}^N \sigma^z_i\sigma^z_j\right) 
+   $$
+
+   This is called the /one-axis twisting/ operator in the literature.
+   With this definition, we apply it to a coherent state $\left|\theta=0, \phi=\frac{\pi}{2} \right\rangle = |+x\rangle$ to  obtain the state:
+
+   $$
+   \left|\psi(\varphi)\right\rangle = U(\varphi)|+x\rangle
+   $$
+
+   # include graphic of effect on spread here
+   
+** Quantifying Squeezing
+   
+** Finding the Optimal Angle
+
+*** TODO Use Python's autograd Library to Compute
