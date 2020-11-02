@@ -1,6 +1,8 @@
 #+TITLE: Statistics of NPS 
 #+AUTHOR: Trent Fridey
 #+DATE: 2020-10-06
+#+DRAFT: true
+#+TAGS[]: statistics
 
 The Net Promoter Score can be considered as a statistic measuring population differences:
 
