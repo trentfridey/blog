@@ -4,6 +4,8 @@
 #+STARTUP: latexpreview
 #+TAGS[]: math
 #+SUMMARY: In statistical mechanics, we often deal with expressions involving the Gamma function, also know as the factorial. It is more often useful to approximate this function than to work with it directly when the function's argument is large. Stirling's approximation is one way to do so, let's look at its derivation.
+#+HUGO_BASE_DIR: ~/trent/blog
+#+HUGO_SECTION: posts/stirling-approx
 
 * The Gamma Function
 
@@ -30,7 +32,7 @@ t
   = x\Gamma(x)
   \]
 
-  I.E. for an integer $n$, [fn:1]$\Gamma(n+1) = n!$.
+  I.E. for an integer $n$, $\Gamma(n+1) = n!$.[fn:1]
   This form of the factorial function allows us to approximate the value it takes when we take $n \to \infty$, as may happen in the thermodynamic limit.
 
 * Laplace Integrals
@@ -61,7 +63,8 @@ t
   I(x) \to I(x;\epsilon) = \int_{c-\epsilon}^{c+\epsilon} f(t) e^{x\phi(t)} \mathrm{d} t
   \]
 
- #+BEGIN_SRC python :var name="images/peaked.png" :results file
+   
+ #+BEGIN_SRC python :exports results :var name="images/peaked.png" :results file 
    import matplotlib.pyplot as plt
    import numpy as np
 
@@ -88,10 +91,10 @@ t
    fig.savefig(name)
    return name
    #+END_SRC
-
-   #+CAPTION: When outside of $[c-\epsilon, c+\epsilon]$, the exponential factor decreases by at least $e^{-x\Delta}$ 
+   
    #+RESULTS:
    [[file:images/peaked.png]]
+   #+CAPTION: When outside of $[c-\epsilon, c+\epsilon]$, the exponential factor decreases by at least $e^{-x\Delta}$
  
 
   Now after shrinking the limits of integration, we use a Taylor series to expand the exponential function around its maximum; in our case, the maximum occurs at $y_0 = 1$
@@ -119,7 +122,7 @@ t
    Therefore, for large $n$, we can use
 
    \[
-   n! \approx \sqrt{2\pi n}\left(\frac{n}{e}\right)^n
+   \boxed{n! \approx \sqrt{2\pi n}\left(\frac{n}{e}\right)^n}
    \]
 
 * Remarks
@@ -130,6 +133,7 @@ t
    
 * Footnotes
 
+  
 [fn:2] Thanks [[https://en.wikipedia.org/wiki/Stirling%27s_approximation][Wikipedia]]!
 
 [fn:1] Note that the recurrence equation for $\Gamma$ holds for non-integers as well. This is just making the connection to the factorial function explicit. 

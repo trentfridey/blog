@@ -1,9 +1,11 @@
 #+TITLE: The Schwarz-Christoffel Transformation 
 #+AUTHOR: Trent Fridey
 #+DATE: 2020-10-18
-#+TAGS[]: complex-analysis math
+#+HUGO_TAGS: complex-analysis math
 #+STARTUP: latexpreview
 #+DRAFT: true
+#+HUGO_BASE_DIR: ~/trent/blog
+#+HUGO_SECTION: posts/schwarz-christoffel
 
 * Introduction
 
@@ -57,15 +59,14 @@ What is utterly fascinating is that such a seemingly esoteric integral has appli
 
 ** The Electric Potential of a Semi-Infinite Plane
 
-  The problem we are interested in solving is this: what is the electric potential $\varphi$ on the upper half-plane $\{(x,y) \, | \, y > 0\}$, where the boundary conditions are:
+  The problem we are interested in solving is this: what is the electric potential $\varphi$ on the upper half-plane $\{(x,y)\space  |  y > 0\}$, where the boundary conditions are:
 
-  \[
-\varphi(x,y) =
-    \begin{cases}
-       V & -\infty < x < 0 \, , y = 0\\
-       0 & 0 \leq x < \infty \, , y = 0\\
-    \end{cases}
-  \]
+\[
+\varphi(x,y) = \begin{cases}
+V & -\infty < x < 0, y = 0 \\\ 0 & 0 \leq x < \infty, y = 0
+\end{cases}
+\]
+
 
   Here's a picture:
 
@@ -106,8 +107,7 @@ In stages:
 This procedure is effected by the Schwarz-Christoffel transformation with:
 
  \[
- \phi_1 = \phi_2 = \phi_3 = \pi(1-1/2) = -\pi/2 \\
- x_1 = 0, x_2 = -1, x_3 = 1
+ \phi_1 = \phi_2 = \phi_3 = \pi(1-1/2) = -\pi/2 \\\x_1 = 0, x_2 = -1, x_3 = 1
  \]
 
  This means the integrand will be:
@@ -118,9 +118,9 @@ This procedure is effected by the Schwarz-Christoffel transformation with:
  So our map taking us from the upper half-plane to a square is:
 
  $w(z) : z \to w$ 
-#+NAME: eq:1
-\[
-w = \int^z \frac{1}{\sqrt{\xi^3 - \xi}}\mathrm{d}\xi
+
+\[ 
+w = \int^z \frac{1}{\sqrt{\xi^3 - \xi}}\mathrm{d}\xi \tag{1}
 \]
 
 
@@ -141,13 +141,12 @@ w = \int^z \frac{1}{\sqrt{\xi^3 - \xi}}\mathrm{d}\xi
     
     \[
     \phi = \begin{cases}
-    V & (a, s), (r,0)  \\
-    0 & (0, s), (r,a) 
+    V & (a, s), (r,0)  \\\0 & (0, s), (r,a) 
     \end{cases}
     \quad  \text{for} \, (r,s) \in  \partial \Omega
     \]
 
- Proceeding in the usual way, this can be solved via separation of variables:
+Proceeding in the usual way, this can be solved via separation of variables:
 
 \[
 \nabla^2\phi(r,s) = \frac{R''(r)}{R(r)} + \frac{S''(s)}{S(s)}
@@ -208,7 +207,7 @@ f(w) = \sum_{n \text{odd}} \frac{iV}{n\pi\sinh(n\pi)}
 
 *** TODO Transforming Back 
 
-   Now to get the potential for the original geometry, we would need to compute the integral in equation [[eq:1]].
+   Now to get the potential for the original geometry, we would need to compute the integral.
 
    Unfortunately, this integral belongs to the class of [[https://en.wikipedia.org/wiki/Elliptic_integral][incomplete elliptic integrals]], which do not have a closed-form expression in terms of elementary functions.
    But we can use numerical approximation to plot the contours of the solution in the original domain.

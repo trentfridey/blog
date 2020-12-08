@@ -2,8 +2,10 @@
 #+TITLE: Fisher Information and Physics
 #+AUTHOR: Trent Fridey
 #+TAGS[]: physics statistics quantum
-#+DATE: 2020
+#+DATE: 2020-10-06
 #+SUMMARY: Forming an estimate of parameters of the population via small samples allows us to get a grip on important characteristics of a population without exhaustive sample sizes. The trade-off is in how close the estimators can get to the actual parameter. This has deep consequences for both classical and quantum physics
+#+HUGO_BASE_DIR: ~/trent/blog
+#+HUGO_SECTION: posts/fisher-information
 
 
 * Fisher's Inequality

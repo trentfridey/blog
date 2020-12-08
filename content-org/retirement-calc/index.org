@@ -4,6 +4,8 @@
 #+DRAFT: true
 #+TAGS[]: math
 #+SUMMARY: Here's a simple model of retirement planning based on the basic principle: as long as returns from investments are greater than expenses, working for pay is not necessary
+#+HUGO_BASE_DIR: ~/trent/blog
+#+HUGO_SECTION: posts/retirement-calc
 
 * Introduction
 

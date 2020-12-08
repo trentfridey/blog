@@ -1,0 +1,57 @@
+#+TITLE: State Machines with XState 
+#+AUTHOR: Trent Fridey
+#+DATE: 2020-11-14
+#+HUGO_TAGS: javascript front-end programming
+#+DRAFT: true
+#+HUGO_BASE_DIR: ~/trent/blog
+#+HUGO_SECTION: posts/state-machines
+
+* TODO Introduction to State Machines
+
+The formal specification of a finite state machine requires 5 parts:
+
+1. The set of states $S$
+2. The set of events $\Sigma$
+3. The set of valid transitions $\delta: S\times\Sigma \to S$
+4. The initial state $s_0$
+5. The set of final states $F$
+
+Example
+
+* TODO Statecharts: an Extension to State Machines
+
+Statecharts are a group of extensions to state machines, that augment the features of state machines to make them easier to model.
+These areas include hierarchy, concurrency, and communication.
+Namely, in statecharts, you can have:
+
+- Hierarchical states
+- Orthogonal states
+- History states
+
+or
+
+statecharts = state-diagrams + depth + orthogonality + broadcast-communication
+
+
+* TODO An Example
+
+Tracking a feature in software development from initialization to deployment
+
+Represent it as a graph
+
+* TODO Implementing the Example with XState
+
+  XState is a Javascript library for implementing state machines in the browser.
+  Actually it implements state charts (an extension of state machines)
+  It is great because it follows a specification that has been sitting around for years as SCXML.
+
+  It allows us to generate an interactive representation of the state machine with ~xstate-vis~.
+
+** TODO The Implementation 
+   Include link to code sandbox?
+
+  
+* Notes
+
+  
+Constructing a hieararch

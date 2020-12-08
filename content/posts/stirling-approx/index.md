@@ -1,0 +1,105 @@
++++
+title = "Stirling's Approximation"
+author = ["Trent Fridey"]
+date = 2020-10-17
+draft = false
++++
+
+## The Gamma Function {#the-gamma-function}
+
+The factorial function \\(f(n) = n!\\) of an integer \\(n\\) is defined as the product of sequentially descending integers starting with \\(n\\):
+
+\\[
+  n! = (n)(n-1)\cdots(2)(1)
+  \\]
+
+We can interpolate this function for values in between the integers if we want; one way to do this is via the **Gamma function**:
+
+  \\[
+  \Gamma(x) = \int\_{0}^\infty t^{x-1} e^{-t} \mathrm{d}t
+  \\]
+t
+  This can be shown to be in harmony with the factorial function via integration by parts:
+
+\\[
+  \Gamma(x + 1) = \int\_{0}^{\infty} t^x e^{-t} \mathrm{d} t
+  \\]
+
+\\[
+  = \left. -t e^{-t}\right|\_{0}^\infty + x\int\_{0}^\infty t^{x-1}e^{-t} \mathrm{d} t
+  = x\Gamma(x)
+  \\]
+
+I.E. for an integer \\(n\\), \\(\Gamma(n+1) = n!\\).[^fn:1]
+This form of the factorial function allows us to approximate the value it takes when we take \\(n \to \infty\\), as may happen in the thermodynamic limit.
+
+
+## Laplace Integrals {#laplace-integrals}
+
+The form of this integral falls into the class of **Laplace integrals**:
+
+\\[
+  I(x) = \int\_{a}^b f(t) e^{x\phi(t)} \mathrm{d} t
+  \\]
+
+We are interested in the approximate behavior of this integral for large \\(x\\).
+In our case, we have to do some algebra&nbsp;[^fn:2] so it is easier to work with. Let \\(t = xy\\), so that we can write:
+
+\\[
+  I(x) = x\int\_{0}^\infty \exp(x \log(xy) - xy) \mathrm{d}y = xe^{x\log(x)}\int\_{0}^\infty \exp(x(\log(y) - y))\mathrm{d}y
+  \\]
+
+Now we can identify \\(f(t) = 1\\) and \\(\phi(y) = \log(y) - y\\)
+In taking the limit \\(\lim\_{x\to\infty} I(x)\\), we can use **Laplace's method** to find an approximate expression for the leading term.
+
+
+### Laplace's Method {#laplace-s-method}
+
+ The idea behind Laplace's method is to approximate the argument of the exponential to quadratic order, so that we can treat the integral as an integral of the normal distribution.
+ Since the integrand involves an exponential of a function \\(\phi(t)\\), the integral will be _strongly peaked_ at that function's maximum.
+If we require that the maximum of \\(\phi\\) occurs at some \\(c\\) such that \\(a \leq c \leq b\\) and that \\(f( c) \neq 0\\), then we can approximate the integral by shrinking the integration limits to within some \\(\epsilon\\) of \\(c\\):
+
+\\[
+  I(x) \to I(x;\epsilon) = \int\_{c-\epsilon}^{c+\epsilon} f(t) e^{x\phi(t)} \mathrm{d} t
+  \\]
+
+{{< figure src="/ox-hugo/peaked.png" >}}
+
+Now after shrinking the limits of integration, we use a Taylor series to expand the exponential function around its maximum; in our case, the maximum occurs at \\(y\_0 = 1\\)
+
+\\[
+  \phi(y) \approx \phi(y\_0) + \phi'(y\_0)(y-y\_0) + \phi''(y\_0)(y-y\_0)^2 = -1 - (y-1)^2
+  \\]
+
+Which makes the integral:
+
+\\[
+  I(x) \approx xe^{x\log(x)}e^{-x}\int\_{1 - \epsilon}^{1 + \epsilon}\exp(-x(y-1)^2)\mathrm{d}y
+  \\]
+
+
+### Final Approximation and Result {#final-approximation-and-result}
+
+In order to get a nice, closed form expression for \\(I(x)\\), we note that as \\(x \to \infty\\), the integrand will become more strongly peaked about the maximum \\(y\_0 = 1\\).
+Therefore, we expect that contributions outside of the integration limits \\([y\_0 - \epsilon, y\_0 + \epsilon]\\) to be negligible.
+With this, we can extend the limits of integration to \\((-\infty, \infty)\\) and use our knowledge of the integral of a normal distribution to evaluate the integral:
+
+\\[
+   I(x) \approx xe^{x\log(x) - x}\int\_{-\infty}^\infty \exp(-x(y-1)^2) \mathrm{d} y = \sqrt{2\pi x}\left(\frac{x}{e}\right)^{x}
+   \\]
+
+Therefore, for large \\(n\\), we can use
+
+\\[
+   \boxed{n! \approx \sqrt{2\pi n}\left(\frac{n}{e}\right)^n}
+   \\]
+
+
+## Remarks {#remarks}
+
+Having the result in front of us, we can compare it to the "naive approximation" for the factorial function.
+The naive approximation would be to take only the leading term in the expansion of the factorial -- e.g. since the factorial of \\(n\\) involves a product of \\(n\\) terms, we might approximate \\(n! \approx \mathcal{O}(n^n)\\) (which would overestimate, since the sub-leading term would have a minus sign in front of it).
+Stirling's approximation tells us that it should be \\(n! \approx \mathcal{O}(n^{n+1/2}e^{-n})\\), which is an improvement, since it compensates for the sub-leading term with a exponential factor.
+
+[^fn:1]: Note that the recurrence equation for \\(\Gamma\\) holds for non-integers as well. This is just making the connection to the factorial function explicit.
+[^fn:2]: Thanks [Wikipedia](https://en.wikipedia.org/wiki/Stirling%27s%5Fapproximation)!

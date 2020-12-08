@@ -3,6 +3,8 @@
 #+DATE: 2020-10-06
 #+TAGS[]: statistics
 #+STARTUP: latexpreview
+#+HUGO_BASE_DIR: ~/trent/blog
+#+HUGO_SECTION: posts/sample-var
 
 * Introduction
 
@@ -85,7 +87,7 @@ In this post I explain why this factor is necessary.
   This expression involves evaluating the expectation of the square of normally-distributed random variables. To evaluate each of these terms, we can employ the value of the second /moment/ of the normal distribution:
 
   $$
-  E[z^2] = \frac{1}{\sqrt{2\pi} w}\int_{-\infty}^{\infty} \exp{\left(\frac{z - m}{w}\right)^2}z^2 \, \mathrm{d}z
+  E[z^2] = \frac{1}{\sqrt{2\pi} w}\int_{-\infty}^{\infty} \exp{\left(\frac{z - m}{w}\right)^2}z^2  \mathrm{d}z
   = m^2 + w^2
   $$
 
