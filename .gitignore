@@ -1,3 +1,5 @@
 **/ltximg
 resources/_gen
-themes/
+themes
+public
+.dir-locals.el
