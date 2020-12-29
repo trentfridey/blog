@@ -1,0 +1,51 @@
+@import 'variables.scss';
+
+span.first { 
+    font-size: 18px;
+    font-family: serif;
+    font-style: italic;
+    letter-spacing: 0.5em;
+    display: block;
+    text-align: center;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+span.second {
+    font-family: "Nunito Sans";
+    font-size: 24px;
+    text-align: center;
+    display: block;
+    margin: 26pt 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5em;
+}
+@media (min-device-width: $tablet){
+    span.second {
+        font-family: "Nunito Sans";
+        font-size: 58px;
+        text-align: center;
+        display: block;
+        margin: 26pt 0;
+        text-transform: uppercase;
+        letter-spacing: 0.5em;
+    }
+}
+span.third {
+    font-family: serif;
+    font-style: italic;
+    display: block;
+    text-align: center;
+    font-size: 12px;
+    margin-bottom: 50px;
+}
+
+span.author {
+    font-size: 18px;
+    font-family: serif;
+    font-style: italic;
+    letter-spacing: 0.5em;
+    display: block;
+    text-align: center;
+    font-weight: 700;
+    text-transform: uppercase;
+}

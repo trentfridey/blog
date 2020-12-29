@@ -1,15 +1,16 @@
 baseURL = "https://blog.trentfridey.com/"
 languageCode = "en-us"
 title = "The Derivation"
-theme = "archie"
+theme = "substance"
 paginate=5
 ignoreFiles = ["/posts/.*/ltximg"]
 [params]
   math = true
+  author = "Trent Fridey"
 
 [[menu.main]]
-name = "Home"
-url = "/"
+name = "Posts"
+url = "/posts"
 weight = 1
 
 [[menu.main]]

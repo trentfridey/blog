@@ -1,0 +1,61 @@
+@import 'variables.scss';
+@import 'colors.scss';
+
+article {
+    margin-bottom: 60px;
+    padding: 30px;
+    position: relative;
+}
+
+.post-title {
+    border-top: 3px solid black;
+    margin: 0;
+    padding-top: 24px;
+    font-family: $serif, serif;
+    font-weight: 700;
+    font-size: 44px;
+    color: black;
+}
+
+.post-link {
+    text-decoration: none;
+    color: black;
+}
+
+#continue.post-link, a.footnote-backref, a.footnote-ref {
+    color: indianred;
+    border-bottom: 1px dotted indianred;
+    text-align: right;
+    font-family: $serif, serif;
+    text-transform: uppercase;
+    &:hover {
+        border-bottom: 1px solid indianred;
+        background-color: lighten(indianred, 30);
+        border-radius: 5px;
+    }
+}
+
+#continue.post-link {
+    float: right;
+}
+
+a.footnote-backref, a.footnote-ref {
+    text-decoration: none;
+    padding: 0px 5px;
+}
+
+.footnotes > hr {
+    height: 1px;
+    border: none;
+    background-color: black;
+    margin: 60px 0px;
+}
+
+.post-date {
+    font-family: $serif, serif;
+    font-size: 12px;
+    font-style: italic;
+    font-weight: normal;
+    margin: 10;
+    color: $grey;
+}

@@ -1,0 +1,56 @@
+@import 'variables.scss';
+@import 'colors.scss';
+
+.blog-post-frontmatter {
+    margin-bottom: 80px;
+}
+
+.blog-post-title {
+    margin: 0;
+    font-family: $serif, serif;
+    font-weight: 700;
+    font-size: 44px;
+    color: black;
+}
+
+.blog-post-date {
+    font-family: $serif, serif;
+    font-size: 12px;
+    font-style: italic;
+    font-weight: normal;
+    margin: 10;
+    color: $grey;
+}
+
+.blog-post-content {
+    counter-reset: equation;
+    & > p:first-child:first-letter {
+        font-size: 2.5em;
+        float: left;
+        background: gold;
+        padding: 0.3em;
+        margin: 0 0.1em;
+    }
+}
+
+q {
+    font-size: 1.2em;
+    color: black;
+    background-color: white;
+    display: block;
+    padding: 30px 30px;
+    font-style: italic;
+    border-left: 3px solid gold;
+    text-align: justify;
+}
+
+ol {
+    font-size: 1.3em;
+    line-height: 1.3em;
+    font-family: $serif, serif;
+}
+
+figcaption::before {
+    content: "Eq. " counter(equation) ": ";
+    counter-increment: equation;
+}

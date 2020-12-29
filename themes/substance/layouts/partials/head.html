@@ -1,0 +1,9 @@
+<head>
+    <title>{{ .Site.Title }}</title>
+    {{ $cssOpts := (dict "targetPath" "css/index.css") }}
+    {{ $style := resources.Get "sass/index.scss" | resources.ExecuteAsTemplate "style.index.css" . | resources.ToCSS }}
+    <link rel="stylesheet" href="{{ $style.RelPermalink }}">
+    {{ if or .Params.math .Site.Params.math }}
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    {{ end }}
+</head>

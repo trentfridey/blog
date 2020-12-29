@@ -1,0 +1,8 @@
+{{ define "main" }}
+<h1> All Posts Marked "{{ .Data.Term }}"</h1>
+<ul>
+    {{ range  .Data.Pages }}
+    <li><a href="{{ .URL }}">{{ .Name }}</a></li>
+    {{ end }}
+</ul>
+{{ end }}

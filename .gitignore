@@ -1,5 +1,4 @@
 **/ltximg
 resources/_gen
-themes
 public/**
 .dir-locals.el
