@@ -1,15 +1,18 @@
 {{ define "main" }}
-<h1>Posts</h1>
+<h1 class="post-title">All Posts</h1>
 {{ range .Pages }}
 <article>
-    <h2>{{ .Title }}</h2>
-    <div>{{ .Date }}</div>
-    <div>
+    <h2 class="list-title"><a href="{{ .Permalink }}">{{ .Title }}</a></h2>
+    <span class="date">{{ .Date.Format "Jan 2, 2006" }}</span>
+    <div class="tags">
     {{ range .Params.tags  }}
-        <a href="">{{ . }}</a>
+        <a href="/tags/{{ . }}" class="tag">{{ . }}</a>
     {{ end }}
     </div>
-    {{ .Summary }}
+    <div class="summary">
+        {{ .Summary }} 
+    </div>
+    <hr/>
 </article>
 {{ end }}
 {{ end }}

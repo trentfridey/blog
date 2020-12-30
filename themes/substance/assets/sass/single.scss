@@ -1,35 +1,44 @@
 @import 'variables.scss';
 @import 'colors.scss';
 
-.blog-post-frontmatter {
-    margin-bottom: 80px;
-}
-
-.blog-post-title {
+.post-title {
+    border-top: 3px solid black;
     margin: 0;
+    padding-top: 24px;
     font-family: $serif, serif;
     font-weight: 700;
     font-size: 44px;
     color: black;
 }
 
-.blog-post-date {
-    font-family: $serif, serif;
-    font-size: 12px;
-    font-style: italic;
-    font-weight: normal;
-    margin: 10;
-    color: $grey;
+.post-link {
+    text-decoration: none;
+    color: black;
 }
 
-.blog-post-content {
+
+.post-content {
     counter-reset: equation;
-    & > p:first-child:first-letter {
+    line-height: 150%;
+    & p {
+        margin-bottom: 40px;
+    }
+    &  p:first-of-type:first-letter {
         font-size: 2.5em;
         float: left;
-        background: gold;
-        padding: 0.3em;
+        padding: 0.2em;
         margin: 0 0.1em;
+    }
+    & .footnotes {
+        & p {
+            font-size: 14px;
+            &:first-of-type:first-letter {
+                font-size: 14px;
+                margin: unset;
+                padding: unset;
+                float: unset;
+            }
+        }
     }
 }
 
@@ -53,4 +62,16 @@ ol {
 figcaption::before {
     content: "Eq. " counter(equation) ": ";
     counter-increment: equation;
+}
+
+a.footnote-backref, a.footnote-ref {
+    text-decoration: none;
+    padding: 0px 3px;
+}
+
+.footnotes > hr {
+    height: 1px;
+    border: none;
+    background-color: black;
+    margin: 60px 0px;
 }

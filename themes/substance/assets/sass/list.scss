@@ -1,61 +1,77 @@
 @import 'variables.scss';
 @import 'colors.scss';
 
+h2.list-title {
+    display: inline;
+    font-size: 36px;
+    & > a {
+    color: black;
+    text-decoration: none;
+    }
+}
+
 article {
     margin-bottom: 60px;
     padding: 30px;
     position: relative;
 }
 
-.post-title {
-    border-top: 3px solid black;
-    margin: 0;
-    padding-top: 24px;
-    font-family: $serif, serif;
-    font-weight: 700;
-    font-size: 44px;
-    color: black;
-}
-
-.post-link {
-    text-decoration: none;
-    color: black;
-}
-
-#continue.post-link, a.footnote-backref, a.footnote-ref {
-    color: indianred;
-    border-bottom: 1px dotted indianred;
-    text-align: right;
+.date {
     font-family: $serif, serif;
     text-transform: uppercase;
-    &:hover {
-        border-bottom: 1px solid indianred;
-        background-color: lighten(indianred, 30);
-        border-radius: 5px;
-    }
-}
-
-#continue.post-link {
+    font-size: 12px;
+    color: $grey;
+    letter-spacing: 1px;
     float: right;
 }
 
+.tags, .tags-list {
+    margin: 10px 0;
+    display: flex;
+    flex-direction: row;
+    & .tag {
+        background-color: lighten(indianred, 35);
+        padding: 3px 15px;
+        border-radius: 15px;
+        color: indianred;
+        font-size: 12px;
+        font-weight: bold;
+        font-family: $sans-serif, sans-serif;
+        text-decoration: none;
+        border: 1px solid indianred;
+        & + .tag {
+            margin-left: 5px;
+        }
+    }
+}
+
+.tags-list {
+    & .tag {
+        font-size: 14px;
+    }
+}
+
+.summary {
+    line-height: 1.5em;
+}
+
+
+
 a.footnote-backref, a.footnote-ref {
-    text-decoration: none;
-    padding: 0px 5px;
-}
-
-.footnotes > hr {
-    height: 1px;
-    border: none;
-    background-color: black;
-    margin: 60px 0px;
-}
-
-.post-date {
+    color: indianred;
+    border: 1px solid indianred;
+    text-align: right;
     font-family: $serif, serif;
-    font-size: 12px;
-    font-style: italic;
-    font-weight: normal;
-    margin: 10;
-    color: $grey;
+    text-transform: uppercase;
+    border-radius: 5px;
+    &:hover {
+        border-bottom: 1px solid indianred;
+        background-color: lighten(indianred, 30);
+    }
 }
+
+.post-link {
+    float: right;
+}
+
+

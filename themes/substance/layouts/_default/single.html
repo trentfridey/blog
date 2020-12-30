@@ -1,5 +1,13 @@
 {{ define "main" }}
-<h1>{{ .Title }} </h1>
+<h1 class="post-title">{{ .Title }} </h1>
 <br>
-{{ .Content }}
-{{ end }}
+<span class="post-content">
+    {{ .Content }}
+</span>
+<div class="tags">
+    Tags:&nbsp; 
+    {{ range .Params.tags }}
+    <div class="tag">{{ . }}</div>
+    {{ end }}
+</div>
+{{ end }} 
