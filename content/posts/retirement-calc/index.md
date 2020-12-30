@@ -2,7 +2,7 @@
 title = "Simple Retirement Planning"
 author = ["Trent Fridey"]
 date = 2020-11-01
-draft = false
+draft = true
 +++
 
 ## Introduction {#introduction}
@@ -41,6 +41,7 @@ So that the return after \\(t\\) months is \\(R(t) = P(t) - P(t-1)\\)
 ```python
 import matplotlib.pyplot as plt
 import numpy as np
+
 import matplotlib.ticker as ticker
 plt.style.use('grayscale')
 
@@ -62,16 +63,17 @@ ax.legend()
 ax.set_title(r"$R(t) = P(t)-P(t-1)$")
 ax.set_xlabel(r"$t$ (months)")
 ax.grid()
-fig.tight_layout()
-fig.savefig(name)
-return name
+
 ```
+
+{{< figure src="/ox-hugo/example-retirement-curve.png" caption="Figure 1: For this plot, we use  \\(P\_0 = 60,000\\), \\(S = 2,000\\)" >}}
 
 What is interesting is if we allow for the savings rate to increase with time -- where we make a 5% increase in our savings rate year over year.
 
 ```python
 import matplotlib.pyplot as plt
 import numpy as np
+
 import matplotlib.ticker as ticker
 plt.style.use('grayscale')
 
@@ -93,10 +95,10 @@ ax.legend()
 ax.set_title(r"$R(t) = P(t)-P(t-1)$")
 ax.set_xlabel(r"$t$ (months)")
 ax.grid()
-fig.tight_layout()
-fig.savefig(name)
-return name
+
 ```
+
+{{< figure src="/ox-hugo/increasing-contrib-retirement-curve.png" caption="Figure 2: In this plot, we can see that a 5% yearly increase in the savings amount for the case of a 6% interest rate, the returns approximate the same curve for the 10% interest rate with no increasing savings rate." >}}
 
 
 ## Conclusion {#conclusion}

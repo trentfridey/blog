@@ -1,5 +1,0 @@
-#+TITLE: About 
-#+AUTHOR: Trent Fridey
-#+DATE: 2020-12-01
-
-This is the personal blog of Trent Fridey, dedicated to exploring the mathematical universe.

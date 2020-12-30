@@ -1,7 +1,7 @@
 #+TITLE: Spin Squeezing 
 #+AUTHOR: Trent Fridey
 #+DATE: 2020-10-10
-#+DRAFT: true
+#+HUGO_DRAFT: true
 #+STARTUP: latexpreview
 #+SUMMARY: In this post we look at the method of /spin squeezing/, which is a way to increase the precision of a quantum measurement by using entanglement.
 #+HUGO_TAGS: quantum statistics physics

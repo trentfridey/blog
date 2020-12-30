@@ -1,12 +1,11 @@
 #+TITLE: The Sample Variance 
 #+AUTHOR: Trent Fridey
 #+DATE: 2020-10-06
-#+TAGS[]: statistics
+#+HUGO_TAGS: statistics
 #+STARTUP: latexpreview
 #+HUGO_BASE_DIR: ~/trent/blog
 #+HUGO_SECTION: posts/sample-var
 
-* Introduction
 
 In introductory statistics, you are taught that when estimating a population mean $\mu$ and variance $\sigma^2$ you should use the sample mean:
 
@@ -17,11 +16,13 @@ $$
 and sample variance:
 
 $$
-\hat{\sigma^2} = \frac{1}{n-1} \sum_i \left(x_i - \bar{x}\right)^2  
+\widehat{\sigma^2} = \frac{1}{n-1} \sum_i \left(x_i - \bar{x}\right)^2  
 $$
 
 with the hand-wavy comment that the $n-1$ in the denominator is necessary to account for small sample sizes.
+
 At least that was what I was told.
+
 In this post I explain why this factor is necessary.
 
 * Everything is Random 
@@ -121,8 +122,15 @@ In this post I explain why this factor is necessary.
    $$
 
    Below is a plot of $b(s^2)$ as a function of $n$.
+  #+NAME: savefig
+  #+BEGIN_SRC python :var figname="plot.png" width=5 height=5 :exports none
+    return f"""plt.savefig('{figname}', width={width}, height={height})
+    '{figname}'"""
+    #+END_SRC
 
-#+BEGIN_SRC python :var name="images/sample-var.png" :results file  
+ 
+#+header: :noweb strip-export
+#+BEGIN_SRC python :results value file :session :exports both
   import matplotlib.pyplot as plt
   import numpy as np
 
@@ -137,11 +145,9 @@ In this post I explain why this factor is necessary.
   ax.set_xticks([1, *np.arange(10,101,10).tolist()])
   ax.set_xticklabels([1, *np.arange(10,101,10).tolist()])
   ax.set_ylabel('$b(s^2)$')
-
-  fig.tight_layout()
-  fig.savefig(name)
-  return name
+  <<savefig(figname="images/sample-var.png")>>
   #+END_SRC
+
 
   #+RESULTS:
   [[file:images/sample-var.png]]
@@ -155,11 +161,11 @@ In this post I explain why this factor is necessary.
   In order to account for the bias in our estimator, let us define a /new/ estimator $\hat{\sigma^2}$:
 
   $$
-  \hat{\sigma^2} = \frac{n}{n-1}s^2
+  \widehat{\sigma^2} = \frac{n}{n-1}s^2
   = \frac{1}{n-1}\sum_{i=1}^n \left(x_i - \bar{x}\right)^2
   $$
 
 Now we can check (using the fact that $E[ax] = aE[x]$) that the bias of this estimator is /zero/ for all $n$.
-Therefore we use $\hat{\sigma^2}$ as the *sample variance* instead of the naive estimator $s^2$. $\blacksquare$
+Therefore we use $\widehat{\sigma^2}$ as the *sample variance* instead of the naive estimator $s^2$. $\blacksquare$
 
    

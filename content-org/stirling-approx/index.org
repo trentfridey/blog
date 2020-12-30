@@ -2,12 +2,12 @@
 #+AUTHOR: Trent Fridey
 #+DATE: 2020-10-17
 #+STARTUP: latexpreview
-#+TAGS[]: math
-#+SUMMARY: In statistical mechanics, we often deal with expressions involving the Gamma function, also know as the factorial. It is more often useful to approximate this function than to work with it directly when the function's argument is large. Stirling's approximation is one way to do so, let's look at its derivation.
+#+HUGO_TAGS: math
 #+HUGO_BASE_DIR: ~/trent/blog
 #+HUGO_SECTION: posts/stirling-approx
 
-* The Gamma Function
+In statistical mechanics, we often deal with expressions involving the Gamma function, also know as the factorial. It is more often useful to approximate this function than to work with it directly when the function's argument is large. Stirling's approximation is one way to do so, let's look at its derivation.
+
 
   The factorial function $f(n) = n!$ of an integer $n$ is defined as the product of sequentially descending integers starting with $n$:
 

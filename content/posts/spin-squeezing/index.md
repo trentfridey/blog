@@ -3,7 +3,7 @@ title = "Spin Squeezing"
 author = ["Trent Fridey"]
 date = 2020-10-10
 tags = ["quantum", "statistics", "physics"]
-draft = false
+draft = true
 +++
 
 ## The Setup {#the-setup}

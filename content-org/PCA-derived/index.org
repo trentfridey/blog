@@ -7,7 +7,6 @@
 #+HUGO_BASE_DIR: ~/trent/blog
 #+HUGO_SECTION: posts/PCA-derived
 
-* Introduction
 
   Principal component analysis, or PCA, is used to characterize a highly multi-dimensional data set in terms of its main sources of variation.
   It is a /dimensionality-reduction/ technique, which helps to avoid the curse of dimensionality.
@@ -25,9 +24,9 @@
   In the limit that $\widehat{\sigma^2_{x_3}} = 0$, there is no variation in the $X_3$ variable.
   In this case, we could remove the variable from our sample set, and our models would perform just as well.
 
-  If we did this, the data set effectively becomes $(n-1)$-dimensional! 🎉
+  If we did this, the data set effectively becomes $(n-1)$ -dimensional! 
 
-  If we have $k$ variables with sample variance zero, we could remove those as well, making our data set $(n-k)$-dimensional! 🤯
+  If we have $k$ variables with sample variance zero, we could remove those as well, making our data set $(n-k)$ -dimensional!
   
   Usually, we don't find that the sample variance is zero in any of our variables, so we approximate by removing the variable(s) with the least variance. The remaining variable(s) are called the *principal components*.
 

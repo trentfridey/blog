@@ -2,10 +2,9 @@
 title = "The Sample Variance"
 author = ["Trent Fridey"]
 date = 2020-10-06
+tags = ["statistics"]
 draft = false
 +++
-
-## Introduction {#introduction}
 
 In introductory statistics, you are taught that when estimating a population mean \\(\mu\\) and variance \\(\sigma^2\\) you should use the sample mean:
 
@@ -16,11 +15,13 @@ In introductory statistics, you are taught that when estimating a population mea
 and sample variance:
 
 \\[
-\hat{\sigma^2} = \frac{1}{n-1} \sum\_i \left(x\_i - \bar{x}\right)^2
+\widehat{\sigma^2} = \frac{1}{n-1} \sum\_i \left(x\_i - \bar{x}\right)^2
 \\]
 
 with the hand-wavy comment that the \\(n-1\\) in the denominator is necessary to account for small sample sizes.
+
 At least that was what I was told.
+
 In this post I explain why this factor is necessary.
 
 
@@ -140,10 +141,9 @@ ax.set_xticks([1, *np.arange(10,101,10).tolist()])
 ax.set_xticklabels([1, *np.arange(10,101,10).tolist()])
 ax.set_ylabel('$b(s^2)$')
 
-fig.tight_layout()
-fig.savefig(name)
-return name
 ```
+
+{{< figure src="/ox-hugo/sample-var.png" >}}
 
 As we were promised, it is only large for small values of \\(n\\).
 But since it is always positive, our estimator \\(s^2\\) will always be larger than the true value of \\(\sigma^2\\).
@@ -154,9 +154,9 @@ But since it is always positive, our estimator \\(s^2\\) will always be larger t
 In order to account for the bias in our estimator, let us define a _new_ estimator \\(\hat{\sigma^2}\\):
 
 \\[
-  \hat{\sigma^2} = \frac{n}{n-1}s^2
+  \widehat{\sigma^2} = \frac{n}{n-1}s^2
   = \frac{1}{n-1}\sum\_{i=1}^n \left(x\_i - \bar{x}\right)^2
   \\]
 
 Now we can check (using the fact that \\(E[ax] = aE[x]\\)) that the bias of this estimator is _zero_ for all \\(n\\).
-Therefore we use \\(\hat{\sigma^2}\\) as the **sample variance** instead of the naive estimator \\(s^2\\). \\(\blacksquare\\)
+Therefore we use \\(\widehat{\sigma^2}\\) as the **sample variance** instead of the naive estimator \\(s^2\\). \\(\blacksquare\\)

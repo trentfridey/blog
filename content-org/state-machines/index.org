@@ -2,9 +2,10 @@
 #+AUTHOR: Trent Fridey
 #+DATE: 2020-11-14
 #+HUGO_TAGS: javascript front-end programming
-#+DRAFT: true
+#+HUGO_DRAFT: true
 #+HUGO_BASE_DIR: ~/trent/blog
 #+HUGO_SECTION: posts/state-machines
+#+STARTUP: latexpreview
 
 * TODO Introduction to State Machines
 
@@ -16,7 +17,42 @@ The formal specification of a finite state machine requires 5 parts:
 4. The initial state $s_0$
 5. The set of final states $F$
 
-Example
+** Example
+
+   To illustrate this, let's consider a simple state machine with the following specification:
+
+   \begin{aligned}
+   S &= \{ A, B, C, D \} \\
+   \Sigma &= \{ e_1, e_2, e_3, e_4, e_5 \} \\
+   s_0 &= A \\
+   F &= \{  D \}
+   \end{aligned}
+
+   and transition function $\delta$:
+
+|   | e_1 | e_2 | e_3 | e_4 | e_5 |
+|---+-----+-----+-----+-----+-----|
+| A | B   |     |     |     |     |
+| B |     | C   |     |     |     |
+| C |     |     | D   | A   | B   |
+| D |     |     |     |     |     |
+   
+We can visualize this FSM using a graph produced with the ~graphviz~ library:
+
+#+begin_src dot :exports file :file "example.svg"
+  digraph G {
+    rankdir="LR"
+    A -> B[label="e_1"]
+    B -> C[label="e_2"]
+    C -> D[label="e_3"]
+    C -> A[label="e_4"]
+    C -> B[label="e_5"]
+  }
+#+end_src
+
+#+RESULTS:
+[[file:example.svg]]
+
 
 * TODO Statecharts: an Extension to State Machines
 

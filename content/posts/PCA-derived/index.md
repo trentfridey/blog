@@ -6,8 +6,6 @@ tags = ["data-science", "math"]
 draft = false
 +++
 
-## Introduction {#introduction}
-
 Principal component analysis, or PCA, is used to characterize a highly multi-dimensional data set in terms of its main sources of variation.
 It is a _dimensionality-reduction_ technique, which helps to avoid the curse of dimensionality.
 Here's the main idea:
@@ -24,9 +22,9 @@ Let's say we find that among the \\(\widehat{\sigma^2\_{x\_i}}\\), the sample va
 In the limit that \\(\widehat{\sigma^2\_{x\_3}} = 0\\), there is no variation in the \\(X\_3\\) variable.
 In this case, we could remove the variable from our sample set, and our models would perform just as well.
 
-If we did this, the data set effectively becomes $(n-1)$-dimensional! 🎉
+If we did this, the data set effectively becomes \\((n-1)\\) -dimensional!
 
-If we have \\(k\\) variables with sample variance zero, we could remove those as well, making our data set $(n-k)$-dimensional! 🤯
+If we have \\(k\\) variables with sample variance zero, we could remove those as well, making our data set \\((n-k)\\) -dimensional!
 
 Usually, we don't find that the sample variance is zero in any of our variables, so we approximate by removing the variable(s) with the least variance. The remaining variable(s) are called the **principal components**.
 
@@ -56,7 +54,7 @@ fig.tight_layout()
 
 We can calculate the sample variance of each of the variables as:
 
-$$\widehat{\sigma^2_x} = 6.39, \qquad \widehat{\sigma^2_y} = 3.3$$
+$$\widehat{\sigma^2_x} = 6.57, \qquad \widehat{\sigma^2_y} = 3.51$$
 
 It looks like the variable with the lowest variance is the \\(y\\) variable.
 But there is a slight positive correlation in this data set.
@@ -71,7 +69,7 @@ In fact, if we calculate the sample variance along the direction of \\(\vec{e}\_
 
 We find that
 
-$$\widehat{\sigma^2_{\vec{x}\cdot\vec{e}_1}} = 0.93$$
+$$\widehat{\sigma^2_{\vec{x}\cdot\vec{e}_1}} = 3.24$$
 
 Note that
 \\[
@@ -81,8 +79,6 @@ Note that
 Therefore, when the variables are correlated, a _linear combination of variables_ may have less variance than any individual variable. In our example, we can define \\(y' = \frac{1}{\sqrt{2}}x + \frac{1}{\sqrt{2}}y\\) as a factor in a _new_ 2D model, which has variables \\((x', y')\\).
 
 To define \\(x'\\), we can form a vector perpendicular to \\(\vec{e}\_1\\), that is, the vector \\(\vec{e}\_2 = -\frac{1}{\sqrt{2}}\hat{i} + \frac{1}{\sqrt{2}}\hat{j}\\). Calculating the variance along this vector, we find:
-
-$$\widehat{\sigma^2_{\vec{x}\cdot\vec{e}_2}} = 8.76$$
 
 And note that:
 

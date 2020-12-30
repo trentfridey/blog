@@ -3,7 +3,7 @@ title = "Statistics of NPS"
 author = ["Trent Fridey"]
 date = 2020-10-06
 tags = ["statistics"]
-draft = false
+draft = true
 +++
 
 ## Introduction {#introduction}

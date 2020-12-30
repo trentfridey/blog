@@ -1,7 +1,7 @@
 #+TITLE: Statistics of NPS 
 #+AUTHOR: Trent Fridey
 #+DATE: 2020-10-06
-#+DRAFT: true
+#+HUGO_DRAFT: true
 #+HUGO_TAGS: statistics
 #+HUGO_BASE_DIR: ~/trent/blog
 #+HUGO_SECTION: posts/NPS-study
