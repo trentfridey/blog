@@ -14,25 +14,21 @@
 
   Let's say we have a $n$ - dimensional distribution with random variables $X_1, X_2, \dots, X_n$.
   We can take these variables to be uncorrelated, with mean zero, without loss of generality.
-  If we take $N$ samples from this distribution, we can calculate the sample variances:
+  If we take $N$ samples for each variable in this distribution, we can calculate the set of sample variances:
 
   \[
   \widehat{\sigma^2_{x_i}} = \frac{1}{N-1}\sum_{j=1}^N x_{ij}^2 - \bar{x_i}^2
   \]
   
-  Let's say we find that among the $\widehat{\sigma^2_{x_i}}$, the sample variance $\widehat{\sigma^2_{x_3}}$ is the smallest.
-  In the limit that $\widehat{\sigma^2_{x_3}} = 0$, there is no variation in the $X_3$ variable.
-  In this case, we could remove the variable from our sample set, and our models would perform just as well.
-
-  If we did this, the data set effectively becomes $(n-1)$ -dimensional! 
-
-  If we have $k$ variables with sample variance zero, we could remove those as well, making our data set $(n-k)$ -dimensional!
+  Let's say we find that among the variables, $x_3$ has the smallest variance.
+  In the limit that the variance for $x_3$ is zero ($\widehat{\sigma^2_{x_3}} = 0$), there is no variation in the $X_3$ variable.
+  In this case, we could remove the variable from our sample set, and our models would perform just as well. If we did this, the data set effectively becomes $(n-1)$ -dimensional. Generalizing, if we have $k$ variables with sample variance zero, we could remove those as well, making our data set $(n-k)$ -dimensional.
   
-  Usually, we don't find that the sample variance is zero in any of our variables, so we approximate by removing the variable(s) with the least variance. The remaining variable(s) are called the *principal components*.
+  Usually, we don't find that the sample variance is zero in any of our variables, so we approximate by removing the variable(s) with the least variance. The remaining variable(s) are called the *principal components*. There are complications when there are correlations between the variables.
 
 ** Adding Correlations
    
-  There are complications when there are correlations between the variables. Here's a 2-dimensional data set to illustrate the issue:
+   Here's a 2-dimensional data set with correlations to illustrate how this can get complicated:
   
 #+NAME: savefig
 #+BEGIN_SRC python :var figname="plot.png" width=5 height=5 :exports none
@@ -57,7 +53,7 @@
 #+end_src
 
 #+header: :noweb strip-export
-#+BEGIN_SRC python :session :results value file :exports both 
+#+BEGIN_SRC python :session :results value file :exports results
   import matplotlib.pyplot as plt
   import numpy as np
   <<gen_points>>
@@ -121,9 +117,7 @@
   \widehat{\sigma^2_{\vec{x}\cdot\vec{e}_1}} < \widehat{\sigma^2_y}
   \]
 
-  Therefore, when the variables are correlated, a /linear combination of variables/ may have less variance than any individual variable. In our example, we can define $y' = \frac{1}{\sqrt{2}}x + \frac{1}{\sqrt{2}}y$ as a factor in a /new/ 2D model, which has variables $(x', y')$.
-
-  To define $x'$, we can form a vector perpendicular to $\vec{e}_1$, that is, the vector $\vec{e}_2 = -\frac{1}{\sqrt{2}}\hat{i} + \frac{1}{\sqrt{2}}\hat{j}$. Calculating the variance along this vector, we find:
+  Therefore, when the variables are correlated, a /linear combination of variables/ may have less variance than any individual variable. In our example, we can define $y' = \frac{1}{\sqrt{2}}x + \frac{1}{\sqrt{2}}y$ as a factor in a /new/ 2D model, which has variables $(x', y')$. To define $x'$, we can form a vector perpendicular to $\vec{e}_1$, that is, the vector $\vec{e}_2 = -\frac{1}{\sqrt{2}}\hat{i} + \frac{1}{\sqrt{2}}\hat{j}$. Calculating the variance along this vector, we find:
 
   #+begin_src python :session :noweb yes :exports results :results value html
     CV_mat = np.cov(x,y,ddof=1)
@@ -156,9 +150,11 @@
 
   The expression for the sample variance is then:
 
-  \[
+  #+NAME: eq:1
+  \begin{equation}
   \widehat{\sigma^2_{\vec{x}\cdot\vec{e_1}}} = \cos^2(\theta)\widehat{\sigma_x^2} + \sin^2(\theta)\widehat{\sigma^2_y} + \sin(2\theta)\widehat{\text{Cov}}(x,y)
-  \]
+  \label{eq:1}
+  \end{equation}
 
   We can find the components by maximizing this expression with respect to $\theta$:
 
@@ -166,11 +162,11 @@
   \theta^{*} = \text{arg}\max_\theta \widehat{\sigma^2_{\vec{x}\cdot\vec{e_1}}}
   \]
 
-  Since this example is in 2D, we only have to find one parameter. But in $d$-dimensions, we would need $(d-1)$ parameters. So let's find a better way.
+  Since this example is in 2D, we only have to find one parameter. But in $d$ -dimensions, we would need $(d-1)$ parameters. This process is obviously not efficient. So let's find a better way.
  
 *** Inspiration from Geometry
 
-    If you squint, the expression we tried to maximize looks like the equation for an ellipse:
+    If you squint, the expression we tried to maximize in \eqref{eq:1} looks like the equation for an ellipse:
 
     \[
     0 = a x^2 + c y^2 + 2bxy
@@ -182,19 +178,21 @@
     A = \begin{pmatrix} a & b \\\ b & c \end{pmatrix}
     \]
 
-   Further, this method works for $n$-dimensional ellipsoids. Therefore, if we could make the correspondence exact, the problem of finding the vectors $\vec{e_1}, \vec{e_2}, \dots, \vec{e_n}$ could be reduced to finding the eigenvectors of a specific matrix.
+   Further, this method works for $n$ -dimensional ellipsoids. Therefore, if we could make the correspondence exact, the problem of finding the vectors $\vec{e_1}, \vec{e_2}, \dots, \vec{e_n}$ could be reduced to finding the eigenvectors of a specific matrix.
 
-    Fortunately, we have such a matrix readily available: consider rewriting the expression as:
+    Fortunately, we have such a matrix readily available: consider rewriting \eqref{eq:1} as:
 
+    \[
+     \widehat{\sigma^2_{\vec{x}\cdot\vec{e_1}}} = \vec{e_1}^T M \vec{e_1}
+    \]
+    
     \[
     \vec{e_1} = \begin{pmatrix} \cos\theta & \sin\theta \end{pmatrix}
     \]
     \[ M = \begin{pmatrix} \widehat{\sigma_x^2} & \widehat{\text{Cov}}(x,y) \\\ \widehat{\text{Cov}}(y,x) & \widehat{\sigma_y^2} \end{pmatrix}
     \]
 
-    \[
-     \widehat{\sigma^2_{\vec{x}\cdot\vec{e_1}}} = \vec{e_1}^T M \vec{e_1}
-    \]
+    
     
     $M$ is just the /sample covariance matrix/. Therefore, in order to find the principal components for any dimensional data set, we will use the eigenvectors of the sample covariance matrix. Once we have calculated them, we can identify the components with the least variance, and remove them. 
 

@@ -17,10 +17,11 @@ In statistical mechanics, we often deal with expressions involving the Gamma fun
 
   We can interpolate this function for values in between the integers if we want; one way to do this is via the *Gamma function*:
 
-  \[
+  \begin{equation}
   \Gamma(x) = \int_{0}^\infty t^{x-1} e^{-t} \mathrm{d}t
-  \]
-t
+  \label{eq:gamma}
+  \end{equation}
+
   This can be shown to be in harmony with the factorial function via integration by parts:
 
   \[
@@ -32,42 +33,38 @@ t
   = x\Gamma(x)
   \]
 
-  I.E. for an integer $n$, $\Gamma(n+1) = n!$.[fn:1]
-  This form of the factorial function allows us to approximate the value it takes when we take $n \to \infty$, as may happen in the thermodynamic limit.
+  Which implies that for an integer $n$, $\Gamma(n+1) = n!$ [fn:1]
 
-* Laplace Integrals
-
-  The form of this integral falls into the class of *Laplace integrals*:
+  Now we are interested in evaluating the asymptotic behavior of $\Gamma(x)$ as $x \to \infty$.
+  That is, we seek an approximate function $f(x)$ such that:
 
   \[
-  I(x) = \int_{a}^b f(t) e^{x\phi(t)} \mathrm{d} t
+   \lim_{x \to \infty}(\Gamma(x)/f(x)) = 1 
   \]
 
-  We are interested in the approximate behavior of this integral for large $x$.
-  In our case, we have to do some algebra [fn:2] so it is easier to work with. Let $t = xy$, so that we can write:
-
-  \[
-  I(x) = x\int_{0}^\infty \exp(x \log(xy) - xy) \mathrm{d}y = xe^{x\log(x)}\int_{0}^\infty \exp(x(\log(y) - y))\mathrm{d}y
-  \]
+  The naive approximation would be to take only the leading term in the expansion of the factorial -- e.g. since the factorial of $x$ involves a product of $x$ terms, we might approximate $\Gamma(x) \approx \mathcal{O}(x^x)$ (which would overestimate, since the sub-leading term would have a minus sign in front of it).
+  However, we can employ *Laplace's method* to get a better result.
   
-  Now we can identify $f(t) = 1$ and $\phi(y) = \log(y) - y$ 
-  In taking the limit $\lim_{x\to\infty} I(x)$, we can use *Laplace's method* to find an approximate expression for the leading term.
+
 
 ** Laplace's Method
 
-   The idea behind Laplace's method is to approximate the argument of the exponential to quadratic order, so that we can treat the integral as an integral of the normal distribution.
-   Since the integrand involves an exponential of a function $\phi(t)$, the integral will be /strongly peaked/ at that function's maximum.
-  If we require that the maximum of $\phi$ occurs at some $c$ such that $a \leq c \leq b$ and that $f(c) \neq 0$, then we can approximate the integral by shrinking the integration limits to within some $\epsilon$ of $c$:
-
-  \[
-  I(x) \to I(x;\epsilon) = \int_{c-\epsilon}^{c+\epsilon} f(t) e^{x\phi(t)} \mathrm{d} t
-  \]
+   Laplace's method is a general method for evaluating integrals of the form:
+  
+  \begin{equation}
+  I(x) = \int_{a}^b f(t) e^{x\phi(t)} \mathrm{d} t
+  \label{eq:laplace}
+  \end{equation}
+   
+   The idea behind Laplace's method is to approximate $\phi(t)$ to quadratic order, so that we can treat the integral as a Gaussian integral.
+   The justification of this approximation is such:
+   Since the integrand involves an exponential of a function $\phi(t)$, the integrand will be /strongly peaked/ at that function's maximum.
 
    
  #+BEGIN_SRC python :exports results :var name="images/peaked.png" :results file 
    import matplotlib.pyplot as plt
    import numpy as np
-
+   plt.style.use('classic')
    fig, ax = plt.subplots()
 
    a = 0; b = 4; c = 2; e = 1;
@@ -80,7 +77,7 @@ t
    ax.spines["right"].set_color("None")
 
    ax.set_xticks([a,c-e, c, c+e, b])
-   ax.set_xticklabels(["a", r"c-$\epsilon$", "c", r"c+$\epsilon$", "b"])
+   ax.set_xticklabels([r"$a$", r"$c-\epsilon$", r"$c$", r"$c+\epsilon$", r"$b$"], fontsize=20)
    ax.set_yticks([])
    ax.set_ylabel(r"$\phi(t)$", rotation='horizontal', fontsize=20)
 
@@ -94,19 +91,32 @@ t
    
    #+RESULTS:
    [[file:images/peaked.png]]
-   #+CAPTION: When outside of $[c-\epsilon, c+\epsilon]$, the exponential factor decreases by at least $e^{-x\Delta}$
  
+  If we require that the maximum of $\phi$ occurs at some $c$ such that $a \leq c \leq b$ and that $f(c) \neq 0$, then we can approximate the integral by shrinking the integration limits to within some $\epsilon$ of $c$:
 
-  Now after shrinking the limits of integration, we use a Taylor series to expand the exponential function around its maximum; in our case, the maximum occurs at $y_0 = 1$
-  
   \[
-  \phi(y) \approx \phi(y_0) + \phi'(y_0)(y-y_0) + \phi''(y_0)(y-y_0)^2 = -1 - (y-1)^2
+  I(x) \to I(x;\epsilon) = \int_{c-\epsilon}^{c+\epsilon} f(t) e^{x\phi(t)} \mathrm{d} t
+  \]
+
+  Now after shrinking the limits of integration, we use a Taylor series to expand the exponential function around its maximum up to quadratic order.
+  
+  In our case, we have to do some algebra so \eqref{eq:gamma} is clearly in the form of \eqref{eq:laplace}. Let $t = xy$, so that we can write [fn:2]
+
+  \begin{align*}
+  I(x) &= x\int_{0}^\infty \exp(x \log(xy) - xy) \mathrm{d}y \\
+  &= xe^{x\log(x)}\int_{0}^\infty \exp(x(\log(y) - y))\mathrm{d}y
+  \end{align*}
+  
+  Comparing this to \eqref{eq:laplace} we can identify $f(t) = 1$ and $\phi(y) = \log(y) - y$ 
+ The Taylor approximation yields:
+ \[
+  \phi(y) \approx \phi(y_0) +  \phi''(y_0)(y-y_0)^2 = -1 - (y-1)^2
   \]
 
   Which makes the integral:
 
   \[
-  I(x) \approx xe^{x\log(x)}e^{-x}\int_{1 - \epsilon}^{1 + \epsilon}\exp(-x(y-1)^2)\mathrm{d}y 
+  \Gamma(x) \approx xe^{x\log(x)}e^{-x}\int_{1 - \epsilon}^{1 + \epsilon}\exp(-x(y-1)^2)\mathrm{d}y 
   \]
 
 ** Final Approximation and Result
@@ -128,8 +138,47 @@ t
 * Remarks
 
   Having the result in front of us, we can compare it to the "naive approximation" for the factorial function.
-  The naive approximation would be to take only the leading term in the expansion of the factorial -- e.g. since the factorial of $n$ involves a product of $n$ terms, we might approximate $n! \approx \mathcal{O}(n^n)$ (which would overestimate, since the sub-leading term would have a minus sign in front of it).
-  Stirling's approximation tells us that it should be $n! \approx \mathcal{O}(n^{n+1/2}e^{-n})$, which is an improvement, since it compensates for the sub-leading term with a exponential factor.
+  Stirling's approximation says $n! \approx \mathcal{O}(n^{n+1/2}e^{-n})$, whereas the naive approximation was $n! \approx \mathcal{O}(n^n)$.
+  
+#+NAME: savefig
+#+BEGIN_SRC python :var figname="plot.png" width=5 height=5 :exports none
+  return f"""plt.savefig('{figname}', width={width}, height={height})
+  '{figname}'"""
+#+END_SRC
+
+#+RESULTS: savefig
+: plt.savefig('plot.png', width=5, height=5)
+: 'plot.png'
+
+
+ #+header: :noweb strip-export
+ #+BEGIN_SRC python :results value file :session :exports results
+   import matplotlib.pyplot as plt
+   import numpy as np
+   from scipy import special
+   plt.style.use('classic')
+
+   x = np.arange(1, 11, 1)
+   naive = x**x
+   stirling = x**(x+0.5)*np.e**(-1*x)
+   exact = special.factorial(x)
+
+   fig, ax = plt.subplots()
+   ax.plot(x, np.zeros(10), label=r"$exact$")
+   ax.plot(x, np.log(naive/exact), label=r"$\log(naive/n!)$")
+   ax.plot(x, np.log(stirling/exact), label=r"$\log(stirlings/n!)$")
+   ax.set_ylim(-10, 10)
+   ax.legend()
+   fig.tight_layout()
+
+   <<savefig(figname="compare.png", width=2, height=2)>>
+#+END_SRC
+
+
+#+RESULTS:
+[[file:compare.png]]
+
+From the plot, we can see that it is much more accurate than the naive approximation.
    
 * Footnotes
 

@@ -16,11 +16,12 @@ The factorial function \\(f(n) = n!\\) of an integer \\(n\\) is defined as the p
 
 We can interpolate this function for values in between the integers if we want; one way to do this is via the **Gamma function**:
 
-  \\[
-  \Gamma(x) = \int\_{0}^\infty t^{x-1} e^{-t} \mathrm{d}t
-  \\]
-t
-  This can be shown to be in harmony with the factorial function via integration by parts:
+\begin{equation}
+\Gamma(x) = \int\_{0}^\infty t^{x-1} e^{-t} \mathrm{d}t
+\label{eq:gamma}
+\end{equation}
+
+This can be shown to be in harmony with the factorial function via integration by parts:
 
 \\[
   \Gamma(x + 1) = \int\_{0}^{\infty} t^x e^{-t} \mathrm{d} t
@@ -31,51 +32,59 @@ t
   = x\Gamma(x)
   \\]
 
-I.E. for an integer \\(n\\), \\(\Gamma(n+1) = n!\\).[^fn:1]
-This form of the factorial function allows us to approximate the value it takes when we take \\(n \to \infty\\), as may happen in the thermodynamic limit.
+Which implies that for an integer \\(n\\), \\(\Gamma(n+1) = n!\\)&nbsp;[^fn:1]
 
-
-## Laplace Integrals {#laplace-integrals}
-
-The form of this integral falls into the class of **Laplace integrals**:
+Now we are interested in evaluating the asymptotic behavior of \\(\Gamma(x)\\) as \\(x \to \infty\\).
+That is, we seek an approximate function \\(f(x)\\) such that:
 
 \\[
-  I(x) = \int\_{a}^b f(t) e^{x\phi(t)} \mathrm{d} t
+   \lim\_{x \to \infty}(\Gamma(x)/f(x)) = 1
   \\]
 
-We are interested in the approximate behavior of this integral for large \\(x\\).
-In our case, we have to do some algebra&nbsp;[^fn:2] so it is easier to work with. Let \\(t = xy\\), so that we can write:
-
-\\[
-  I(x) = x\int\_{0}^\infty \exp(x \log(xy) - xy) \mathrm{d}y = xe^{x\log(x)}\int\_{0}^\infty \exp(x(\log(y) - y))\mathrm{d}y
-  \\]
-
-Now we can identify \\(f(t) = 1\\) and \\(\phi(y) = \log(y) - y\\)
-In taking the limit \\(\lim\_{x\to\infty} I(x)\\), we can use **Laplace's method** to find an approximate expression for the leading term.
+The naive approximation would be to take only the leading term in the expansion of the factorial -- e.g. since the factorial of \\(x\\) involves a product of \\(x\\) terms, we might approximate \\(\Gamma(x) \approx \mathcal{O}(x^x)\\) (which would overestimate, since the sub-leading term would have a minus sign in front of it).
+However, we can employ **Laplace's method** to get a better result.
 
 
 ### Laplace's Method {#laplace-s-method}
 
- The idea behind Laplace's method is to approximate the argument of the exponential to quadratic order, so that we can treat the integral as an integral of the normal distribution.
- Since the integrand involves an exponential of a function \\(\phi(t)\\), the integral will be _strongly peaked_ at that function's maximum.
+Laplace's method is a general method for evaluating integrals of the form:
+
+\begin{equation}
+I(x) = \int\_{a}^b f(t) e^{x\phi(t)} \mathrm{d} t
+\label{eq:laplace}
+\end{equation}
+
+The idea behind Laplace's method is to approximate \\(\phi(t)\\) to quadratic order, so that we can treat the integral as a Gaussian integral.
+The justification of this approximation is such:
+Since the integrand involves an exponential of a function \\(\phi(t)\\), the integrand will be _strongly peaked_ at that function's maximum.
+
+{{< figure src="/ox-hugo/peaked.png" >}}
+
 If we require that the maximum of \\(\phi\\) occurs at some \\(c\\) such that \\(a \leq c \leq b\\) and that \\(f( c) \neq 0\\), then we can approximate the integral by shrinking the integration limits to within some \\(\epsilon\\) of \\(c\\):
 
 \\[
   I(x) \to I(x;\epsilon) = \int\_{c-\epsilon}^{c+\epsilon} f(t) e^{x\phi(t)} \mathrm{d} t
   \\]
 
-{{< figure src="/ox-hugo/peaked.png" >}}
+Now after shrinking the limits of integration, we use a Taylor series to expand the exponential function around its maximum up to quadratic order.
 
-Now after shrinking the limits of integration, we use a Taylor series to expand the exponential function around its maximum; in our case, the maximum occurs at \\(y\_0 = 1\\)
+In our case, we have to do some algebra so \eqref{eq:gamma} is clearly in the form of \eqref{eq:laplace}. Let \\(t = xy\\), so that we can write&nbsp;[^fn:2]
 
+\begin{align\*}
+I(x) &= x\int\_{0}^\infty \exp(x \log(xy) - xy) \mathrm{d}y \\\\\\
+&= xe^{x\log(x)}\int\_{0}^\infty \exp(x(\log(y) - y))\mathrm{d}y
+\end{align\*}
+
+ Comparing this to \eqref{eq:laplace} we can identify \\(f(t) = 1\\) and \\(\phi(y) = \log(y) - y\\)
+The Taylor approximation yields:
 \\[
-  \phi(y) \approx \phi(y\_0) + \phi'(y\_0)(y-y\_0) + \phi''(y\_0)(y-y\_0)^2 = -1 - (y-1)^2
+  \phi(y) \approx \phi(y\_0) +  \phi''(y\_0)(y-y\_0)^2 = -1 - (y-1)^2
   \\]
 
 Which makes the integral:
 
 \\[
-  I(x) \approx xe^{x\log(x)}e^{-x}\int\_{1 - \epsilon}^{1 + \epsilon}\exp(-x(y-1)^2)\mathrm{d}y
+  \Gamma(x) \approx xe^{x\log(x)}e^{-x}\int\_{1 - \epsilon}^{1 + \epsilon}\exp(-x(y-1)^2)\mathrm{d}y
   \\]
 
 
@@ -99,8 +108,11 @@ Therefore, for large \\(n\\), we can use
 ## Remarks {#remarks}
 
 Having the result in front of us, we can compare it to the "naive approximation" for the factorial function.
-The naive approximation would be to take only the leading term in the expansion of the factorial -- e.g. since the factorial of \\(n\\) involves a product of \\(n\\) terms, we might approximate \\(n! \approx \mathcal{O}(n^n)\\) (which would overestimate, since the sub-leading term would have a minus sign in front of it).
-Stirling's approximation tells us that it should be \\(n! \approx \mathcal{O}(n^{n+1/2}e^{-n})\\), which is an improvement, since it compensates for the sub-leading term with a exponential factor.
+Stirling's approximation says \\(n! \approx \mathcal{O}(n^{n+1/2}e^{-n})\\), whereas the naive approximation was \\(n! \approx \mathcal{O}(n^n)\\).
+
+{{< figure src="/ox-hugo/compare.png" >}}
+
+From the plot, we can see that it is much more accurate than the naive approximation.
 
 [^fn:1]: Note that the recurrence equation for \\(\Gamma\\) holds for non-integers as well. This is just making the connection to the factorial function explicit.
 [^fn:2]: Thanks [Wikipedia](https://en.wikipedia.org/wiki/Stirling%27s%5Fapproximation)!
