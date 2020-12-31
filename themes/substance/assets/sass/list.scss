@@ -2,7 +2,7 @@
 @import 'colors.scss';
 
 h2.list-title {
-    display: inline;
+    font-family: $serif, serif;
     font-size: 36px;
     & > a {
     color: black;
@@ -17,31 +17,45 @@ article {
 }
 
 .date {
-    font-family: $serif, serif;
+    font-family: $sans-serif, sans-serif;
     text-transform: uppercase;
     font-size: 12px;
     color: $grey;
     letter-spacing: 1px;
-    float: right;
 }
 
 .tags, .tags-list {
     margin: 10px 0;
-    display: flex;
-    flex-direction: row;
     & .tag {
-        background-color: lighten(indianred, 35);
-        padding: 3px 15px;
-        border-radius: 15px;
         color: indianred;
+        height: 15px;
+        padding-right: 20px;
+        padding-left: 5px;
         font-size: 12px;
         font-weight: bold;
         font-family: $sans-serif, sans-serif;
         text-decoration: none;
-        border: 1px solid indianred;
+        position: relative;
+        border-bottom: 1px solid indianred;
+        border-top-left-radius: 2px;
+        border-bottom-left-radius: 2px;
+        background-color: lighten(indianred, 30);
+        &::after {
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-top: 8px solid transparent;
+            border-right: 8px solid lightyellow;
+            border-bottom: 8px solid transparent;
+            border-left: 8px solid transparent;
+            right: 0;
+            top: 0;
+            content: "";
+        }
         & + .tag {
             margin-left: 5px;
         }
+
     }
 }
 
@@ -70,8 +84,22 @@ a.footnote-backref, a.footnote-ref {
     }
 }
 
-.post-link {
-    float: right;
+.list-item-link {
+    display: block;
+    color: black;
+    border-bottom: 2px solid black;
+    text-transform: uppercase;
+    font-family: $serif, serif;
+    text-decoration: none;
+    height: 30px;
+    line-height: 30px;
+    padding: 0 0 0 5px;
+    margin: 20px 0;
+    &:hover {
+        background-color: lighten(indianred, 30);
+        color: indianred;
+        border-bottom: 2px solid indianred;
+    }
 }
 
 

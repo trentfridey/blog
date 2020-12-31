@@ -2,17 +2,19 @@
 <h1 class="post-title">All Posts</h1>
 {{ range .Pages }}
 <article>
-    <h2 class="list-title"><a href="{{ .Permalink }}">{{ .Title }}</a></h2>
-    <span class="date">{{ .Date.Format "Jan 2, 2006" }}</span>
-    <div class="tags">
-    {{ range .Params.tags  }}
+    <div>
+    <span class="date">{{ .Date.Format "Jan 2, 2006" }} &mdash;</span>
+    <span class="tags">
+        {{ range .Params.tags  }}
         <a href="/tags/{{ . }}" class="tag">{{ . }}</a>
-    {{ end }}
+        {{ end }}
+    </span>
     </div>
+    <h2 class="list-title"><a href="{{ .Permalink }}">{{ .Title }}</a></h2>
     <div class="summary">
         {{ .Summary }} 
     </div>
-    <hr/>
+    <a class="list-item-link" href="{{ .Permalink }}">&hookrightarrow; Continue Reading</a>
 </article>
 {{ end }}
 {{ end }}

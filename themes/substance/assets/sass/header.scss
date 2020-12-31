@@ -1,6 +1,26 @@
 @import 'variables.scss';
 @import 'colors.scss';
 
+nav {
+    display: flex;
+    margin: 0;
+    & a {
+        height: 65px;
+        width: 100px;
+        color: black;
+        font-family: 'Nunito Sans', sans-serif;
+        font-size: 20px;
+        line-height: 65px;
+        text-align: center;
+        text-decoration: none;
+        &:hover {
+            cursor: pointer;
+            color: indianred;
+            text-decoration: underline dotted indianred;
+            text-underline-position: under;
+        }
+    }
+
 @media (min-device-width: $tablet){
     header {
         z-index: 2;
@@ -16,42 +36,8 @@
         background: linear-gradient(to bottom, lightyellow 75%, transparent);
     }
 
-    nav {
-        display: flex;
-        margin: 0;
-        & a {
-            height: 65px;
-            width: 100px;
-            color: black;
-            font-family: 'Nunito Sans', sans-serif;
-            font-size: 20px;
-            line-height: 65px;
-            text-align: center;
-            text-decoration: none;
-            &:hover {
-                cursor: pointer;
-                color: indianred;
-                text-decoration: underline dotted indianred;
-                text-underline-position: under;
-            }
-        }
    }
 }
 
-@media (max-device-width: $mobile){
-    header {
-        position: fixed;
-        top: 0;
-        left: 0;
-        height: 70px;
-        width: 100%;
-        padding: 0;
-        margin: 0;
-    }
-
-    nav {
-        display: none;
-    }
-}
 
   

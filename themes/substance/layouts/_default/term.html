@@ -1,8 +1,6 @@
 {{ define "main" }}
 <h1> All Posts Marked "{{ .Data.Term }}"</h1>
-<ul>
     {{ range  .Data.Pages }}
-    <li><a href="{{ .URL }}">{{ .Name }}</a></li>
+    <a class="list-item-link" href="{{ .URL }}">{{ .Name }}</a>
     {{ end }}
-</ul>
 {{ end }}
