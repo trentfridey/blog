@@ -1,0 +1,47 @@
+@import 'colors.scss';
+@import 'variables.scss';
+
+.email-form {
+  margin: 10px 0;
+  font-family: $serif, serif;
+  font-size: 20px;
+  padding: 20px;
+  background-color: lighten(indianred, 30);
+
+  label[for=email] {
+      display: inline-block;
+      margin: 10px 0;
+  }
+
+  .email-form--input {
+      
+  button {
+    font-weight: bold;
+    font-family: $serif, serif;
+    font-size: 16px;
+    background-color: indianred;
+    color: white;
+    height: 44px;
+    padding: 5px 15px;
+    border: none;
+    cursor: pointer;
+  }
+
+  input[type=email] {
+    font-family: $serif, serif;
+    border: 1px dotted black;
+    border-bottom: 2px solid black;
+    height: 44px;
+    padding: 5px 15px;
+    &::placeholder {
+        color: grey;  
+    } 
+  }
+    
+  }
+
+  .email-form--success {
+      color: black;
+      font-weight: bold;
+  }
+}
