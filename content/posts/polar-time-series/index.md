@@ -2,7 +2,7 @@
 title = "Equivalent Time Series"
 author = ["Trent Fridey"]
 date = 2020-12-08
-draft = true
+draft = false
 +++
 
 Let \\(R\\) be a random Rayleigh-distributed variable.
@@ -20,7 +20,13 @@ with \\(t\in\mathbb{Z}\\), is equivalent to the time series
 Y\_t' = U + V
 \\]
 
-if \\(U\\) and \\(V\\) are independently distributed normal variables.
+if \\(U\\) and \\(V\\) are independently distributed standard normal variables:
+
+\\[
+U, V \sim N(0,1)
+\\]
+
+Equivalence in this context means that \\(Y\_t\\) and \\(Y'\_t\\) have the same PMFs.
 
 
 ## Proof {#proof}
@@ -67,6 +73,8 @@ In other words
 
 ### Equivalence of Series {#equivalence-of-series}
 
+The PMF of \\(Y\_t\\) can be expressed as a product, since \\(R\\) and \\(\phi\\) are independent:
+
 \\[
 \text{Pr}(R\cos(2\pi(ft + \phi))) = \text{Pr}( R)\text{Pr}(\cos(2\pi(ft + \phi)))
 \\]
@@ -85,6 +93,7 @@ Change our variables of integration:
 u = r\cos(\phi), \qquad v = r\sin(\phi)
 \\]
 
+Then we can write:
 \\[
 \text{Pr}(R\cos(2\pi(ft + \phi))) = \frac{1}{2\pi}\iint e^{-(u^2+v^2)/2} du dv
 \\]

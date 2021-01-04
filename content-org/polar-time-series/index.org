@@ -1,9 +1,9 @@
 #+TITLE: Equivalent Time Series
 #+AUTHOR: Trent Fridey
 #+DATE: 2020-12-08
-#+HUGO_DRAFT: true
 #+HUGO_BASE_DIR: ~/trent/blog
 #+HUGO_SECTION: posts/polar-time-series
+#+STARTUP: latexpreview
 
 Let $R$ be a random Rayleigh-distributed variable.
 Let $\phi$ be a random uniformly-distributed variable.
@@ -20,7 +20,13 @@ with $t\in\mathbb{Z}$, is equivalent to the time series
 Y_t' = U + V  
 \]
 
-if $U$ and $V$ are independently distributed normal variables.
+if $U$ and $V$ are independently distributed standard normal variables:
+
+\[
+U, V \sim N(0,1)
+\]
+
+Equivalence in this context means that $Y_t$ and $Y'_t$ have the same PMFs.
 
 * Proof
 
@@ -64,6 +70,8 @@ In other words
 
 ** Equivalence of Series
 
+The PMF of $Y_t$ can be expressed as a product, since $R$ and $\phi$ are independent:
+
 \[
 \text{Pr}(R\cos(2\pi(ft + \phi))) = \text{Pr}(R)\text{Pr}(\cos(2\pi(ft + \phi)))
 \]
@@ -83,6 +91,7 @@ Change our variables of integration:
 u = r\cos(\phi), \qquad v = r\sin(\phi)
 \]
 
+Then we can write:
 \[
 \text{Pr}(R\cos(2\pi(ft + \phi))) = \frac{1}{2\pi}\iint e^{-(u^2+v^2)/2} du dv
 \]
