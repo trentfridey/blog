@@ -2,6 +2,7 @@
 title = "Equivalent Time Series"
 author = ["Trent Fridey"]
 date = 2020-12-08
+tags = ["math", "statistics"]
 draft = false
 +++
 
@@ -11,7 +12,7 @@ Let \\(\phi\\) be a random uniformly-distributed variable.
 The time series defined by:
 
 \\[
-Y\_t = R\cos{2\pi(ft + \phi))}
+Y\_t = R\cos{(2\pi(ft + \phi))}
 \\]
 
 with \\(t\in\mathbb{Z}\\), is equivalent to the time series
