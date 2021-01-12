@@ -35,7 +35,7 @@
      const comment = document.getElementById('comment');
      btn.addEventListener('click', function(event){
          event.preventDefault();
-         createComment({name: name.value, comment: comment.value, slug: "{{ .RelPermalink | anchorize }}" })
+         createComment({name: name.value, comment: comment.value, slug: "{{ .RelPermalink }}" })
      })
     </script>
 </div>
