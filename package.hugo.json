@@ -1,23 +1,35 @@
 {
-  "name": "blog",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/trentfridey/blog.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/trentfridey/blog/issues"
-  },
-  "homepage": "https://github.com/trentfridey/blog#readme",
+ "author": "",
+ "bugs": {
+  "url": "https://github.com/trentfridey/blog/issues"
+ },
+ "comments": {
   "dependencies": {
-    "graphql-request": "^3.4.0"
-  }
+      "graphql": "project",
+      "graphql-request": "project",
+      "apollo-server-lambda": "^2.19.1",
+      "dotenv": "^8.2.0",
+      "faunadb": "^4.0.0"
+  },
+  "devDependencies": {}
+ },
+ "dependencies": {
+  "graphql": "^15.4.0",
+  "graphql-request": "^3.4.0"
+ },
+ "description": "",
+ "devDependencies": {},
+ "homepage": "https://github.com/trentfridey/blog#readme",
+ "keywords": [],
+ "license": "ISC",
+ "main": "index.js",
+ "name": "blog",
+ "repository": {
+  "type": "git",
+  "url": "git+https://github.com/trentfridey/blog.git"
+ },
+ "scripts": {
+  "test": "echo \"Error: no test specified\" && exit 1"
+ },
+ "version": "1.0.0"
 }
