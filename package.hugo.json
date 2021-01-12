@@ -15,7 +15,10 @@
  },
  "dependencies": {
   "graphql": "^15.4.0",
-  "graphql-request": "^3.4.0"
+     "graphql-request": "^3.4.0",
+     "apollo-server-lambda": "^2.19.1",
+     "dotenv": "^8.2.0",
+     "faunadb": "^4.0.0"
  },
  "description": "",
  "devDependencies": {},

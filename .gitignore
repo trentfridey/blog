@@ -4,3 +4,6 @@ public/**
 .dir-locals.el
 **/node_modules
 .env
+
+# Local Netlify folder
+.netlify
