@@ -5,6 +5,7 @@
 @import 'list.scss'; 
 @import 'single.scss';
 @import 'signup.scss';
+@import 'comments.scss';
 
 html {
     height: 100%;
@@ -54,6 +55,7 @@ ul {
     flex: 1 0 auto;
 }
 
+
 @media (min-device-width: $tablet){
 
 p {
@@ -77,19 +79,25 @@ p {
     max-width: 100%;
 }
 
-figure > img {
+figure {
+    display: flex;
     max-width: 100%;
+    & > img {
+        margin:auto;
+        max-width: 80%;
+    }
 }
 }
 
 @media (max-device-width: $mobile){
     .content {
-        width: 100%;
+        width: 100vw;
         padding: 20px;
         margin: 0 auto;
     }
 
     p {
+        overflow-x: auto;
         font-family: $serif, serif;
         font-size: 18px;
         font-weight: 400;
@@ -98,6 +106,15 @@ figure > img {
             color: indianred;
             text-decoration: none;
             border-bottom: 1px dotted indianred;
+        }
+    }
+    figure {
+        width: 100%; 
+        margin: 0;
+        display: block;
+        & > img {
+            max-width: 100%;
+            object-fit: contain;
         }
     }
 }
