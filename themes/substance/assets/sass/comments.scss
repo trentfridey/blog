@@ -2,105 +2,93 @@
 @import 'colors.scss';
 
 .comments-form {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    border: 1px dotted indianred;
-    padding: 20px;
-}
-
-.comments-info {
-    width: 100%;
-    flex: 0 auto;
-    margin: 10px 0;
-}
-
-.comments-info-input {
-    border: none;
-    border-bottom: 1px solid black;
-    background-color: transparent;
-    height: 40px;
-    width: 100%;
-    margin: 0px 0px 15px 0;
-    padding: 5px 10px;
-    &:focus {
-        border-bottom: 1px solid indianred;
-        background-color: white;
-        padding: 5px 10px;
-        transition: all 0.3s ease-in-out;
-        outline: none;
+    margin-top: 20px;
+    fieldset {
+        border: none;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        width: 100%;
     }
-}
 
-.comments-draft {
-    border: 1px dotted lightgrey;
-    border-bottom: 1px solid $grey;
-    width: 100%;
-    background-color: transparent;
-    min-height: 140px;
-    resize: none;
-    overflow-y: auto;
-    word-wrap: auto;
-    outline: none;
-    padding: 15px 20px;
-    &:focus {
-        background-color: white;
+    textarea {
+        width: 100%;
+        border: 1px dotted black;
+        border-bottom: 2px solid black;
+        padding: 20px;
+        margin: 10px 0;
+        resize: none;
+        font-family: $serif, serif;
+        color: black;
+        &:focus {
+            border-bottom-color: $red;
+        }
+    }
+
+    label {
+        flex: none;
+        font-family: $serif, serif;
+        line-height: 30px;
+    }
+
+    .comments-info-input {
+        flex: 1;
+        border: 1px dotted black;
         border-bottom: 1px solid black;
-        transition: border-bottom 0.3s ease-in-out;
+        font-family: $serif, serif;
+        height: 30px;
+        margin: 0px 5px;
+        padding: 5px 10px;
+        &:focus {
+            border-bottom: 1px solid indianred;
+            background-color: white;
+            padding: 5px 10px;
+            transition: all 0.3s ease-in-out;
+            outline: none;
+        }
     }
 
+    .comments-btn-box {
+        position: relative;
+        height: 50px;
+    }
+
+    .comments-btn {
+        position: absolute;
+        right: 0;
+        border: none;
+        color: white;
+        background-color: indianred;
+        padding: 4px 20px;
+        font-weight: bold;
+        font-family: $serif, serif;
+        font-size: 16px;
+        &:hover {
+            cursor: pointer;
+        }
+        &:focus {
+            outline: none;
+        }
+    }
 }
-
-.comments-btn-box {
-    position: relative;
-    height: 50px;
-}
-
-.comments-btn {
-    position: absolute;
-    right: 0;
-    border: none;
-    border-radius: 50px;
-    background-color: lighten(indianred, 30);
-    border-bottom: 5px solid indianred;
-    padding: 15px 20px;
-    font-weight: bold;
-    font-size: 20px;
-    &:hover {
-        cursor: pointer;
-    }
-    &:focus {
-        outline: none;
-    }
-    &:active {
-        outline: none;
-        top: 4px;
-        border-bottom: 1px;
-        transition: all 0.1s linear;
-    }
-}
-
 .comments-list {
     width: 100%;
-    border: 1px solid $gold;
 }
 
 .comment-container {
     width: 100%;
-    border-bottom: 2px solid $grey;
+    border-bottom: 1px dotted $grey;
     padding: 20px;
 }
 
 .comment-header {
-    font-family: sans-serif;
+    font-family: $serif, serif;
     font-size: 16px;
     color: black;
-    font-weight: bold;
 }
 
 .comment-body {
     font-family: $serif, serif;
-    padding: 5px;
     font-size: 20px;
     color: black;
 }
