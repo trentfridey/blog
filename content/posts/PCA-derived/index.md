@@ -22,7 +22,9 @@ Let's say we find that among the variables, \\(x\_3\\) has the smallest variance
 In the limit that the variance for \\(x\_3\\) is zero (\\(\widehat{\sigma^2\_{x\_3}} = 0\\)), there is no variation in the \\(X\_3\\) variable.
 In this case, we could remove the variable from our sample set, and our models would perform just as well. If we did this, the data set effectively becomes \\((n-1)\\) -dimensional. Generalizing, if we have \\(k\\) variables with sample variance zero, we could remove those as well, making our data set \\((n-k)\\) -dimensional.
 
-Usually, we don't find that the sample variance is zero in any of our variables, so we approximate by removing the variable(s) with the least variance. The remaining variable(s) are called the **principal components**. There are complications when there are correlations between the variables.
+Usually, we don't find that the sample variance is zero in any of our variables, so we approximate by removing the variable(s) with the least variance. The remaining variable(s) are called the **principal components**.
+
+There are complications when there are correlations between the variables -- but this can also be accounted for.
 
 
 ### Adding Correlations {#adding-correlations}
@@ -31,12 +33,12 @@ Here's a 2-dimensional data set with correlations to illustrate how this can get
 
 {{< figure src="/ox-hugo/prePCA.png" >}}
 
-We can calculate the sample variance of each of the variables as:
+If we calculate the sample variance of each of the variables as:
 
 $$\widehat{\sigma^2_x} = 6.57, \qquad \widehat{\sigma^2_y} = 3.51$$
 
 It looks like the variable with the lowest variance is the \\(y\\) variable.
-But there is a slight positive correlation in this data set.
+But there is a slight negative correlation between \\(x\\) and \\(y\\) in this data set.
 In fact, if we calculate the sample variance along the direction of \\(\vec{e}\_1 = \frac{1}{\sqrt2} \hat{i} + \frac{1}{\sqrt2} \hat{j}\\):
 
 \\[
@@ -57,6 +59,8 @@ Note that
 
 Therefore, when the variables are correlated, a _linear combination of variables_ may have less variance than any individual variable. In our example, we can define \\(y' = \frac{1}{\sqrt{2}}x + \frac{1}{\sqrt{2}}y\\) as a factor in a _new_ 2D model, which has variables \\((x', y')\\). To define \\(x'\\), we can form a vector perpendicular to \\(\vec{e}\_1\\), that is, the vector \\(\vec{e}\_2 = -\frac{1}{\sqrt{2}}\hat{i} + \frac{1}{\sqrt{2}}\hat{j}\\). Calculating the variance along this vector, we find:
 
+$$\widehat{\sigma^2_{\vec{x}\cdot\vec{e}_2}} = 10.3$$
+
 And note that:
 
 \\[
@@ -65,7 +69,7 @@ And note that:
 
 So \\(\vec{e}\_2\\) captures more of the variance than the \\(x\\) variable by itself.
 
-Therefore, in this 2D data set, \\(x'\\) would be the principal component, and we would remove \\(y'\\) from our models.
+Therefore, in the transformed 2D data set, \\(x'\\) would be the principal component, and we would remove \\(y'\\) from our models.
 
 
 ### Generalizing {#generalizing}

@@ -24,7 +24,9 @@
   In the limit that the variance for $x_3$ is zero ($\widehat{\sigma^2_{x_3}} = 0$), there is no variation in the $X_3$ variable.
   In this case, we could remove the variable from our sample set, and our models would perform just as well. If we did this, the data set effectively becomes $(n-1)$ -dimensional. Generalizing, if we have $k$ variables with sample variance zero, we could remove those as well, making our data set $(n-k)$ -dimensional.
   
-  Usually, we don't find that the sample variance is zero in any of our variables, so we approximate by removing the variable(s) with the least variance. The remaining variable(s) are called the *principal components*. There are complications when there are correlations between the variables.
+  Usually, we don't find that the sample variance is zero in any of our variables, so we approximate by removing the variable(s) with the least variance. The remaining variable(s) are called the *principal components*.
+
+  There are complications when there are correlations between the variables -- but this can also be accounted for.
 
 ** Adding Correlations
    
@@ -52,6 +54,7 @@
   x, y = gen.multivariate_normal(mean=[0,0], cov=cov, size=num_pts).T
 #+end_src
 
+
 #+header: :noweb strip-export
 #+BEGIN_SRC python :session :results value file :exports results
   import matplotlib.pyplot as plt
@@ -70,10 +73,11 @@
   <<savefig(figname="prePCA.png", width=2, height=2)>>
   #+END_SRC
 
+  
   #+RESULTS:
   [[file:prePCA.png]]
   
-  We can calculate the sample variance of each of the variables as:
+  If we calculate the sample variance of each of the variables as:
   
   #+begin_src python :session :noweb yes :exports results :results value html
     Vx = np.var(x, ddof=1)
@@ -88,7 +92,7 @@
   #+end_export
 
   It looks like the variable with the lowest variance is the $y$ variable.
-  But there is a slight positive correlation in this data set.
+  But there is a slight negative correlation between $x$ and $y$ in this data set.
   In fact, if we calculate the sample variance along the direction of $\vec{e}_1 = \frac{1}{\sqrt2} \hat{i} + \frac{1}{\sqrt2} \hat{j}$:
 
   \[
@@ -126,6 +130,11 @@
     r"$$\widehat{{\sigma^2_{{\vec{{x}}\cdot\vec{{e}}_2}}}} = {:.3}$$".format(Ve2)
   #+end_src
 
+  #+RESULTS:
+  #+begin_export html
+  $$\widehat{\sigma^2_{\vec{x}\cdot\vec{e}_2}} = 10.3$$
+  #+end_export
+
   And note that:
   
   \[
@@ -134,7 +143,7 @@
 
   So $\vec{e}_2$ captures more of the variance than the $x$ variable by itself.
 
-  Therefore, in this 2D data set, $x'$ would be the principal component, and we would remove $y'$ from our models.
+  Therefore, in the transformed 2D data set, $x'$ would be the principal component, and we would remove $y'$ from our models.
 
 ** Generalizing
 

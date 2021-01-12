@@ -2,6 +2,7 @@
 title = "Fisher Information and Physics"
 author = ["Trent Fridey"]
 date = 2020-10-06
+tags = ["physics", "statistics", "quantum"]
 draft = true
 +++
 
@@ -74,9 +75,8 @@ When we take the expectation value of the real part, we end up with:
 
  Which to me seems very interesting.
  First of all, the left hand side is (the expectation value of) the [Hamilton Jacobi Equation](https://en.wikipedia.org/wiki/Hamilton%E2%80%93Jacobi%5Fequation).
- While there is an entire theory surrounding the HJ equation, for present purposes we just need to know that it, in some sense, describes the dynamics of a physical system.
+ While there is an entire theory surrounding the HJ equation, for present purposes we just need to know that, in some sense, it describes the dynamics of a physical system.
 And while the function \\(S\\) is at the heart of HJ theory, the HJ equation is written in terms of the system's energy.
 
-Now, on the right hand side, we have the quantum Fisher information (QFI), \\(I\\).
+Now, on the right hand side, we have the _quantum_ Fisher information (QFI), \\(I\\).
 Since both sides of the equation must have the same units, the quantity \\(\frac{\hbar^2}{8m}I\\) must have units of energy.
-Therefore, the QFI contributes to the system's energy, or at least it should be taken into account when computing the dynamics of the quantum system.

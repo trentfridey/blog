@@ -1,6 +1,6 @@
 #+TITLE: Fisher Information and Physics
 #+AUTHOR: Trent Fridey
-#+TAGS[]: physics statistics quantum
+#+HUGO_TAGS: physics statistics quantum
 #+DATE: 2020-10-06
 #+SUMMARY: Forming an estimate of parameters of the population via small samples allows us to get a grip on important characteristics of a population without exhaustive sample sizes. The trade-off is in how close the estimators can get to the actual parameter. This has deep consequences for both classical and quantum physics
 #+HUGO_BASE_DIR: ~/trent/blog
@@ -60,12 +60,10 @@
    \frac{-\hbar^2}{2m}\left(\frac{(\nabla P)^2}{4P^2} - \frac{\nabla^2 P}{2P}\right) + \frac{(\nabla S)^2}{2m} + V =
    -\frac{\partial S}{\partial t}
  \]
-   #+CAPTION: The real part
 
    \[
    \frac{1}{m}\nabla\cdot(P\nabla S) + \frac{\partial P}{\partial t} = 0
    \]
-   #+CAPTION: The imaginary part
 
   When we take the expectation value of the real part, we end up with:
 
@@ -76,9 +74,8 @@
 
   Which to me seems very interesting.
   First of all, the left hand side is (the expectation value of) the [[https://en.wikipedia.org/wiki/Hamilton%E2%80%93Jacobi_equation][Hamilton Jacobi Equation]].
-  While there is an entire theory surrounding the HJ equation, for present purposes we just need to know that it, in some sense, describes the dynamics of a physical system.
+  While there is an entire theory surrounding the HJ equation, for present purposes we just need to know that, in some sense, it describes the dynamics of a physical system.
  And while the function $S$ is at the heart of HJ theory, the HJ equation is written in terms of the system's energy.  
 
-  Now, on the right hand side, we have the quantum Fisher information (QFI), $I$.
+  Now, on the right hand side, we have the /quantum/ Fisher information (QFI), $I$.
   Since both sides of the equation must have the same units, the quantity $\frac{\hbar^2}{8m}I$ must have units of energy.
-  Therefore, the QFI contributes to the system's energy, or at least it should be taken into account when computing the dynamics of the quantum system.

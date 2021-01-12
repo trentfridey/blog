@@ -1,7 +1,7 @@
 #+TITLE: State Machines with XState 
 #+AUTHOR: Trent Fridey
 #+DATE: 2020-11-14
-#+HUGO_TAGS: javascript front-end programming
+#+HUGO_TAGS: javascript front-end computer-science
 #+HUGO_DRAFT: true
 #+HUGO_BASE_DIR: ~/trent/blog
 #+HUGO_SECTION: posts/state-machines
@@ -28,15 +28,28 @@ The formal specification of a finite state machine requires 5 parts:
    F &= \{  D \}
    \end{aligned}
 
-   and transition function $\delta$:
+and transition function $\delta$:
 
-|   | e_1 | e_2 | e_3 | e_4 | e_5 |
-|---+-----+-----+-----+-----+-----|
-| A | B   |     |     |     |     |
-| B |     | C   |     |     |     |
-| C |     |     | D   | A   | B   |
-| D |     |     |     |     |     |
+\begin{align*}
+\delta: \\
+(A, e_1) &\mapsto B \\
+(B, e_2) &\mapsto C \\
+(C, e_3) &\mapsto D \\
+(C, e_4) &\mapsto A \\
+(C, e_5) &\mapsto B \\
+\end{align*}
+
+We can also represent $\delta$ as a table:
    
+\begin{array}{c|c|c|c|c|c|}
+   & e_1 & e_2 & e_3 & e_4 & e_5 \\ \hline
+ A & B   &     &    &     &    \\
+ B &     &  C  &    &     &    \\
+ C &     &     & D  & A   & B  \\
+ D &     &     &    &     &     \\ 
+\end{array}
+
+
 We can visualize this FSM using a graph produced with the ~graphviz~ library:
 
 #+begin_src dot :exports file :file "example.svg"
@@ -78,16 +91,14 @@ Represent it as a graph
 * TODO Implementing the Example with XState
 
   XState is a Javascript library for implementing state machines in the browser.
-  Actually it implements state charts (an extension of state machines)
-  It is great because it follows a specification that has been sitting around for years as SCXML.
+  Actually it implements state charts (an extension of state machines).
+  It is great because it follows a specification[fn:1] that has been sitting around for 5 years as SCXML.
 
   It allows us to generate an interactive representation of the state machine with ~xstate-vis~.
 
 ** TODO The Implementation 
    Include link to code sandbox?
 
-  
-* Notes
+* Footnotes
 
-  
-Constructing a hieararch
+[fn:1] https://www.w3.org/TR/scxml/ 
