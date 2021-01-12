@@ -2,3 +2,5 @@
 resources/_gen
 public/**
 .dir-locals.el
+**/node_modules
+.env
