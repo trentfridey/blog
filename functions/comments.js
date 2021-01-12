@@ -67,17 +67,16 @@ const resolvers = {
     },
     Mutation: {
         
-	      createComment: async (slug, name, comment) => {
-            console.log(slug, name, comment);
+	      createComment: async (root, args, content) => {
 		        try {
 			          const results = await client.query(
 				            q.Create(q.Collection(COLLECTION_NAME), {
 					              data: {
 				  	                isApproved: false,
-						                slug,
+						                slug: args.slug,
 						                date: new Date().toString(),
-						                name,
-						                comment
+						                name: args.name,
+						                comment: args.comment,
 					              }
 				            })
 			          );
