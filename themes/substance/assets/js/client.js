@@ -18,7 +18,7 @@ const getCommentsBySlug = slug => client.request(gql`query($slug: String!) {
    { slug: slug }
 );
 
-const createComment = ({slug, name, comment}) => client.request(
+const createComment = (slug, name, comment) => client.request(
     gql`mutation($slug: String!, $name: String!, $comment: String!) {
     createComment(slug: $slug, name: $name, comment: $comment) {
         commentId
@@ -41,6 +41,8 @@ export const getAllComments = () => client.request(
         }
     }`
 );
+
+window.getAllComments = getAllComments;
 
 export const deleteCommentById = (commentId) => client.request(
     gql`mutation($commentId: String!) {
