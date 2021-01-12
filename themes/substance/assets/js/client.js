@@ -18,14 +18,17 @@ const getCommentsBySlug = slug => client.request(gql`query($slug: String!) {
    { slug: slug }
 );
 
-const createComment = (slug, name, comment) => client.request(
+const createComment = (slug, name, comment) => {
+    console.log(slug, name, comment);
+    return client.request(
     gql`mutation($slug: String!, $name: String!, $comment: String!) {
     createComment(slug: $slug, name: $name, comment: $comment) {
         commentId
         }
     }`,
     { slug, name, comment }
-);
+    );
+};
 
 window.createComment = createComment;
 
