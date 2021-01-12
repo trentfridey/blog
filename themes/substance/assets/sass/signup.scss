@@ -6,7 +6,7 @@
   font-family: $serif, serif;
   font-size: 20px;
   padding: 20px;
-  background-color: lighten(indianred, 30);
+  background-color: $highlight;
 
   label[for=email] {
       display: inline-block;
