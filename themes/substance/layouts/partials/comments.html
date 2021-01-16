@@ -40,12 +40,16 @@
              .catch(console.error)
      })
      const btn = document.getElementById('submit-btn');
+     const form = document.getElementById('comments-form');
      const name = document.getElementById('name');
      const comment = document.getElementById('comment');
      btn.addEventListener('click', function(event){
          event.preventDefault();
-         console.log("{{ .RelPermalink }}", name.value, comment.value)
-         createComment("{{ .RelPermalink }}", name.value, comment.value)
+         if (name.value && comment.value) {
+             createComment("{{ .RelPermalink }}", name.value, comment.value)
+                 .then(() => { comment.value = ""; name.value = "" })
+                 .then(() => { form.innerHTML = "<div style='text-align:center'>Comment submitted!</div>"
+         }
      })
     </script>
 </div>
