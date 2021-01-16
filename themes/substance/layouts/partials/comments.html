@@ -19,11 +19,11 @@
     </form>
     <script>
      const commentsDiv = document.getElementById('comments-container');
-     document.addEventListener('DOMContentLoaded', function() {
-    
-     getCommentsBySlug("{{ .RelPermalink }}").then((res) => {
-         console.log(res)
-     })
+     window.addEventListener('DOMContentLoaded', function() {
+         getCommentsBySlug("{{ .RelPermalink }}").then((res) => {
+             console.log(res)
+             console.log('fetched')
+         }).catch(console.error)
      })
      const btn = document.getElementById('submit-btn');
      const name = document.getElementById('name');
