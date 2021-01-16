@@ -80,10 +80,15 @@
     border-bottom: 1px dotted $grey;
     padding: 20px;
 }
-
+.comment-box {
+    background: $highlight;
+    margin: 34px 0;
+    padding: 30px;
+    border: 1px solid indianred;
+}
 .comment-header {
     font-family: $serif, serif;
-    font-size: 16px;
+    font-size: 24px;
     color: black;
 }
 

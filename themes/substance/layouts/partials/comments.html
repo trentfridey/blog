@@ -20,10 +20,24 @@
     <script>
      const commentsDiv = document.getElementById('comments-container');
      window.addEventListener('DOMContentLoaded', function() {
-         getCommentsBySlug("{{ .RelPermalink }}").then((res) => {
-             console.log(res)
-             console.log('fetched')
-         }).catch(console.error)
+         getCommentsBySlug("{{ .RelPermalink }}")
+             .then((res) => {
+                 const comments = res.data.getCommentsBySlug;
+                 const approvedComments = comments.filter(comment => comment.isApproved);
+                 approvedComments
+                     .map(({date, ...rest}) => ({date: new Date(date), ...rest}))
+                     .sort((c1, c2) =>  c1.date - c2.date)
+                     .forEach(({name, comment}) => {
+                         commentsDiv.innerHTML +=
+                             `<div class="comment-box">
+                                <div class="comment-header">${name}</div>
+                                <div class="comment-body">
+                                ${comment}
+                                </div>
+                              </div>`
+                     })
+             })
+             .catch(console.error)
      })
      const btn = document.getElementById('submit-btn');
      const name = document.getElementById('name');
