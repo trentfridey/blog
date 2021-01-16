@@ -2,22 +2,10 @@
     {{ $js := resources.Get "js/client.js" | js.Build }}
     <script type="text/javascript" src="{{ $js.RelPermalink }}" defer></script>
     <h1>Comments</h1>
+    <div id="comments-container">
     <!-- Insert list of comments here -->
     <!-- Should include script for fetching -->
     <!-- TODO Use functions in static/js/comments.js -->
-    <div class="comments-list">
-        <div class="comment-container">
-            <div class="comment-header">
-                <span class="comment-name">
-                    Trent Fridey
-                </span>
-                at
-                <span class="comment-date">
-                    01-08-21:
-                </span>
-            </div>
-            <div class="comment-body"></div>
-        </div>
     </div>
     <form class="comments-form" id="comments-form">
         <fieldset>
@@ -30,6 +18,13 @@
          </div>
     </form>
     <script>
+     const commentsDiv = document.getElementById('comments-container');
+     document.addEventListener('DOMContentLoaded', function() {
+    
+     getCommentsBySlug("{{ .RelPermalink }}").then((res) => {
+         console.log(res)
+     })
+     })
      const btn = document.getElementById('submit-btn');
      const name = document.getElementById('name');
      const comment = document.getElementById('comment');
