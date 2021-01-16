@@ -21,9 +21,8 @@
      const commentsDiv = document.getElementById('comments-container');
      window.addEventListener('DOMContentLoaded', function() {
          getCommentsBySlug("{{ .RelPermalink }}")
-             .then((res) => res.json())
              .then((json) => {
-                 const comments = json.data.getCommentsBySlug;
+                 const comments = json.getCommentsBySlug;
                  const approvedComments = comments.filter(comment => comment.isApproved);
                  approvedComments
                      .map(({date, ...rest}) => ({date: new Date(date), ...rest}))
