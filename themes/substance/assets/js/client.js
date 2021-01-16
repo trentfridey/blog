@@ -5,7 +5,8 @@ const endpoint = '/.netlify/functions/comments';
 
 const client = new GraphQLClient(endpoint);
 
-const getCommentsBySlug = slug => client.request(gql`query($slug: String!) {
+const getCommentsBySlug = slug => client.request(
+    gql`query($slug: String!) {
       getCommentsBySlug(slug: $slug) {
         commentId
         isApproved
@@ -17,6 +18,8 @@ const getCommentsBySlug = slug => client.request(gql`query($slug: String!) {
    }`,
    { slug: slug }
 );
+
+window.getCommentsBySlug = getCommentsBySlug;
 
 const createComment = (slug, name, comment) => {
     console.log(slug, name, comment);

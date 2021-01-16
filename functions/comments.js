@@ -50,9 +50,9 @@ const resolvers = {
 			          comment
 		        }));
 	      },
-	      getCommentsBySlug: async (slug) => {
+	      getCommentsBySlug: async (root, args, context) => {
 		        const results = await client.query(
-		            q.Paginate(q.Match(q.Index("get-comments-by-slug"), slug))
+		            q.Paginate(q.Match(q.Index("get-comments-by-slug"), args.slug))
 		        );
 		        console.log(JSON.stringify(results, null, 2));
 		        return results.data.map(([ref, isApproved, slug, date, name, comment]) => ({
@@ -89,9 +89,9 @@ const resolvers = {
                 return e;
 		        }
 	      },
-	      approveCommentById: async (commentId) => {
+	      approveCommentById: async (root, args, context) => {
 		        const results = await client.query(
-			          q.Update(q.Ref(q.Collection(COLLECTION_NAME), commentId), {
+			          q.Update(q.Ref(q.Collection(COLLECTION_NAME), args.commentId), {
 				            data: {
 				                isApproved: true,
 				            },
