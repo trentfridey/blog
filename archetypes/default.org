@@ -1,3 +1,9 @@
-#+DRAFT: true
-# Add more frontmatter by following the Hugo docs:
-# https://gohugo.io/content-management/front-matter/#front-matter-formats
+#+TITLE:
+#+AUTHOR: Trent Fridey
+#+HUGO_TAGS: 
+#+DATE: 
+#+SUMMARY: 
+#+HUGO_BASE_DIR: ~/trent/blog
+#+HUGO_SECTION: posts/
+#+HUGO_DRAFT: true
+#+STARTUP: latexpreview 
