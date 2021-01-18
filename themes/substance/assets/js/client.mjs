@@ -1,11 +1,10 @@
-import { request, GraphQLClient, gql } from 'graphql-request';
-// TODO: Bind all methods to the window object or equivalent export
+import {  GraphQLClient, gql } from 'graphql-request';
 
 const endpoint = '/.netlify/functions/comments';
 
 const client = new GraphQLClient(endpoint);
 
-const getCommentsBySlug = slug => client.request(
+export const getCommentsBySlug = slug => client.request(
     gql`query($slug: String!) {
       getCommentsBySlug(slug: $slug) {
         commentId
@@ -19,9 +18,7 @@ const getCommentsBySlug = slug => client.request(
    { slug: slug }
 );
 
-window.getCommentsBySlug = getCommentsBySlug;
-
-const createComment = (slug, name, comment) => {
+export const createComment = (slug, name, comment) => {
     console.log(slug, name, comment);
     return client.request(
     gql`mutation($slug: String!, $name: String!, $comment: String!) {
@@ -33,7 +30,6 @@ const createComment = (slug, name, comment) => {
     );
 };
 
-window.createComment = createComment;
 
 export const getAllComments = () => client.request(
     gql`query {
@@ -48,7 +44,6 @@ export const getAllComments = () => client.request(
     }`
 );
 
-window.getAllComments = getAllComments;
 
 export const deleteCommentById = (commentId) => client.request(
     gql`mutation($commentId: String!) {
@@ -58,6 +53,7 @@ export const deleteCommentById = (commentId) => client.request(
     }`,
     { commentId }
 );
+
 
 export const approveCommentById = (commentId) => client.request(
     gql`mutation($commentId: String!) {
