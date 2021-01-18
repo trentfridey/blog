@@ -96,6 +96,13 @@
     color: black;
 }
 
+.comment-date {
+    font-family: $sans-serif, sans-serif;
+    font-size: 12px;
+    color: gray;
+    float: right;
+}
+
 .comment-body {
     font-family: $serif, serif;
     font-size: 20px;

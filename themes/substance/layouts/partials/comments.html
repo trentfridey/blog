@@ -1,9 +1,12 @@
 <div id="comments">
     <h1>Comments</h1>
     <div id="comments-container">
-        <div>
-
+        {{ safeHTML `
+        <div class="comment-box" v-for="post in postComments">
+            <div class="comment-header">{{ post.name }}<span class="comment-date">{{ post.dateString }}</span></div>
+            <div class="comment-body">{{ post.comment }}</div>
         </div>
+        `}}
     </div>
     <form class="comments-form" id="comments-form">
         <template v-if="!success">
@@ -26,12 +29,20 @@
     var app = new Vue({
         el: '#comments',
         data: {
+            postComments: [],
             name: '',
             comment: '',
             success: false,
         },
         created () {
             getCommentsBySlug("{{.RelPermalink}}")
+                .then((res) => {
+                    this.postComments = res.getCommentsBySlug.map(({date, ...c}) => ({
+                        dateString: new Date(date).toDateString(), 
+                        ...c
+                    }))
+                    .sort((c1, c2) => c1.date - c2.date)
+                })
         },
         computed: {
             valid () {
