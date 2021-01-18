@@ -1,55 +1,50 @@
-<div>
-    {{ $js := resources.Get "js/client.js" | js.Build }}
-    <script type="text/javascript" src="{{ $js.RelPermalink }}" defer></script>
+<div id="comments">
     <h1>Comments</h1>
     <div id="comments-container">
-        <!-- Insert list of comments here -->
-        <!-- Should include script for fetching -->
-        <!-- TODO Use functions in static/js/comments.js -->
+        <div>
+
+        </div>
     </div>
     <form class="comments-form" id="comments-form">
+        <template v-if="!success">
         <fieldset>
-            <label for="name">Name:</label>
-            <input id="name" class="comments-info-input" type="text" name="name" />
+            <label>Name:</label>
+            <input id="name" class="comments-info-input" type="text" v-model="name"/>
         </fieldset>
-        <textarea id="comment" placeholder="Write your comment here." cols="30" rows="5"></textarea>
+        <textarea placeholder="Write your comment here." cols="30" rows="5" v-model="comment"></textarea>
         <div class="comments-btn-box">
-            <button id="submit-btn" class="comments-btn" type="submit">Post</button>
+            <button id="submit-btn" :disabled="!valid" class="comments-btn" v-on:click.prevent="() => submitComment('{{ .RelPermalink }}')">Post</button>
         </div>
+        </template>
+        <template v-else>
+            <div>Comment submitted!</div>
+        </template>
     </form>
-    <script>
-        const commentsDiv = document.getElementById('comments-container');
-        window.addEventListener('DOMContentLoaded', function () {
-            getCommentsBySlug("{{ .RelPermalink }}")
-                .then((json) => {
-                    const comments = json.getCommentsBySlug;
-                    const approvedComments = comments.filter(comment => comment.isApproved);
-                    approvedComments
-                        .map(({ date, ...rest }) => ({ date: new Date(date), ...rest }))
-                        .sort((c1, c2) => c1.date - c2.date)
-                        .forEach(({ name, comment }) => {
-                            commentsDiv.innerHTML +=
-                                `<div class="comment-box">
-                                    <div class="comment-header">${name}</div>
-                                    <div class="comment-body">${comment}</div>
-                              </div>`
-                        })
-                })
-                .catch(console.error)
-        })
-        const btn = document.getElementById('submit-btn');
-        const form = document.getElementById('comments-form');
-        const name = document.getElementById('name');
-        const comment = document.getElementById('comment');
-        btn.addEventListener('click', function (event) {
-            event.preventDefault();
-            if (name.value && comment.value) {
-                createComment("{{ .RelPermalink }}", name.value, comment.value)
-                    .then(() => { comment.value = ""; name.value = "" })
-                    .then(() => { 
-                        form.innerHTML = "<div style='text-align:center'>Comment submitted!</div>" 
-                    })
-            }
-        })
-    </script>
 </div>
+<script type="module">
+    import { getCommentsBySlug, createComment } from '../../js/client.js';
+    var app = new Vue({
+        el: '#comments',
+        data: {
+            name: '',
+            comment: '',
+            success: false,
+        },
+        created () {
+            getCommentsBySlug("{{.RelPermalink}}")
+        },
+        computed: {
+            valid () {
+                return !!this.name && !!this.comment
+            }
+        },
+        methods: {
+            submitComment(slug) {
+                if (this.valid) {
+                    createComment(slug, this.name, this.comment)
+                    .then(() => { this.success = true })
+                }
+            }
+        }
+    })
+</script>
