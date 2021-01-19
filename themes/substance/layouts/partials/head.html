@@ -3,8 +3,7 @@
     <title>{{ .Site.Title }}</title>
     {{ $favicon := resources.Get "favicon.svg" }}
     <link rel="icon" type="image/svg+xml" href="{{ $favicon.RelPermalink }}">
-    {{ $manifest := resources.Get "manifest.webmanifest" }}
-    <link rel="manifest" href="{{ $manifest }}">
+    <link rel="manifest" href="/manifest.webmanifest">
     {{ $cssOpts := (dict "targetPath" "css/index.css") }}
     {{ $style := resources.Get "sass/index.scss" | resources.ExecuteAsTemplate "style.index.css" . | resources.ToCSS }}
     <link rel="stylesheet" href="{{ $style.RelPermalink }}">
