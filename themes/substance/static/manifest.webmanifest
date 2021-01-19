@@ -1,0 +1,10 @@
+{
+    "short_name": "The Derivation",
+    "name": "The Derivation",
+    "description": "An analytical blog",
+    "start_url": "/",
+    "background_color": "lightyellow",
+    "display": "browser",
+    "scope": "/",
+    "theme_color": "lightyellow"
+}
