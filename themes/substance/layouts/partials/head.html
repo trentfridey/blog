@@ -5,6 +5,8 @@
     {{ $style := resources.Get "sass/index.scss" | resources.ExecuteAsTemplate "style.index.css" . | resources.ToCSS }}
     <link rel="stylesheet" href="{{ $style.RelPermalink }}">
     <link rel="canonical" href="{{ .Permalink }}" />
+    {{ $js := resources.Get "js/client.mjs" | js.Build (dict "format" "esm") }}
+    <script src="{{ $js.RelPermalink }}" type="module"></script>
     {{ if or .Params.math .Site.Params.math }}
     <script>
      window.MathJax = { tex: { tags: 'ams' } };
@@ -13,8 +15,6 @@
     </script>
     <script type="text/javascript" src="https://identity.netlify.com/v1/netlify-identity-widget.js">
     </script>
-    {{ $js := resources.Get "js/client.mjs" | js.Build (dict "format" "esm") }}
-    <script src="{{ $js.RelPermalink }}" type="module"></script>
     <script src="https://unpkg.com/vue"></script>
     {{ end }}
 </head>
