@@ -1,0 +1,48 @@
+{{ define "main" }}
+<script>
+    netlifyIdentity.init({})
+    const user = netlifyIdentity.currentUser()
+    if(!user || user.id !== '{{ getenv "NETLIFY_ADMIN_ID" }}') {
+        window.location.replace('/')
+    }
+</script>
+<div id="pending-comments">
+    {{ safeHTML `
+    <div v-if="!pending.length">No comments waiting</div>
+    <div v-for="comment in pending">
+        <div class="pending-comment">
+            <div>Name: {{ comment.name }}</div>
+            <div>Comment: {{ comment.comment }}</div>
+            <div>Date: {{ comment.date }}</div>
+            <div>Post: <a :href="comment.slug">{{ comment.slug }}</a></div>
+            <button class="approve" :disabled="comment.isApproved" v-on:click="() => approve(comment.commentId)">
+                {{ comment.isApproved ? 'Approved!' : 'Approve'}}
+            </button>
+        </div>
+    </div>
+    `}}
+</div>
+<script type="module">
+    import { getAllComments, approveCommentById } from "../../js/client.js"
+    var admin = new Vue({
+        el: "#pending-comments",
+        data: {
+            pending: []
+        },
+        created () {
+            getAllComments().then(res => {
+                this.pending = res.getAllComments
+                .filter(comment => !comment.isApproved)
+                .sort((c1, c2) => new Date(c1.date) - new Date(c2.date))
+            })
+        },
+        methods: {
+            approve (id) {
+                approveCommentById(id).then(() => {
+                    this.pending.find(comment => comment.commentId === id).isApproved = true
+                })
+            },
+        },
+    })
+</script>
+{{ end }}
