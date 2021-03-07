@@ -1,163 +1,176 @@
 +++
 title = "Spin Squeezing"
 author = ["Trent Fridey"]
-date = 2020-10-10
+date = 2021-03-06
 tags = ["quantum", "statistics", "physics"]
-draft = true
+draft = false
 +++
+
+Quantum systems are inherently difficult to measure precisely, due to the variance in every measurement as codified by the Heisenberg uncertainty principle. In this post we look at the method of _spin squeezing_, which is a way to increase the precision of measurement of a specific quantity by using entanglement.
+
 
 ## The Setup {#the-setup}
 
-Let's consider a quantum system of \\(N\\) spin-\\(1/2\\) particles.
-These spins are prepared in a _coherent_ state:
+Let's consider a quantum system of \\(N\\) spin-\\(1/2\\) particles, initially prepared in an non-entangled state.
+These could be electrons, but in this post, we will just refer to them as particles.
+
+In this scenario, we take each particle to be prepared in a coherent superposition of _spin-up_ \\(|\uparrow\rangle\\) and _spin-down_ \\(|\downarrow\rangle\\):
+
+\begin{equation}
+\left|\psi\right\rangle = \cos\left(\frac{\theta}{2}\right)|\uparrow\rangle + e^{i\phi}\sin\left(\frac{\theta}{2}\right)|\downarrow\rangle
+\label{eq:1}
+\end{equation}
+
+If we measure the spin vector, \\(\vec{S}\_i\\), of the \\(i^{th}\\) particle, quantum mechanics predicts that the expected value will be:
 
 \\[
-  \left| \theta, \phi \right\rangle = \frac{1}{\sqrt{N}}\bigotimes\_{i=1}^N  \left[
-    \cos{\left(\frac{\theta}{2}\right)}|0\rangle +
-    e^{i\phi}\sin\left({\frac{\theta}{2}}\right)|1\rangle
-  \right]
+  \left\langle \vec{S}\_i \right\rangle = \frac{1}{2} \left(\sin(\theta)\cos(\phi)\hat{x} + \sin(\theta)\sin(\phi)\hat{y} + \cos(\theta)\hat{z} \right)
   \\]
 
+Now, the composite system of the \\(N\\) spins can be described as the product state of all the single states:
 
-### Bloch Sphere {#bloch-sphere}
+\\[
+  \left|\Psi\right\rangle = \bigotimes^N\_i \left|\psi\right\rangle\_i
+  \\]
 
-If we calculate the expected value of the total spin operator of this state:
+This state we will call the **coherent spin state**.
+If we calculate the expected value of the _total spin vector_ of this state:
 
 \\[
   \vec{S} = \sum\_{i=1}^N \vec{S}\_i
-  \qquad
-  \vec{S}\_i = \frac{1}{2}\left(\sigma^x\_i \hat{x} + \sigma^y\_i \hat{y} + \sigma^z\_i \hat{z}\right)
   \\]
 
-we get a nice geometric result:
+The result is just \\(N\\) times the single particle value:
 
 \\[
-  \left\langle \theta, \phi \right| \vec{S} \left| \theta, \phi \right\rangle =
+  \left\langle \vec{S} \right\rangle =
   \frac{N}{2}\sin{\theta}\cos{\phi}\hat{x} +
   \frac{N}{2}\sin{\theta}\sin{\phi}\hat{y} +
   \frac{N}{2}\cos{\theta}\hat{z}
   \\]
 
-We can assign \\(\theta\\) as the azimuthal angle and \\(\phi\\) as the polar angle.
-Then we have the picture of a vector in 3D space, constrained to a sphere of radius \\(\frac{N}{2}\\).
-Proceeding in this way, we call the direction this vector points the _mean spin direction_ or MSD.
+The direction this vector points in is referred to as the _mean spin direction_ (or MSD), since it is the average (or mean) direction of all the constituent particles' spin vectors.
 
-We can form a vector \\(\hat{n}\_\perp\\) which is perpendicular to the MSD such that \\(\langle \vec{S} \rangle \cdot \hat{n}\_\perp = 0\\)  .
-If the tip of the \\(\langle \vec{S} \rangle\\) vector can be represented by a point \\((\theta\_0, \phi\_0)\\) on a sphere, then the \\(\hat{n}\_\perp\\) vector can be thought of as being tangent to the sphere at this point.
+We can form a unit vector \\(\hat{n}\_\perp\\) which is perpendicular to the MSD such that \\(\langle \vec{S} \rangle \cdot \hat{n}\_\perp = \left\langle \vec{S}\cdot\hat{n}\_{\perp} \right\rangle = 0\\)  .
 
-Because the vector \\(\langle\vec{S}\rangle\\) is an expectation value, we can calculate the variance of it: \\(\Delta \vec{S}^2 = \left\langle \vec{S}\cdot\vec{S} \right\rangle - \left\langle \vec{S} \right\rangle^2\\).
-We can also decompose the variance into the variance along the MSD (denoted by \\(\Delta \vec{S}\_{\parallel}^2\\)) and perpendicular to the MSD (denoted by \\(\Delta \vec{S}\_{\perp}^2\\)).
+{{< figure src="/ox-hugo/def_n_perp.svg" >}}
+
+Now although the average value of \\(\vec{S}\cdot\hat{n}\_{\perp}\\) is zero, the variance of this quantity will be positive:
 
 \\[
-\Delta \vec{S}^2 = \Delta \vec{S}\_{\parallel}^2 + \Delta \vec{S}\_{\perp}^2
+ \sigma^2\_{\vec{S}\cdot\hat{n}\_{\perp}}
+ \equiv \left\langle \left(\vec{S}\cdot\hat{n}\_{\perp}\right)^2 \right\rangle - \left\langle \vec{S}\cdot\hat{n}\_{\perp} \right\rangle^2 =
+ \left\langle \left(\vec{S}\cdot\hat{n}\_{\perp}\right)^2 \right\rangle > 0
 \\]
 
-From our definition of \\(\hat{n}\_\perp\\), the second term will be the variance along \\(\hat{n}\_\perp\\).
+Also, since we are in 3D, we can form another unit vector \\(\hat{m}\_\perp\\) that is perpendicular to \\(\hat{n}\_\perp\\) and the MSD.
 
+{{< figure src="/ox-hugo/n-hat_m-hat.svg" >}}
 
-### Husimi Q-function {#husimi-q-function}
-
-If we calculate \\(\Delta \vec{S}\_{\perp}\\), we can relate it to another important measure of the coherent state: the _Husimi Q-function_, which is defined for a general spin state \\(|\psi\rangle\\) as:
+In the initial state of the system, the variances are equal:
 
 \\[
-  Q(\theta, \phi) = |\langle \theta, \phi | \psi \rangle |^2
+ \sigma^2\_{\vec{S}\cdot\hat{m}\_{\perp}} =  \sigma^2\_{\vec{S}\cdot\hat{n}\_{\perp}}
+ \\]
+
+In fact, since this is true for arbitrary \\(\hat{n}\_\perp\\) and \\(\hat{m}\_\perp\\) (as long as they are perpendicular to the MSD), the variance of \\(\vec{S}\\) is _isotropic_ in this state. In other words, if we parameterize \\(\hat{n}\_\perp\\) in terms of an angle \\(\varphi \in [0, 2\pi)\\):
+
+{{< figure src="/ox-hugo/xi_eta_plane.svg" >}}
+
+\\[
+ \hat{n}\_\perp = \hat{\eta}\sin{\varphi}  + \hat{\xi}\cos{\varphi}
+ \\]
+
+Then the variance of \\(S\_{\varphi}\\), where
+
+\\[
+ S\_{\varphi} = \vec{S}\cdot\hat{n}\_\perp = S\_\eta\sin\varphi + S\_\xi\cos\varphi
+ \\]
+
+is constant as we sweep \\(\hat{n}\_{\perp}\\) around the circle:
+
+\\[
+ \sigma^2\_{S\_\varphi} = \text{constant for all } \varphi
+ \\]
+
+Now the imprecision in our measurement is directly proportional to \\(\sigma^2\_{S\_{\phi}}\\). So, if we seek to precisely measure the spin vector of this system, we had better find a way to reduce it. There's just one problem.
+
+Since this is a quantum system, the variance of our measurements cannot be decreased to zero.
+  This is known as the Heisenberg uncertainty principle, which in this context reads:
+
+\\[
+  \sigma^2\_{\vec{S}\cdot\hat{n}\_{\perp}}\sigma^2\_{\vec{S}\cdot\hat{m}\_{\perp}}
+  \geq
+  \frac{1}{4} \left|\left\langle \vec{S}\cdot (\hat{n}\_\perp\times \hat{m}\_\perp)\right\rangle\right|^2
   \\]
 
-```python
-import matplotlib.pyplot as plt
-import numpy as np
-from matplotlib import cm, colors
-import numpy as np
-from scipy.special import sph_harm
-
-phi = np.linspace(0, 2*np.pi, 100)
-theta = np.linspace(0, np.pi, 100)
-phi, theta = np.meshgrid(phi, theta)
-
-x = np.sin(theta) * np.cos(phi)
-y = np.sin(theta) * np.sin(phi)
-z = np.cos(theta)
-
-theta0, phi0 = np.pi/2, 0
-
-def q_func(theta0, phi0):
-    return 1
-
-
-return name
-```
+This inequality describes a certain trade-off, since the smaller we make \\(\sigma^2\_{\vec{S}\cdot\hat{n}\_\perp}\\), the larger \\(\sigma^2\_{\vec{S}\cdot\hat{m}\_\perp}\\) becomes, and vice-versa. In other words, if we try to _decrease_ the variance in one direction, we will _increase_ the variance in the perpendicular direction. This kind of effect motivates the name _spin squeezing_.
 
 
 ## Introducing Squeezing {#introducing-squeezing}
 
+Now that we know what spin squeezing is, how would one actually go about doing it?
 
-### <span class="org-todo todo TODO">TODO</span> Use plot of Husimi function to motivate squeezing {#use-plot-of-husimi-function-to-motivate-squeezing}
-
-We can get a better measurement by reducing the variance of the measurement.
-If variance = width of Q function, then decreasing width of Q-function should increase measurement precision.
-
-
-#### <span class="org-todo todo TODO">TODO</span> Catch: Heisenberg Uncertainty relation {#catch-heisenberg-uncertainty-relation}
-
-There is a tradeoff in this procedure, due to the way quantum mechanics works.
-It is quantified by the _Heisenberg uncertainty relation_:
+There are a couple of ways to implement it, but they all require generating entanglement between the particles. One way to do this is called the _one-axis twisting_ method in the literature. With this method, the individual quantum states \\(|\psi\rangle\\) are prepared as in \eqref{eq:1} with \\(\theta = \frac{\pi}{2}\\), \\(\phi=0\\). Then we couple the \\(z\\) -component of each particle's spin vector with the \\(z\\) -component of every other particle's spin vector. The Hamiltonian for this interaction is:
 
 \\[
-    \Delta S\_i \Delta S\_j \geq \epsilon\_{ijk}S\_k
-    \\]
+  H = \sum\_{i\neq j} S\_i^z S\_j^z
+  \\]
 
-
-### Definition of Squeezing Operator {#definition-of-squeezing-operator}
-
-
-#### <span class="org-todo todo TODO">TODO</span> Motivate definition with Mean field description {#motivate-definition-with-mean-field-description}
-
-How to induce a change in the Q-function?
-We only have the Pauli spin operators to work with, so we must construct a squeezing operator out of these.
-Any transformation must come from either a sum of single body operators or a sum of multi-body operators.
-The sum of single body operators induce rotations.
-Anything more than 2-body interactions may be complex.
-The simplest operator is a sum of 2-body operators..
-
-The spin squeezing operator is defined as:
+The _spin squeezing operator_ in this context is defined as:
 
 \\[
-   U(t) = \exp\left(-\frac{i}{2}t \sum\_{i \neq j}^N \sigma^z\_i\sigma^z\_j\right)
+   U(t) = \exp\left(-\frac{i}{2}t \sum\_{i \neq j}^N S^z\_i S^z\_j\right)
    \\]
 
-This is called the _one-axis twisting_ operator in the literature.
-With this definition, we apply it to a coherent state \\(\left|\theta=0, \phi=\frac{\pi}{2} \right\rangle = |+x\rangle\\) to  obtain the state:
+We apply it to our initial state \\(|\Psi\rangle\\) to obtain the state:
 
 \\[
-   \left|\psi(t)\right\rangle = U(t)|+x\rangle
+   \left|\Psi(t)\right\rangle = U(t)|\Psi\rangle
    \\]
 
+To understand _why_ the one-axis twisting method has the name it does, let us consider the function:
 
-#### <span class="org-todo todo TODO">TODO</span> connect with Q function {#connect-with-q-function}
+\\[
+Q\_t(\theta, \phi) = \left|\left\langle \theta, \phi | \Psi(t) \right\rangle\right|^2
+\\]
+
+Where \\(|\theta, \phi\rangle\\) is the initial state \\(|\Psi\rangle\\) as considered as a function of the variables \\(\theta,\phi\\)
+
+Initially, it looks like this, mirroring the isotropic nature of the variance:
+
+{{< figure src="/ox-hugo/qplot0.png" >}}
+
+But after applying the spin squeezing operator, it looks like this:
+
+![](/ox-hugo/qplot.png)
+I.e., it is squeezed along one axis, and stretched along the perpendicular.
 
 
 ### Quantifying Squeezing {#quantifying-squeezing}
 
 We can quantify the degree that the state has been squeezed by comparing it to the initial state.
 We expect that a squeezed state should have a smaller variance in one direction than the initial state.
-
-
-#### <span class="org-todo todo TODO">TODO</span> introduce minimum variance spin operator {#introduce-minimum-variance-spin-operator}
+That is, as we sweep our vector \\(\hat{n}\_\perp\\) around the circle, we should find the angle \\(\varphi\\) that points in the direction where the variance of \\(S\_\varphi\\) is smallest.
 
 \\[
-  \Delta S\_{\text{min}}^2 = \min\_{\hat{n}} \Delta \left(\vec{S}\cdot\hat{n}\right)^2
+  \sigma^2\_{\text{min}} = \min\_{\varphi} \left[\left\langle S^2\_\varphi \right\rangle - \left\langle S\_\varphi \right\rangle^2\right]
   \\]
 
+To normalize this amount, we introduce the _squeezing parameter_, \\(\xi^2\\):
 
-#### <span class="org-todo todo TODO">TODO</span> define squeezing parameter {#define-squeezing-parameter}
+\\[
+  \xi^2 = \frac{\sigma^2\_{\text{min}}}{|\langle \vec{S} \rangle|^2}
+  \\]
 
+When a system is evolving under the spin squeezing operator, this quantity evolves as well:
 
-## Numerical simulations {#numerical-simulations}
+{{< figure src="/ox-hugo/xiplot.png" >}}
 
+Now in order to maximize the gains in precision by using the one-axis twisting method, we should wait until the moment \\(t^\*\\) where \\(\sigma^2\_{\text{min}}(t^\*)\\) reaches its minimum.
 
-### Finding the Optimal Angle {#finding-the-optimal-angle}
+\\[
+  \xi^2\_{\text{max}} = \min\_t \frac{\sigma^2\_{\text{min}}(t)}{\langle \vec{S} \rangle(t)}
+  \\]
 
-
-#### <span class="org-todo todo TODO">TODO</span> Use Python's autograd Library to Compute {#use-python-s-autograd-library-to-compute}
-
-Implement squeezing parameter as a function of only numpy functions available to [autograd](https://github.com/HIPS/autograd).
+This then is the _maximum squeezing_ that we can hope to achieve. From the plot above, this happens at around \\(t \approx 1.4\\).
