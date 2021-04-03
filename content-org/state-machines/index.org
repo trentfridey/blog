@@ -1,65 +1,63 @@
-#+TITLE: State Machines with XState 
+#+TITLE: Actor Model Pt I: Finite State Machines to Statecharts 
 #+AUTHOR: Trent Fridey
-#+DATE: 2020-11-14
-#+HUGO_TAGS: javascript front-end computer-science
+#+DATE: 2021-04-03
+#+HUGO_TAGS: actor-model computation javascript xstate
 #+HUGO_DRAFT: true
 #+HUGO_BASE_DIR: ~/trent/blog
 #+HUGO_SECTION: posts/state-machines
 #+STARTUP: latexpreview
 
-* TODO Introduction to State Machines
+In this series I outline how using [[https://xstate.js.org/docs/][XState]] and the actor model can simplify development of web applications, by tracing the development of finite state machines to statecharts to the actor model.
 
-The formal specification of a finite state machine requires 5 parts:
 
+* Motivation
+
+In developing a modern web application, you end up spending a lot of time managing /state/, and developing models of how the state can evolve.
+As you add features, you have to (1) update your models of how the application should work, (2) implement the actual features according to the model, and (3) test that your application is actually working.
+Modern web frameworks like React or Vue make it easy to update the view layer in response to transistions between states.
+But they /don't/ make it easy to model what the state and transitions are.
+Using a framework like [[https://xstate.js.org/docs/][XState]] can help -- in fact, the key advantage of using it is that the three step process can be reduced to one: /just update the model/.
+To see how this works, we first introduce the finite state machine, then statecharts, and finally the actor model.
+We'll start with an example.
+
+** A Simple Example
+
+Let's say your application has a single feature: a font-size toggle, with three states: small, regular, and large.
+Now, the *state* of your application is defined by the value of whatever variables that end user is allowed to change.
+In this case, we could represent this feature's states with an ~enum~, with values $\{\text{small}, \text{regular}, \text{large}\}$.
+We also need to specify how this variable should update on input from the user.
+If the user clicks "large", then all text should be 1.5x larger than the "regular" state; if they select "small", then all text should be two-thirds as big as the "regular" state; and so on.
+
+For this small feature, we could use a /finite state machine/ to completely capture the application behavior.
+Why use a finite state machine?
+Well, the finite state machine is a well-studied concept in computer science that (1) admits a mathematical description (2) is completely predictable and (3) admits a graphical representation.
+These three characteristics make finite state machines perfect for modelling the application's behavior.
+
+A **finite state machine** is defined by five elements:
 1. The set of states $S$
-2. The set of events $\Sigma$
-3. The set of valid transitions $\delta: S\times\Sigma \to S$
-4. The initial state $s_0$
-5. The set of final states $F$
-
-** Example
-
-   To illustrate this, let's consider a simple state machine with the following specification:
-
-   \begin{aligned}
-   S &= \{ A, B, C, D \} \\
-   \Sigma &= \{ e_1, e_2, e_3, e_4, e_5 \} \\
-   s_0 &= A \\
-   F &= \{  D \}
-   \end{aligned}
-
-and transition function $\delta$:
-
-\begin{align*}
-\delta: \\
-(A, e_1) &\mapsto B \\
-(B, e_2) &\mapsto C \\
-(C, e_3) &\mapsto D \\
-(C, e_4) &\mapsto A \\
-(C, e_5) &\mapsto B \\
-\end{align*}
-
-We can also represent $\delta$ as a table:
+2. The initial state $s_0 \in S$
+3. The set of events $\Sigma$
+4. The set of valid transitions $\delta: S\times\Sigma \to S$
+5. The set of final states $F \subset S$
    
-\begin{array}{c|c|c|c|c|c|}
-   & e_1 & e_2 & e_3 & e_4 & e_5 \\ \hline
- A & B   &     &    &     &    \\
- B &     &  C  &    &     &    \\
- C &     &     & D  & A   & B  \\
- D &     &     &    &     &     \\ 
-\end{array}
+In our example, the /initial state/ is "regular".
+The set of states would be $S = \{ \text{small}, \text{regular}, \text{large} \}$.
+The set of final states is the empty set $F = \emptyset$, because the application can always transition to another state from its current state.
+The set $\Sigma$ is also specified: in the /event/ the user clicks "large", then the application should /transition/ to the state where all text is 1.5x larger than the "regular" state; if they select "small", the application should transition to the state where all test is two-thirds as big as the "regular" state; and so on.
 
+Here's a graphical representation of this finite state machine: 
 
-We can visualize this FSM using a graph produced with the ~graphviz~ library:
-
-#+begin_src dot :exports file :file "example.svg"
+#+begin_src dot :exports results :file "example.svg"
   digraph G {
     rankdir="LR"
-    A -> B[label="e_1"]
-    B -> C[label="e_2"]
-    C -> D[label="e_3"]
-    C -> A[label="e_4"]
-    C -> B[label="e_5"]
+    init [label="", shape=point]
+    1[label="regular"]
+    2[label="small"]
+    3[label="large"]
+    init -> 1
+    1,2,3 -> 1[label="click 'regular'"] 
+    1,2,3 -> 2[label="click 'small'"]
+    1,2,3 -> 3[label="click 'large'"]
   }
 #+end_src
 
@@ -67,38 +65,125 @@ We can visualize this FSM using a graph produced with the ~graphviz~ library:
 [[file:example.svg]]
 
 
-* TODO Statecharts: an Extension to State Machines
+Now, one drawback of finite state machines is the phenomenon known as /state explosion/.
+It refers to how quickly the size of the sets $S$, $\Sigma$, and $\delta$ grow as more states are added.
+For example, let's say we add a toggle for dark mode to your application, which should be represented as a ~boolean~ variable.
+Now we have to manage the state of the font-size toggle and the state of the dark mode toggle.
+With these two, small features, your application can be in one of $|S| = 3\times 2 = 6$ states.
+There are $|\Sigma| = 3 + 2 = 5$ possible events: clicking on any of the font-size buttons, and clicking on either of the light/dark modes.
+Therefore, we must specify $|S\times \Sigma| = 6\times 5 = 30$ possible transitions in order to accomodate the new toggle.
+In case you missed it, this single boolean added $21$ new possible transitions.[fn:1]
 
-Statecharts are a group of extensions to state machines, that augment the features of state machines to make them easier to model.
-These areas include hierarchy, concurrency, and communication.
-Namely, in statecharts, you can have:
+You might protest that we are jumping the gun here -- after all, in this example, we can separate the dark-mode toggle states and transistions from the font-size toggle into two separate state machines.
+And you would be right, but in order to represent the state of the /entire/ application, we have to extend the state machine formalism to account for /substates/.
 
-- Hierarchical states
-- Orthogonal states
-- History states
+* Statecharts: an Extension of State Machines
 
-or
+[[https://statecharts.github.io/][Statecharts]] are a group of extensions to state machine diagrams, that allows one to model a state machine more efficiently.
+The first innovation is *compound* states -- states made up of substates.
+In our simple example, we could model the application state as a compound state consisting of the state of the font-size toggle, and of the state of the dark mode toggle.
+We can represent this graphically like this:
 
-statecharts = state-diagrams + depth + orthogonality + broadcast-communication
+#+begin_src dot :exports results :file "ex_statechart.svg"
+  digraph S {
+    rankdir="LR"
+    compound=true
+    init[label="", shape=point]
+    subgraph cluster_1 {
+      label="application"
+      subgraph cluster_12 {
+        label="dark-mode"
+        j[label="", shape=point]
+        j -> d1
+        d1[label="light"]
+        d2[label="dark"]
+        d1, d2 -> d2[label="click dark"]
+        d1, d2 -> d1[label="click light"]
+      }
+      subgraph cluster_22 {
+        label="font-size"
+        i[label="", shape=point]
+        i -> 1
+        1[label="regular"]
+        2[label="small"]
+        3[label="large"]
+        1,2,3 -> 1[label="click 'regular'"] 
+        1,2,3 -> 2[label="click 'small'"]
+        1,2,3 -> 3[label="click 'large'"]
+      }
+    }
+    init -> d1 [lhead="cluster_1"]
+
+  }
+#+end_src
+
+#+RESULTS:
+[[file:ex_statechart.svg]]
+
+The second innovation is *guarded transitions* -- i.e. transistions that occur only if some condition is met.
+Why is this necessary?
+Well, to show the necessity of using guarded transistions, we have to introduce another concept, and that is /extensive state/.
+
+Let's consider adding another feature to our simple example application.
+We will add a slider that allows the user to adjust the vertical space between each line in a paragraph.
+We can represent the value of the spacing as a ~float~.
+How can we incorporate this into a finite state machine?
+If we try to represent each possible value of the spacing, we will end up with at least $2^{52}$ states -- one state for each possible value that we have enough precision to represent. [fn:2]
+Instead of trying to represent all possible states explicitly, we can include the extensive state in a statechart by referencing its value only where it matters -- on the transitions between the other states.
+For our example, we want to make sure that the font-size and line-spacing are compatible, so that if the font-size is large, the range of the slider is restricted so the lines don't end up overlapping.
+We can represent this by a guarded transistion between the "small" font-size and the "large" font-size:
 
 
-* TODO An Example
+#+begin_src dot :exports results :file "extensive_statechart.svg"
+  digraph S {
+    rankdir="LR"
+    compound=true
+    init[label="", shape=point]
+    subgraph cluster_1 {
+      label="application"
+      subgraph cluster_12 {
+        label="dark-mode"
+        j[label="", shape=point]
+        j -> d1
+        d1[label="light"]
+        d2[label="dark"]
+        d1, d2 -> d2[label="click dark"]
+        d1, d2 -> d1[label="click light"]
+      }
+      subgraph cluster_22 {
+        label="font-size"
+        i[label="", shape=point]
+        i -> 1
+        1[label="regular"]
+        2[label="small"]
+        3[label="large"]
+        1,2,3 -> 1[label="click 'regular'"] 
+        1,2,3 -> 2[label="click 'small'"]
+        1,3 -> 3[label="click 'large'"]
+        2 -> 3[label="click 'large'; line spacing > 14"][color="red"]
+      }
+    }
+    init -> d1 [lhead="cluster_1"]
 
-Tracking a feature in software development from initialization to deployment
+  }
+#+end_src
 
-Represent it as a graph
+Finally, the most important innovation of statecharts is the ability to represent side-effects.
+In order for our application to interface with the outside world (i.e. other applications), it will require managing events that are unpredictable.
+This naturally leads us to the actor model, which I will outline in part II of this series.
 
-* TODO Implementing the Example with XState
+In the mean time, I would recommend reading [[https://www.sciencedirect.com/science/article/pii/0167642387900359][the original paper introducing statecharts]] -- it is a very accessible read, even if you are new to the idea of state machines. 
 
-  XState is a Javascript library for implementing state machines in the browser.
-  Actually it implements state charts (an extension of state machines).
-  It is great because it follows a specification[fn:1] that has been sitting around for 5 years as SCXML.
-
-  It allows us to generate an interactive representation of the state machine with ~xstate-vis~.
-
-** TODO The Implementation 
-   Include link to code sandbox?
-
+   
 * Footnotes
 
-[fn:1] https://www.w3.org/TR/scxml/ 
+
+
+[fn:1] The sizes of the relevant sets for the application with just the font-size toggle: $|S| = 3$, $|\Sigma| = 3$, $|S\times\Sigma| = 9$ 
+
+[fn:2] In JavaScript, this is ~Number.EPSILON~. From the [[https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/EPSILON][MDN Web Docs &#128279;]]
+
+
+
+
+

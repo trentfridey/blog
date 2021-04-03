@@ -1,21 +1,97 @@
 +++
-title = "State Machines with XState"
+title = "Actor Model Pt I: Finite State Machines to Statecharts"
 author = ["Trent Fridey"]
-date = 2020-11-14
-tags = ["javascript", "front-end", "computer-science"]
+date = 2021-04-03
+tags = ["actor-model", "computation", "javascript", "xstate"]
 draft = true
 +++
 
-## <span class="org-todo todo TODO">TODO</span> Statecharts: an Extension to State Machines {#statecharts-an-extension-to-state-machines}
+In this series I outline how using [XState](https://xstate.js.org/docs/) and the actor model can simplify development of web applications, by tracing the development of finite state machines to statecharts to the actor model.
 
-Statecharts are a group of extensions to state machines, that augment the features of state machines to make them easier to model.
-These areas include hierarchy, concurrency, and communication.
-Namely, in statecharts, you can have:
 
--   Hierarchical states
--   Orthogonal states
--   History states
+## Motivation {#motivation}
 
-or
+In developing a modern web application, you end up spending a lot of time managing _state_, and developing models of how the state can evolve.
+As you add features, you have to (1) update your models of how the application should work, (2) implement the actual features according to the model, and (3) test that your application is actually working.
+Modern web frameworks like React or Vue make it easy to update the view layer in response to transistions between states.
+But they _don't_ make it easy to model what the state and transitions are.
+Using a framework like [XState](https://xstate.js.org/docs/) can help -- in fact, the key advantage of using it is that the three step process can be reduced to one: _just update the model_.
+To see how this works, we first introduce the finite state machine, then statecharts, and finally the actor model.
+We'll start with an example.
 
-statecharts = state-diagrams + depth +
+
+### A Simple Example {#a-simple-example}
+
+Let's say your application has a single feature: a font-size toggle, with three states: small, regular, and large.
+Now, the **state** of your application is defined by the value of whatever variables that end user is allowed to change.
+In this case, we could represent this feature's states with an `enum`, with values \\(\\{\text{small}, \text{regular}, \text{large}\\}\\).
+We also need to specify how this variable should update on input from the user.
+If the user clicks "large", then all text should be 1.5x larger than the "regular" state; if they select "small", then all text should be two-thirds as big as the "regular" state; and so on.
+
+For this small feature, we could use a _finite state machine_ to completely capture the application behavior.
+Why use a finite state machine?
+Well, the finite state machine is a well-studied concept in computer science that (1) admits a mathematical description (2) is completely predictable and (3) admits a graphical representation.
+These three characteristics make finite state machines perfect for modelling the application's behavior.
+
+A ****finite state machine**** is defined by five elements:
+
+1.  The set of states \\(S\\)
+2.  The initial state \\(s\_0 \in S\\)
+3.  The set of events \\(\Sigma\\)
+4.  The set of valid transitions \\(\delta: S\times\Sigma \to S\\)
+5.  The set of final states \\(F \subset S\\)
+
+In our example, the _initial state_ is "regular".
+The set of states would be \\(S = \\{ \text{small}, \text{regular}, \text{large} \\}\\).
+The set of final states is the empty set \\(F = \emptyset\\), because the application can always transition to another state from its current state.
+The set \\(\Sigma\\) is also specified: in the _event_ the user clicks "large", then the application should _transition_ to the state where all text is 1.5x larger than the "regular" state; if they select "small", the application should transition to the state where all test is two-thirds as big as the "regular" state; and so on.
+
+Here's a graphical representation of this finite state machine:
+
+{{< figure src="/ox-hugo/example.svg" >}}
+
+Now, one drawback of finite state machines is the phenomenon known as _state explosion_.
+It refers to how quickly the size of the sets \\(S\\), \\(\Sigma\\), and \\(\delta\\) grow as more states are added.
+For example, let's say we add a toggle for dark mode to your application, which should be represented as a `boolean` variable.
+Now we have to manage the state of the font-size toggle and the state of the dark mode toggle.
+With these two, small features, your application can be in one of \\(|S| = 3\times 2 = 6\\) states.
+There are \\(|\Sigma| = 3 + 2 = 5\\) possible events: clicking on any of the font-size buttons, and clicking on either of the light/dark modes.
+Therefore, we must specify \\(|S\times \Sigma| = 6\times 5 = 30\\) possible transitions in order to accomodate the new toggle.
+In case you missed it, this single boolean added \\(21\\) new possible transitions.[^fn:1]
+
+You might protest that we are jumping the gun here -- after all, in this example, we can separate the dark-mode toggle states and transistions from the font-size toggle into two separate state machines.
+And you would be right, but in order to represent the state of the _entire_ application, we have to extend the state machine formalism to account for _substates_.
+
+
+## Statecharts: an Extension of State Machines {#statecharts-an-extension-of-state-machines}
+
+[Statecharts](https://statecharts.github.io/) are a group of extensions to state machine diagrams, that allows one to model a state machine more efficiently.
+The first innovation is **compound** states -- states made up of substates.
+In our simple example, we could model the application state as a compound state consisting of the state of the font-size toggle, and of the state of the dark mode toggle.
+We can represent this graphically like this:
+
+{{< figure src="/ox-hugo/ex_statechart.svg" >}}
+
+The second innovation is **guarded transitions** -- i.e. transistions that occur only if some condition is met.
+Why is this necessary?
+Well, to show the necessity of using guarded transistions, we have to introduce another concept, and that is _extensive state_.
+
+Let's consider adding another feature to our simple example application.
+We will add a slider that allows the user to adjust the vertical space between each line in a paragraph.
+We can represent the value of the spacing as a `float`.
+How can we incorporate this into a finite state machine?
+If we try to represent each possible value of the spacing, we will end up with at least \\(2^{52}\\) states -- one state for each possible value that we have enough precision to represent.&nbsp;[^fn:2]
+Instead of trying to represent all possible states explicitly, we can include the extensive state in a statechart by referencing its value only where it matters -- on the transitions between the other states.
+For our example, we want to make sure that the font-size and line-spacing are compatible, so that if the font-size is large, the range of the slider is restricted so the lines don't end up overlapping.
+We can represent this by a guarded transistion between the "small" font-size and the "large" font-size:
+
+{{< figure src="/ox-hugo/extensive_statechart.svg" >}}
+
+Finally, the most important innovation of statecharts is the ability to represent side-effects.
+In order for our application to interface with the outside world (i.e. other applications), it will require managing events that are unpredictable.
+This naturally leads us to the actor model, which I will outline in part II of this series.
+
+In the mean time, I would recommend reading [the original paper introducing statecharts](https://www.sciencedirect.com/science/article/pii/0167642387900359) -- it is a very accessible read, even if you are new to the idea of state machines.
+
+[^fn:1]: The sizes of the relevant sets for the application with just the font-size toggle: \\(|S| = 3\\), \\(|\Sigma| = 3\\), \\(|S\times\Sigma| = 9\\)
+[^fn:2]: In JavaScript, this is `Number.EPSILON`. From the [MDN Web Docs &#128279;](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global%5FObjects/Number/EPSILON)
