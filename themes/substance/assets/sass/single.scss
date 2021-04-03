@@ -42,14 +42,22 @@
     }
 }
 
-q {
+code {
+    color: indianred;
+    font-size: 14px;
+    padding: 2px 5px;
+    background-color: bisque;
+    border-radius: 2px;
+    font-family: $monospace, monospace;
+}
+
+blockquote {
     font-size: 1.2em;
     color: black;
     background-color: white;
     display: block;
-    padding: 30px 30px;
-    font-style: italic;
-    border-left: 3px solid gold;
+    padding: 5px 30px;
+    border-left: 3px solid indianred;
     text-align: justify;
 }
 

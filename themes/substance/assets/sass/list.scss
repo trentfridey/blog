@@ -39,7 +39,7 @@ article {
         border-bottom: 1px solid indianred;
         border-top-left-radius: 2px;
         border-bottom-left-radius: 2px;
-        background-color: lighten(indianred, 30);
+        background-color: $highlight;
         &::after {
             position: absolute;
             width: 0;
@@ -80,7 +80,7 @@ a.footnote-backref, a.footnote-ref {
     border-radius: 5px;
     &:hover {
         border-bottom: 1px solid indianred;
-        background-color: lighten(indianred, 30);
+        background-color: $highlight; 
     }
 }
 
@@ -96,7 +96,7 @@ a.footnote-backref, a.footnote-ref {
     padding: 0 0 0 5px;
     margin: 20px 0;
     &:hover {
-        background-color: lighten(indianred, 30);
+        background-color: $highlight;
         color: indianred;
         border-bottom: 2px solid indianred;
     }
