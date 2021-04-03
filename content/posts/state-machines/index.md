@@ -3,7 +3,7 @@ title = "Actor Model Pt I: Finite State Machines to Statecharts"
 author = ["Trent Fridey"]
 date = 2021-04-03
 tags = ["actor-model", "computation", "javascript", "xstate"]
-draft = true
+draft = false
 +++
 
 In this series I outline how using [XState](https://xstate.js.org/docs/) and the actor model can simplify development of web applications, by tracing the development of finite state machines to statecharts to the actor model.
