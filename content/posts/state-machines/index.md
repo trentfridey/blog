@@ -1,13 +1,10 @@
 +++
-title = "Actor Model Pt I: Finite State Machines to Statecharts"
+title = "Finite State Machines to Statecharts"
 author = ["Trent Fridey"]
 date = 2021-04-03
 tags = ["actor-model", "computation", "javascript", "xstate"]
 draft = false
 +++
-
-In this series I outline how using [XState](https://xstate.js.org/docs/) and the actor model can simplify development of web applications, by tracing the development of finite state machines to statecharts to the actor model.
-
 
 ## Motivation {#motivation}
 
@@ -16,7 +13,7 @@ As you add features, you have to (1) update your models of how the application s
 Modern web frameworks like React or Vue make it easy to update the view layer in response to transistions between states.
 But they _don't_ make it easy to model what the state and transitions are.
 Using a framework like [XState](https://xstate.js.org/docs/) can help -- in fact, the key advantage of using it is that the three step process can be reduced to one: _just update the model_.
-To see how this works, we first introduce the finite state machine, then statecharts, and finally the actor model.
+To see how this works, we first introduce the finite state machine, then statecharts.
 We'll start with an example.
 
 
@@ -85,13 +82,10 @@ Instead of trying to represent all possible states explicitly, we can include th
 For our example, we want to make sure that the font-size and line-spacing are compatible, so that if the font-size is large, the range of the slider is restricted so the lines don't end up overlapping.
 We can represent this by a guarded transistion between the "small" font-size and the "large" font-size:
 
-{{< figure src="/ox-hugo/extensive_statechart.svg" >}}
-
 Finally, the most important innovation of statecharts is the ability to represent side-effects.
 In order for our application to interface with the outside world (i.e. other applications), it will require managing events that are unpredictable.
-This naturally leads us to the actor model, which I will outline in part II of this series.
 
-In the mean time, I would recommend reading [the original paper introducing statecharts](https://www.sciencedirect.com/science/article/pii/0167642387900359) -- it is a very accessible read, even if you are new to the idea of state machines.
+I would recommend reading [the original paper introducing statecharts](https://www.sciencedirect.com/science/article/pii/0167642387900359) -- it is a very accessible read, even if you are new to the idea of state machines.
 
 [^fn:1]: The sizes of the relevant sets for the application with just the font-size toggle: \\(|S| = 3\\), \\(|\Sigma| = 3\\), \\(|S\times\Sigma| = 9\\)
 [^fn:2]: In JavaScript, this is `Number.EPSILON`. From the [MDN Web Docs &#128279;](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global%5FObjects/Number/EPSILON)
