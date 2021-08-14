@@ -1,11 +1,11 @@
 #+TITLE: Homotopy, Homology, Holonomy 
 #+AUTHOR: Trent Fridey
-#+DATE: 2020-12-13
+#+DATE: 2021-08-14
 #+HUGO_BASE_DIR: ~/trent/blog
 #+HUGO_SECTION: posts/homotopy-homology-holonomy
 #+HUGO_TAGS: math physics differential-geometry
 
-  
+   
 * Homotopy
 
   The geometric idea of homotopy is an interpolation between two paths on a manifold which share the same start and end point.

@@ -1,7 +1,7 @@
 +++
 title = "Homotopy, Homology, Holonomy"
 author = ["Trent Fridey"]
-date = 2020-12-13
+date = 2021-08-14
 tags = ["math", "physics", "differential-geometry"]
 draft = false
 +++
