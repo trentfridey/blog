@@ -3,7 +3,7 @@
 {{ range .Pages }}
 <article>
     <div>
-    <span class="date">{{ .Date.Format "Jan 2, 2006" }} &mdash;</span>
+    <span class="date">{{ .Lastmod.Format "Jan 2, 2006" }} &mdash;</span>
     <span class="tags">
         {{ range .Params.tags  }}
         <a href="/tags/{{ . }}" class="tag">{{ . }}</a>

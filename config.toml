@@ -4,6 +4,7 @@ title = "The Derivation"
 theme = "substance"
 paginate=5
 ignoreFiles = ["/posts/.*/ltximg"]
+enableGitInfo = true
 [params]
   math = true
   author = "Trent Fridey"
