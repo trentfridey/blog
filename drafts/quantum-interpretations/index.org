@@ -1,0 +1,50 @@
+ 
+#+TITLE: Quantum Interpretations
+#+AUTHOR: Trent Fridey
+#+HUGO_TAGS: quantum philosophy
+#+DATE: 
+#+SUMMARY:  Quantum theory has attracted brilliant minds to study its every nuance. Why then can we not agree on a valid interpretation of its results?
+#+HUGO_BASE_DIR: ~/trent/blog
+#+HUGO_SECTION: posts/
+#+HUGO_DRAFT: true
+#+STARTUP: latexpreview
+
+#+begin_quote 
+An expert is someone who knows more and more about less and less, until they know everything about nothing
+-- Anonymous
+#+end_quote
+
+Quantum theory has attracted brilliant minds to study its every nuance.
+Why then can we not agree on a valid interpretation of its results?
+
+* Where are we? A brief survey of the field
+
+copenhagen, many-worlds, qb-ism, bohmianism, transactional, relational, etc...
+  
+* Challenges and Similarities
+
+It's similar to the debate on the origin of life -- the remote nature of its subject matter, the weighty nature of its conclusions.
+From the book /Signature In the Cell/, the debate around the origin of life in the **insert century here** was
+
+#+begin_quote
+**insert quote about origin of life being like a Rorschach test, tempting researchers to project biases onto it**
+#+end_quote
+
+It's also similar to theology -- the remote nature of its subject matter, the weighty nature of its conclusions.
+# does the book by John Polkinghorne have anything relevant to say about this intersection?
+Note that the way that theology has found a way to deal with the remote nature of its subject matter -- the via negativa, the way of analogy.
+While this is because in this subject, the nature exceeds our understanding (by definition), I am not saying that quantum mechanics exceeds our understanding.
+It may just be that our language has a hard time applying to quantum phenomena as poorly understood.
+
+* What does the future hold?
+
+While quantum journalists seemed to have latched on to the "quantum weirdness" narrative to bypass these problems, I can't help but to feel like they are alienating the public more than engaging them.
+We hear: "no one understands quantum theory", "both dead and alive at the same time", "spooky action at a distance" -- are we supposed to glory in our lack of understanding?
+Is there more that we can say, besides the math, without it sounding like a zen koan?
+The lose ontology; with the split between those who understand how to map the jargon to the math and those who don't; the growing presence of the "quantum weirdness" memes in the surronding culture -- these make me feel as if in 500 years, the average man in the street will look back at us as we look back on theological debates: pointless quibbling about "how many angels can fit on the head of a pin" **insert footnote on actual purpose of angelic debate**, instead of having an enriched understanding of the world.
+
+For those who say there is no harm in avoiding answering the question -- consider that physicists are dependent on granting bodies to fund their research.
+Bodies that are ultimately funded by taxpayers and government officials who do not have the mathematical maturity to understand the Schrodinger equation.
+This conflict of understanding has been problematic before -- see the Superconducting Super Collider project.
+Because of a lack of a shared vocabulary, a shared understanding of how to develop knowledge of the world, the government yanked funding halfway through digging the hole in the ground for the accelerator.
+This is a long way to say what has long been known by those who believe: ideas have consequences.  
