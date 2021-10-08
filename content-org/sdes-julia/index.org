@@ -2,7 +2,7 @@
 #+TITLE: Pendulum in a Turbulent Fluid
 #+AUTHOR: Trent Fridey
 #+HUGO_TAGS: physics julia
-#+DATE: 10-05-2021  
+#+DATE: 2021-10-05 
 #+SUMMARY: We take a tour of Julia's DifferentialEquations package to simulate the motion of a damped pendulum subject to a stochastic driving force 
 #+HUGO_BASE_DIR: ~/trent/blog
 #+HUGO_SECTION: posts/sdes-julia

@@ -1,6 +1,7 @@
 +++
 title = "Pendulum in a Turbulent Fluid"
 author = ["Trent Fridey"]
+date = 2021-10-05
 tags = ["physics", "julia"]
 draft = false
 +++
