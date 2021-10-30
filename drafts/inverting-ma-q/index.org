@@ -1,0 +1,117 @@
+#+TITLE: Inverting a Moving Average Time Series 
+#+AUTHOR: Trent Fridey
+#+DATE: 2021-10-30
+#+STARTUP: latexpreview
+#+HUGO_BASE_DIR: ~/trent/blog
+#+HUGO_SECTION: posts/inverting-ma-q
+#+HUGO_TAGS: math time-series
+
+Consider a discrete time series $\{X_t \, | \, t = 0, 1, 2, \ldots\}$ where the $X_t$ could be either a sampled signal (e.g. some sine wave) or a random variable.
+
+We can form a /simple moving average/ from this time series by defining a new time series $Y_t$, where:
+
+\begin{equation*}
+Y_t = \frac12 \left(X_t + X_{t-1} \right)
+\end{equation*}
+
+i.e. $Y_t$ represents the average of the current value of $X_t$ and the previous value, $X_{t-1}$.
+
+Using a moving average instead of the base series has many applications in the real world -- signal processing, finance, etc., but is usually considered an easy way to smooth the underlying signal $X_t$.
+
+This post shows how to invert this smoothing process, so that we can recover the underlying signal $X_t$ from the smoothed signal $Y_t$. This can generalize to other moving-average processes, as we will show shortly.
+
+To invert a simple moving average, first we define the *shift operator* $B$, in terms of its action on a discrete time series:
+
+ \begin{equation*}
+B X_t = X_{t-1}
+\end{equation*}
+
+that is, it shifts the time index of $X$ back one step ($t \to t-1$). Therefore we can rewrite the moving average $Y_t$ as:
+
+\begin{equation*}
+Y_t = \frac12 (1+B)X_t
+\end{equation*}
+
+In this form, we might guess that solving for $X_t$ for would just be a matter of dividing both sides by $\frac12 (1+B)$:
+
+\begin{equation*}
+\frac{2}{1+B} Y_t = X_t
+\end{equation*}
+
+However, since $B$ is an /operator/ and not a plain /number/, we need to make sense of what $B$ being in the denominator means. The typical way to do this is to use the [[https://en.wikipedia.org/wiki/Geometric_series][geometric series representation]]:[fn:1] 
+
+\begin{equation*}
+\frac{1}{1+B} = \sum_{k=0}^{\infty} (-1)^k B^k
+\end{equation*}
+
+where $B^k$ is just the application of $B$ to the series $k$ times:
+
+\begin{equation*}
+B^k X_t = X_{t-k}
+\end{equation*}
+
+Therefore, the solution should be understood as:
+
+\begin{align*}
+X_t &= 2\sum_{k=0}^\infty (-1)^k B^k Y_t \\
+ &= 2\sum_{k=0}^\infty (-1)^k Y_{t-k} 
+\end{align*}
+
+* Generalization to higher-order moving averages: 
+
+If we write the original moving average as:
+
+\begin{equation*}
+Y_t = \frac12 \sum_{k=0}^{1} X_{t-k}
+\end{equation*}
+
+then we can generalize to a /moving average of order/ $q$, which is abbreviated MA(q):
+
+\begin{equation*}
+Y_t = \frac{1}{q} \sum_{k=0}^{q-1} X_{t-k}
+\end{equation*}
+
+Inverting this series is similar to the simple moving average. First, rewrite $Y_t$ in terms of the shift operator $B$:
+
+\begin{equation*}
+\frac{1}{q}\sum_{k=0}^{q-1} X_{t-k} = \frac{1}{q} \left(\sum_{k=0}^{q-1} B^k\right) X_t
+\end{equation*}
+
+Using our trick from earlier (but going in the opposite direction), the term in parenthesis can be written as a fraction:
+
+\begin{equation*}
+\sum_{k=0}^{q-1}B^k = \frac{1-B^{q}}{1-B} 
+\end{equation*}
+
+which allows solve by multiplying both sides by the reciprocal:
+
+\begin{equation*}
+X_{t} = q\frac{1-B}{1-B^q}Y_t
+\end{equation*}
+
+and from here, we expand the denominator as a series:
+
+\begin{align*}
+X_t &= q (1-B)\sum_{k=0}^{\infty}B^{kq} Y_t \\
+    &= q \sum_{k=0}^\infty (B^{qk} - B^{qk + 1}) Y_t \\ 
+    &= q \sum_{k=0}^\infty (Y_{t-qk} - Y_{t-(qk+1)}) \\
+\end{align*}
+
+** Sanity check
+
+Sanity checks are always helpful. Believe it or not, I actually made a mistake the first time I wrote this.
+
+So, does this reduce to the previous solution in the case $q = 2$?
+
+\begin{align*}
+X_t &= 2\sum_{k=0}^\infty (Y_{t-2k} - Y_{t-2k-1}) \\
+   &= 2\left(Y_{t} - Y_{t-1} + Y_{t-2} - Y_{t-3} + \ldots  \right) \\
+   &= 2\sum_{k=0}^\infty (-1)^k Y_{t-k}
+\end{align*}
+
+Looks like it works, so that's a wrap.
+
+
+* Footnotes
+
+[fn:1] The mathematicians here will be worried about whether the infinite sum converges. I can assure you, it can be proven, but I have no interest in doing that here. 
