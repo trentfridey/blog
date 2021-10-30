@@ -1,0 +1,201 @@
+
+#+TITLE: Mechanics: From Newton to Schrodinger
+#+AUTHOR: Trent Fridey
+#+DATE: 2021-10-25
+#+HUGO_TAGS: physics math
+#+STARTUP: latexpreview
+#+HUGO_BASE_DIR: ~/trent/blog
+#+HUGO_SECTION: posts/newton-to-schrodinger
+
+* Outline
+Newton
+  $$
+  \sum_i \vec{F}_i = m\vec{a}
+  $$
+
+  D'Alembert
+  $$
+   \sum_i \vec{F}_i - m\vec{a} = 0
+  $$
+Virtual work
+  $$
+  \delta W = \sum_i \left(\vec{F}_i - m\vec{a}\right) \cdot \delta \vec{r} = 0
+  $$
+Generalized coordinates
+$$
+\vec{r} = \vec{r}(q_1, q_2, \dots, q_n; t)
+$$
+
+$$
+\vec{v} = \frac{d \vec{r}}{dt} = \frac{\partial \vec{r}}{\partial q_k} \frac{\partial q_k}{\partial t}
+$$
+
+$$
+\delta \vec{r} = \sum_k \frac{\partial \vec{r}}{\partial q_k} \delta q_k
+$$
+$$
+\delta W = \sum_k \sum_i \left( \vec{F}_i - m \vec{a} \right) \cdot \frac{\partial \vec{r}}{\partial q_k} \delta q_k = 0
+$$
+$$
+Q_k =  \vec{F}_i \cdot \frac{\partial \vec{r}}{\partial q_k}
+$$
+
+$$
+\frac{\partial \vec{r}}{\partial q_k} = \frac{\partial \vec{r}/\partial t}{\partial q_k /\partial t} = \frac{\partial \vec{v}}{\partial \dot{q}_k}
+$$
+
+$$
+\vec{a} \cdot \frac{\partial \vec{r}}{\partial q_k} =  \frac{d}{dt}\left(\vec{v}\cdot \frac{\partial \vec{v}}{\partial \dot{q}_k} \right) - \vec{v}\cdot\frac{\partial \vec{v}}{\partial q_k}
+$$
+
+$$
+\vec{v}\cdot \frac{\partial \vec{v}}{\partial \dot{q}_k} = \frac{1}{2}\frac{\partial}{\partial \dot{q}_k}(\vec{v}\cdot\vec{v})
+$$
+
+$$
+\vec{v}\cdot\frac{\partial \vec{v}}{\partial q_k} = \frac{1}{2}\frac{\partial}{\partial q_k}(\vec{v}\cdot \vec{v})
+$$
+
+$$
+\vec{a}\cdot\frac{\partial \vec{r}}{\partial q_k}
+=
+\frac{1}{2}\left(\frac{d}{dt}\frac{\partial}{\partial \dot{q}_k} - \frac{\partial}{\partial q_k} \right)(\vec{v}\cdot\vec{v})
+$$
+
+$$
+\delta W = \sum_{k} \left[ Q_k -\frac{1}{2}m\left(\frac{d}{dt}\frac{\partial}{\partial \dot{q}_k} - \frac{\partial}{\partial q_k} \right)(\vec{v}\cdot\vec{v})\right]  \delta q_k
+$$
+
+$$
+T = \frac{1}{2}m(\vec{v}\cdot\vec{v})
+$$
+
+$$
+\delta W = \sum_k \left[ Q_k - \left(\frac{d}{dt}\frac{\partial T}{\partial \dot{q}_k} - \frac{\partial T}{\partial q_k} \right) \right]\delta q_k
+$$
+
+$$
+Q_k = \frac{\partial V}{\partial q_k}
+$$
+
+$$
+\frac{\partial V}{\partial \dot{q}_k} = 0
+$$
+
+$$
+L = T - V
+$$
+
+$$
+\delta W = \sum_k \left[
+\left(\frac{d}{dt}\frac{\partial L}{\partial \dot{q}_k} - \frac{\partial L}{\partial q_k} \right)\right] \delta q_k
+\right]
+$$
+Lagrange
+$$
+\left(\frac{d}{dt}\frac{\partial L}{\partial \dot{q}_k} - \frac{\partial L}{\partial q_k} \right) = 0
+$$
+
+$$
+dL = \frac{\partial L}{\partial \dot{q}}d\dot{q} + \frac{\partial L}{\partial q}dq
+$$
+Hamilton
+$$
+dH = d(L - p\dot{q}) = (\frac{\partial L}{\partial \dot{q}} - p)d\dot{q} + \frac{\partial L}{\partial q}dq - \dot{q}dp
+$$
+
+$$
+\frac{\partial L}{\partial \dot{q}} - p = 0
+$$
+
+$$
+dH = \frac{\partial H}{\partial q}dq + \frac{\partial H}{\partial p}dp
+$$
+
+$$
+\frac{\partial H}{\partial p} = -\dot{q}  
+$$
+
+$$
+\frac{\partial H}{\partial q} = \frac{\partial L}{\partial q} = -\frac{d}{dt}\frac{\partial L}{\partial \dot{q}} = \dot{p}
+$$
+
+Canonical transformations
+
+$$
+L' = L + \frac{dG(q,t)}{dt}
+$$
+
+$$
+\frac{dG}{dt} = \frac{\partial G}{\partial q}\frac{d q}{d t} + \frac{\partial G}{\partial t}
+$$
+
+$$
+\frac{d}{dt}\frac{\partial }
+\frac{d}{dt}\frac{\partial }{\partial \dot{q}}(L + \frac{dG(q,t)}{dt}) =
+\frac{\partial}{\partial q}(L + \frac{dG(q,t)}{dt})
+$$
+
+$$
+\frac{d}{dt}\frac{\partial L}{\partial \dot{q}} - \frac{\partial L}{\partial q}
+$$
+
+
+
+
+
+
+
+ HJE
+
+ Choose $Q, P$ such that $H(Q, P, t) = 0 \implies \dot{Q} = \dot{P} = 0$, restricted to canonical transformations. Make a /generating function/ $S(q,Q,t)$ to do effect this, solve for it instead of solving differential equations.
+
+
+ $$
+ H\left(q, \frac{\partial S}{\partial q}, t \right) + \frac{\partial S}{\partial t} = 0
+ $$
+
+ Schrodinger
+
+ $$
+ S = k\log(\psi)
+ $$
+
+ $$
+ H\left(q, \frac{k}{\psi}\frac{\partial \psi}{\partial q}, t\right) = E
+ $$
+
+ $$
+ \frac{1}{2m}\left(\frac{\partial S}{\partial q}\right)^2 + V(q) = E
+ $$
+
+ $$
+ \frac{k^2}{2m}\left(\frac{\partial \psi}{\partial q}\right)^2 + V(q)\psi^2 = E\psi^2
+ $$
+
+ $$
+ J = \int \left[
+ \frac{k^2}{2m}\left(\frac{\partial \psi}{\partial q}\right)^2 + V(q)\psi^2 - E\psi^2 \right] dq
+ $$
+
+ $$
+ \delta J = 0 
+ $$
+
+ $$
+ \delta J = \int \left[\frac{k^2}{2m}\delta \left(\frac{\partial \psi}{\partial q}\right)^2 + 2(V(q) - E)\psi \delta \psi \right] dq
+ $$
+
+ $$
+ \int \delta\left(\frac{\partial \psi}{\partial q}\right)^2 dq = \left. \frac{\partial \psi}{\partial q}\delta\psi\right|_{\partial \Omega} - \int \frac{\partial^2 \psi}{\partial q^2} \delta\psi dq
+ $$
+
+ $$
+ \frac12 \delta J = \int \left[-\frac{k^2}{2m}\frac{\partial^2 \psi}{\partial q^2} + (V(q) - E)\psi \right]\delta \psi dq = 0
+ $$
+
+ $$
+-\frac{k^2}{2m}\frac{\partial^2 \psi}{\partial q^2} + V(q)\psi = E\psi
+ $$
+
+ QED
