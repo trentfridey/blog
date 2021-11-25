@@ -2,7 +2,7 @@
 title = "Equivalent Time Series"
 author = ["Trent Fridey"]
 date = 2020-12-08
-tags = ["math", "statistics"]
+tags = ["math", "statistics", "time-series"]
 draft = false
 +++
 

@@ -2,6 +2,7 @@
 title = "Inverting a Moving Average Time Series"
 author = ["Trent Fridey"]
 date = 2021-10-30
+tags = ["math", "time-series"]
 draft = false
 +++
 

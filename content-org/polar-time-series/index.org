@@ -4,7 +4,7 @@
 #+HUGO_BASE_DIR: ~/trent/blog
 #+HUGO_SECTION: posts/polar-time-series
 #+STARTUP: latexpreview
-#+HUGO_TAGS: math statistics
+#+HUGO_TAGS: math statistics time-series
 
 Let $R$ be a random Rayleigh-distributed variable.
 Let $\phi$ be a random uniformly-distributed variable.

@@ -2,6 +2,7 @@
 #+AUTHOR: Trent Fridey
 #+DATE: 2021-10-30
 #+HUGO_BASE_DIR: ~/trent/blog
+#+HUGO_TAGS: math time-series
 #+HUGO_SECTION: posts/inverting-ma-q
 
 Consider a discrete time series $\{X_t  |  t = 0, 1, 2, \ldots\}$ where the $X_t$ could be either deterministic (like samples from a sine wave) or a random variable. We can form a /simple moving average/ from this time series by defining a new time series $Y_t$, where:
