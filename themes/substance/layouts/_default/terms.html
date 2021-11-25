@@ -1,8 +1,8 @@
 {{ define "main" }}
 <h1>All Tags</h1>
-{{ range  .Data.Terms.ByCount }}
-<ul class="tags-list">
-    <li><a class="tag" href="{{ .Name | urlize }}">{{ .Name }}</a></li> 
-</ul>
+{{ range  .Data.Terms.Alphabetical }}
+<div class="tags-list">
+    <a class="tag" href="{{ .Name | urlize }}">{{ .Name }}</a> 
+</div>
 {{ end }}
 {{ end }}
