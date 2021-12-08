@@ -9,6 +9,7 @@ enableGitInfo = true
 [params]
   math = true
   author = "Trent Fridey"
+  images = ["favicon.svg"]
 [markup]
   [markup.highlight]
     anchorLineNos = false
