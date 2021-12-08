@@ -3,7 +3,7 @@ title = "Noisy-OR model in Bayesian Networks"
 author = ["Trent Fridey"]
 date = 2021-12-06
 tags = ["math", "bayesian-inference"]
-draft = true
+draft = false
 +++
 
 A common application of IoT sensors is for alerting of the presence of a specific event -- be it a leaking appliance, a broken piece of equipment, or a home invasion (i.e. burglar alarm). Due to the imperfect nature of these sensors, and the random, unpredictable world they live in, detecting a specific event cannot be done perfectly. Instead, we can only infer the presence of some event with some "noise", or uncertainty.

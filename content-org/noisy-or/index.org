@@ -5,7 +5,6 @@
 #+HUGO_SECTION: posts/noisy-or
 #+HUGO_TAGS: math bayesian-inference
 #+STARTUP: latexpreview
-#+HUGO_DRAFT: true
 
 A common application of IoT sensors is for alerting of the presence of a specific event -- be it a leaking appliance, a broken piece of equipment, or a home invasion (i.e. burglar alarm). Due to the imperfect nature of these sensors, and the random, unpredictable world they live in, detecting a specific event cannot be done perfectly. Instead, we can only infer the presence of some event with some "noise", or uncertainty. 
 
