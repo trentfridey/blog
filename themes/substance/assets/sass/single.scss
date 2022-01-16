@@ -20,14 +20,15 @@
 .post-content {
     counter-reset: equation;
     line-height: 150%;
-    & p {
-        margin-bottom: 40px;
-    }
-    &  p:first-of-type:first-letter {
+    
+    & > p:first-of-type:first-letter {
         font-size: 2.5em;
         float: left;
         padding: 0.2em;
         margin: 0 0.1em;
+    }
+    & hr {
+        margin: 70px 0;
     }
     & .footnotes {
         & p {

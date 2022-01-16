@@ -1,0 +1,97 @@
+#+TITLE: The ‘No Free Lunch’ Theorem 
+#+AUTHOR: Trent Fridey
+#+DATE: 2021-12-13
+#+HUGO_BASE_DIR: ~/trent/blog
+#+HUGO_SECTION: posts/no-free-lunch
+#+HUGO_TAGS: math data-science supervised-learning
+#+STARTUP: latexpreview
+#+HUGO_DRAFT: true
+
+In this post, I'd like to share the answer to the natural question that arises when one first becomes acquianted with supervised machine learning: /why are there so many different ways to solve supervised learning/? 
+
+A quick glance at [[https://scikit-learn.org/stable/][scikit-learn]], the (most?) popular machine-learning library shows there are at least 8:
+
+1. Linear models
+2. Support Vector Machines
+3. Nearest Neighbors
+4. Gaussian Processes
+5. Cross decomposition
+6. Naive Bayes
+7. Decision Trees
+8. Neural Networks
+
+At first glance, one might wonder why there are so many methods to accomplish the same task.
+If we've found multiple ways to solve the supervised learning task, are some methods better than others?
+Is there a "best" method that can outperform all the others for an arbitrary data set in supervised learning?
+
+/Unfortunately, the answer to this question is no./
+This result is called the *"No Free Lunch Theorem"* for supervised learning.
+As a result of this, we can't hope to label one of the algorithms above as "the best" without knowing anything about the data.
+Worse, we can't hope to invent a better supervised learning algorithm that is universally better than the eight listed above.
+
+For the impatient, I'll quote the result from [[https://direct.mit.edu/neco/article-abstract/8/7/1341/6016/The-Lack-of-A-Priori-Distinctions-Between-Learning][the original paper]] here:
+
+#+begin_quote
+
+The primary importance of the NFL theorems is their implication that, for any two learning algorithms $A$ and $B$ ... there are just as many situations (appropriately weighted) in which algorithm $A$ is superior to algorithm $B$ as vice versa... This is true even if algorithm $B$ is the algorithm of purely random guessing.
+#+end_quote
+
+
+* Derivation
+  
+By making a statement about all possible supervised learning algorithms, we're assuming that all supervised learning algorithms share some essential ingredients.
+To see that this is the case, let's define what we mean by supervised learning:
+
+*Supervised Learning:* Given a data set $d = \left\{ (\vec{x}_i, y_i)_{i=0}^N\right\}$ sampled from $f$ (the /target/ distribution), which is composed of pairs $(\vec{x}_i, y_i)$, where $\vec{x}_i$ is the /data/ belonging to some /input space/ $X$, and $y_i$ is the associated /output/ in the /output space/ $Y$, find the conditional probability distribution $h(Y|X)$ that best approximates the target distribution.
+
+There's also one other ingredient: in order to evaluate how closely $h$ approximates $f$, the supervised learning method employs a /loss function/ $L(y_H, y_F)$, which measures how the predicted output $y_H$, i.e. $y$ as sampled from  $h(Y|X)$, differs from the actual output $y_F$, that is, $y$ as sampled from $f(Y|X)$.
+For example, a common loss function is the quadratic loss: $L(y_H, y_F) = (y_H - y_F)^2$.
+The evaluation of the loss function is the cost, $c$, i.e. $c = L(y_H, y_F)$.
+Any supervised learning method then seeks to adjust $h$ so to minimize the cost on the training set.
+When it is done training, the method will output its best hypothesis distribution, and we will evaluate the performance of the algorithm by computing the loss function using the test data set.
+This quantity is called the /off-training-set cost/, or $c_{OTS}$, and it will be how we compare the performance of two supervised learning methods.
+
+* Recasting the Question Using Symbols
+
+Now that we have all the ingredients of supervised learning, we can recast the question introduced earlier in terms of the ingredients of a supervised learning task.
+
+The question becomes: "What is the difference in the expected value of the cost $c_{OTS}$ between two supervised learning algorithms $A$ and $B$, for a given data set $d$, when averaged over all possible target distributions $f$?"
+
+Therefore let us define $\Delta$ as:
+
+\begin{equation*}
+\Delta = E_A[c_{OTS}|f,d] - E_B[c_{OTS}|f,d]
+\end{equation*}
+
+If $A$ performs better over all possible target distributions $f$ than $B$, when both are given the same data set $d$, then this quantity will be less than zero when averaged over all $f$, and we should always use method $A$ over $B$.
+
+If $A$ and $B$ perform equally well over all possible target distributions $f$, then $\Delta$ will be zero when averaged over all $f$.
+
+We seek then to evaluate the average of $\Delta$ over all $f$:
+
+\begin{equation*}
+\int \Pr(f) \Delta df
+\end{equation*}
+
+In order to do this, we can use the extended bayesian framework[fn:2].
+As it turns out, this quantity can be shown to be zero under all conditions relevant to supervised learning.
+As a result, since we did not specify which algorithm is $A$ and which is $B$, we can conclude that $\Delta$ is zero for all possible supervised learning algorithms.
+
+* Implications
+
+  The implications of this result is that, for a given task in supervised learning, we cannot state ahead of time which method is going to perform the best in approximating the target distribution $f$.
+  All methods are equally likely to perform well before we start testing.
+  This is why data scientists need to train multiple methods at once, and only after doing this are they able to find the best method.
+
+* Conclusion
+
+  In this post, we asked and answered the common yet important question regarding supervised learning methods -- namely, why are there so many?
+  We saw that all the supervised learning methods have the same ingredients: $f,d,h,c$, and that we can gauge the relative performance of two algorithms based on the off-training-set cost.
+  By considering the space of all possible target distributions and the extended Bayesian framework, we see that we cannot determine /a priori/ which method is better at approximating the target distribution.
+
+* Footnotes
+  
+[fn:1] From [[https://direct.mit.edu/neco/article-abstract/8/7/1341/6016/The-Lack-of-A-Priori-Distinctions-Between-Learning][The Lack of A Priori Distinctions Between Learning Algorithms]]
+
+[fn:2] From [[https://www.google.com/books/edition/The_Mathematics_Of_Generalization/6GdQDwAAQBAJ?hl=en&gbpv=1&printsec=frontcover][The Mathematics of Generalization]]
+
