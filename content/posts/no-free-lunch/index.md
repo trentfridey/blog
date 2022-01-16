@@ -3,7 +3,7 @@ title = "The ‘No Free Lunch’ Theorem"
 author = ["Trent Fridey"]
 date = 2021-12-13
 tags = ["math", "data-science", "supervised-learning"]
-draft = true
+draft = false
 +++
 
 In this post, I'd like to share the answer to the natural question that arises when one first becomes acquianted with supervised machine learning: _why are there so many different ways to solve supervised learning_?
@@ -34,15 +34,11 @@ For the impatient, I'll quote the result from [the original paper](https://direc
 >
 > The primary importance of the NFL theorems is their implication that, for any two learning algorithms \\(A\\) and \\(B\\) ... there are just as many situations (appropriately weighted) in which algorithm \\(A\\) is superior to algorithm \\(B\\) as vice versa... This is true even if algorithm \\(B\\) is the algorithm of purely random guessing.
 
-
-## Derivation {#derivation}
-
 By making a statement about all possible supervised learning algorithms, we're assuming that all supervised learning algorithms share some essential ingredients.
 To see that this is the case, let's define what we mean by supervised learning:
 
-**Supervised Learning:** Given a data set \\(d = \left\\{ (\vec{x}\_i, y\_i)\_{i=0}^N\right\\}\\) sampled from \\(f\\) (the _target_ distribution), which is composed of pairs \\((\vec{x}\_i, y\_i)\\), where \\(\vec{x}\_i\\) is the _data_ belonging to some _input space_ \\(X\\), and \\(y\_i\\) is the associated _output_ in the _output space_ \\(Y\\), find the conditional probability distribution \\(h(Y|X)\\) that best approximates the target distribution.
+**Supervised Learning:** Given a data set \\(d = \left\\{ (\vec{x}\_i, y\_i)\_{i=0}^N\right\\}\\) sampled from \\(f\\) (the _target_ distribution), which is composed of pairs \\((\vec{x}\_i, y\_i)\\), where \\(\vec{x}\_i\\) is the _data_ belonging to some _input space_ \\(X\\), and \\(y\_i\\) is the associated _output_ in the _output space_ \\(Y\\), find the conditional probability distribution \\(h(Y|X)\\) that best approximates the target distribution, according to some _loss function_ \\(L\\).
 
-There's also one other ingredient: in order to evaluate how closely \\(h\\) approximates \\(f\\), the supervised learning method employs a _loss function_ \\(L(y\_H, y\_F)\\), which measures how the predicted output \\(y\_H\\), i.e. \\(y\\) as sampled from  \\(h(Y|X)\\), differs from the actual output \\(y\_F\\), that is, \\(y\\) as sampled from \\(f(Y|X)\\).
 For example, a common loss function is the quadratic loss: \\(L(y\_H, y\_F) = (y\_H - y\_F)^2\\).
 The evaluation of the loss function is the cost, \\(c\\), i.e. \\(c = L(y\_H, y\_F)\\).
 Any supervised learning method then seeks to adjust \\(h\\) so to minimize the cost on the training set.

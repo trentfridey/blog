@@ -5,7 +5,6 @@
 #+HUGO_SECTION: posts/no-free-lunch
 #+HUGO_TAGS: math data-science supervised-learning
 #+STARTUP: latexpreview
-#+HUGO_DRAFT: true
 
 In this post, I'd like to share the answer to the natural question that arises when one first becomes acquianted with supervised machine learning: /why are there so many different ways to solve supervised learning/? 
 
@@ -36,15 +35,12 @@ For the impatient, I'll quote the result from [[https://direct.mit.edu/neco/arti
 The primary importance of the NFL theorems is their implication that, for any two learning algorithms $A$ and $B$ ... there are just as many situations (appropriately weighted) in which algorithm $A$ is superior to algorithm $B$ as vice versa... This is true even if algorithm $B$ is the algorithm of purely random guessing.
 #+end_quote
 
-
-* Derivation
   
 By making a statement about all possible supervised learning algorithms, we're assuming that all supervised learning algorithms share some essential ingredients.
 To see that this is the case, let's define what we mean by supervised learning:
 
-*Supervised Learning:* Given a data set $d = \left\{ (\vec{x}_i, y_i)_{i=0}^N\right\}$ sampled from $f$ (the /target/ distribution), which is composed of pairs $(\vec{x}_i, y_i)$, where $\vec{x}_i$ is the /data/ belonging to some /input space/ $X$, and $y_i$ is the associated /output/ in the /output space/ $Y$, find the conditional probability distribution $h(Y|X)$ that best approximates the target distribution.
+*Supervised Learning:* Given a data set $d = \left\{ (\vec{x}_i, y_i)_{i=0}^N\right\}$ sampled from $f$ (the /target/ distribution), which is composed of pairs $(\vec{x}_i, y_i)$, where $\vec{x}_i$ is the /data/ belonging to some /input space/ $X$, and $y_i$ is the associated /output/ in the /output space/ $Y$, find the conditional probability distribution $h(Y|X)$ that best approximates the target distribution, according to some /loss function/ $L$.
 
-There's also one other ingredient: in order to evaluate how closely $h$ approximates $f$, the supervised learning method employs a /loss function/ $L(y_H, y_F)$, which measures how the predicted output $y_H$, i.e. $y$ as sampled from  $h(Y|X)$, differs from the actual output $y_F$, that is, $y$ as sampled from $f(Y|X)$.
 For example, a common loss function is the quadratic loss: $L(y_H, y_F) = (y_H - y_F)^2$.
 The evaluation of the loss function is the cost, $c$, i.e. $c = L(y_H, y_F)$.
 Any supervised learning method then seeks to adjust $h$ so to minimize the cost on the training set.
@@ -73,7 +69,7 @@ We seek then to evaluate the average of $\Delta$ over all $f$:
 \int \Pr(f) \Delta df
 \end{equation*}
 
-In order to do this, we can use the extended bayesian framework[fn:2].
+In order to do this, we can use the extended bayesian framework[fn:1].
 As it turns out, this quantity can be shown to be zero under all conditions relevant to supervised learning.
 As a result, since we did not specify which algorithm is $A$ and which is $B$, we can conclude that $\Delta$ is zero for all possible supervised learning algorithms.
 
@@ -91,7 +87,6 @@ As a result, since we did not specify which algorithm is $A$ and which is $B$, w
 
 * Footnotes
   
-[fn:1] From [[https://direct.mit.edu/neco/article-abstract/8/7/1341/6016/The-Lack-of-A-Priori-Distinctions-Between-Learning][The Lack of A Priori Distinctions Between Learning Algorithms]]
 
-[fn:2] From [[https://www.google.com/books/edition/The_Mathematics_Of_Generalization/6GdQDwAAQBAJ?hl=en&gbpv=1&printsec=frontcover][The Mathematics of Generalization]]
+[fn:1] From [[https://www.google.com/books/edition/The_Mathematics_Of_Generalization/6GdQDwAAQBAJ?hl=en&gbpv=1&printsec=frontcover][The Mathematics of Generalization]]
 
