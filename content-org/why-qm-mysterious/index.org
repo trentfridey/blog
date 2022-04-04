@@ -1,0 +1,63 @@
+
+#+TITLE: Why is Quantum Mechanics so Mysterious?
+#+AUTHOR: Trent Fridey
+#+DATE: 2022-04-03
+#+HUGO_BASE_DIR: ~/trent/blog
+#+HUGO_SECTION: posts/why-qm-mysterious
+#+HUGO_TAGS: physics quantum philosophy
+#+STARTUP: latexpreview
+
+It's a question that has challenged the smartest physicists of the past century. Why is quantum mechanics so hard to understand? Why is it so hard to communicate it to ordinary people? Is it a problem with our minds? Is it because the theory itself is wrong? 
+
+Why can't we find a common-sense interpretation of quantum theory?
+
+There are a number of factors that make quantum theory difficult to understand. Here's a short list:
+
+** 1. Quantum phenomena are remote from every day experience.
+
+   There's a few ways this is true. Firstly, as macroscopic creatures, humans don't have the ability to directly interact with quantum particles. Secondly, the humans that do try to interact with quantum particles, do so indirectly in research institutions. This means most of us will never be able to collect the raw data necessary to make our own conclusions. Thirdly, and most importantly, quantum particles are not the kind of things that permit direct observation, because any interaction ends up disurbing the particle.
+   These are obstacles to a common sense understanding because without direct experience, we must resort to analogies. And analogies always come up short.
+   
+** 2. Quantum theory uses recondite math
+
+In other words, just as the phenomena are far and away removed from everyday experience, the theory itself is too abstract to be understood without making the journey through advanced mathematics.
+
+To illustrate: When I was first introduced to quantum theory in highschool physics, I went and read the Wikipedia page until I came across the Schrodinger equation:
+
+\begin{equation*}
+\left(-\frac{\hbar^2 \nabla^2 }{2m} + V(\vec{x},t)\right)\Psi(\vec{x},t) = i\hbar \frac{\partial \Psi}{\partial t}
+\end{equation*}
+
+As a highschooler, I found it impossible to parse this. It's just essentially meaningless to anyone without a degree in mathematics. There's just too many unfamiliar symbols to explain before explaining why solving it can make predictions about experiments.
+
+** 3. The math itself has philosophical baggage.
+
+There's two issues here: complex numbers and probability.
+
+Complex numbers seems hard to interpret, because of the imaginary unit $i  = \sqrt{-1}$. However, there's nothing stopping us from skirting this issue by converting the Schrodinger equation into two real equations by taking the real and imaginary parts.
+We can do this by writing $\Psi(\vec{x}, t) = R(\vec{x}, t) e^{iS(\vec{x}, t)/\hbar}$:
+
+\begin{align*}
+ \frac{\partial S}{\partial t} &= -\frac{1}{2m}\left[(\nabla S)^2 + V - \frac{\hbar^2}{2m}\frac{\nabla^2 R}{R} \right] \\
+\frac{\partial|R|^2}{\partial t} &= \nabla \cdot \left(|R|^2\frac{\nabla S}{m} \right)  
+\end{align*}
+
+This gives two equations, both real. The first is called the Hamilton-Jacobi Equation, and the second is called the continuity equation. So it seems like complex numbers are not a critical issue, but the convention is to use complex numbers when solving the Schrodinger equation.
+
+Probability is a tough nut to crack.
+By invoking probability, quantum theory inherits its long history of debate around its interpretation, viz. frequentism vs. bayesianism.
+There are two main schools of thought here: frequentism and bayesianism.
+Frequentists say that probability theory yields statements about the long term frequency of random events.
+Bayesians say that probability theory quantifies the degrees of belief we have about certain statements being true.
+After solving the Schrodinger equation for $\Psi(\vec{x}, t)$, we can form the quantity $|\Psi(\vec{x},t)|^2$ which gives the probability of detecting the quantum particle at location $\vec{x}$ at time $t$.
+Should we take the frequentist road and say $|\Psi(\vec{x},t)|^2$ represents the frequency that we detect the quantum particle at ($\vec{x}$, $t$) if we do the experiment a huge number of times?
+Or should we take the Bayesian approach and say $|\Psi(\vec{x},t)|^2$ is the degree that we believe the quantum particle is at ($\vec{x}$, $t$) in a single experiment?
+Or something else entirely?
+
+The question is a part of a larger debate on what quantum theory is about. Does quantum theory describe our knowledge of the quantum system (the $\psi$ -epistemic view) or does it actually decribe the nature of reality (the $\psi$ -ontic view)? There have been some important results (the [[https://en.wikipedia.org/wiki/PBR_theorem][PBR theorem]]) in the work of quantum foundations recently that suggest that the latter is the case, but interpreting all of this is still an open issue. 
+
+** Conclusion
+   
+   Why is it so difficult to explain quantum theory in a common-sense way? There are many factors, but there are three dominant issues: the subject of investigation (i.e. a quantum system) is remote, the theory requires recondite mathematics, and the math itself has interpretational issues.
+Despite all of this, some of the greatest minds are working to solve this, and some recent results suggest that progress is being made towards an adequate common-sense interpretation of quantum theory.
+    
