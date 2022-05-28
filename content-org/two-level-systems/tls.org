@@ -1,0 +1,272 @@
+** Preliminaries
+*** General state
+\begin{equation*}
+\left(
+    \begin{matrix}
+    a \\
+    b
+    \end{matrix}
+\right)
+ = a\left|\uparrow\right \rangle+ b\left|\downarrow\right \rangle
+\end{equation*}
+
+$|a|^2 + |b|^2 = 1$
+
+*** Pauli Matrices
+\begin{equation*}
+\hat{\sigma}_x= \left(
+    \begin{matrix}
+        0 & 1 \\
+        1 & 0
+    \end{matrix}
+\right)
+\end{equation*}
+\begin{equation*}
+\hat{\sigma}_y= \left(
+    \begin{matrix}
+        0 & -i \\
+        i & 0
+    \end{matrix}
+\right)
+\end{equation*}
+\begin{equation*}
+\hat{\sigma}_z= \left(
+    \begin{matrix}
+        1 & 0 \\
+        0 & -1
+    \end{matrix}
+\right)
+\end{equation*}
+\begin{equation*}
+\sigma_0 = \left(
+    \begin{matrix}
+        1 & 0 \\
+        0 & 1
+    \end{matrix}
+\right)
+\end{equation*}
+
+*** Bloch Vector
+
+With
+$\vec{\sigma} = \hat{\sigma}_x\hat{x} + \hat{\sigma}_y\hat{y} + \hat{\sigma}_z\hat{z}$
+
+\begin{equation*}
+\vec{n} = \left\langle \vec{\sigma} \right\rangle = \left\langle \hat{\sigma}_x \right\rangle \hat{x} + \left\langle \hat{\sigma}_y \right\rangle \hat{y}+ \left\langle \hat{\sigma}_z \right\rangle \hat{z}
+\end{equation*}
+
+*** Bloch sphere
+
+#+begin_src python
+ from qutip import * import matplotlib.pyplot as plt
+ fig, ax = plt.subplots(figsize=(0.5,0.5))
+ b = Bloch()
+ b.axesinstance = ax
+ b.zlabel = [r'$|\uparrow\rangle$', r'$|\downarrow\rangle$']
+ b.make_sphere()
+ plt.show()
+#+end_src
+
+* Unitary Evolution with Pure States
+** General Unitary Hamiltonian
+If we constrain ourselves to unitary evolution, we can parameterize the
+general Hamiltonian for a two-level system in terms of a Bloch vector
+$\vec{r}$
+\begin{equation*}
+\vec{r} = r\cos\phi\sin\theta\hat{x} + r\sin\phi\sin\theta\hat{y} + r\cos\theta\hat{z}
+\end{equation*}
+
+So that the general Hamiltonian is:
+\begin{equation*}
+H = \sigma_0r_0+ \vec{\sigma}\cdot\vec{r}
+\end{equation*}
+\begin{equation*}
+H = \left(
+    \begin{matrix}
+        r_0 + r\cos\theta & re^{-i\phi}\sin\theta \\
+        re^{i\phi}\sin\theta & r_0 - r\cos\theta
+    \end{matrix}
+\right)
+\end{equation*}
+
+*** Eigenvalues
+\begin{equation*}
+\lambda_{1,2} = r_0 \pm r
+\end{equation*}
+
+*** Eigenvectors
+\begin{equation*}
+|\lambda_1\rangle = 
+\left(\begin{matrix}
+    \cos\frac{\theta}{2}\\
+    e^{i\phi}\sin\frac{\theta}{2}
+\end{matrix}\right)
+= \cos\frac{\theta}{2}\left|\uparrow\right \rangle+ e^{i\phi}\sin\frac{\theta}{2}\left|\downarrow\right \rangle
+\end{equation*}
+\begin{equation*}
+|\lambda_2\rangle =
+\left(\begin{matrix}
+    e^{i\phi}\sin\frac{\theta}{2}\\
+    -\cos\frac{\theta}{2}
+\end{matrix}\right)
+= e^{i\phi}\sin\frac{\theta}{2}\left|\uparrow\right \rangle-\cos\frac{\theta}{2}\left|\downarrow\right \rangle
+\end{equation*}
+
+*** Eigenbasis
+\begin{equation*}
+\Lambda = 
+\left(
+    \begin{matrix}
+    |\lambda_1\rangle & |\lambda_2\rangle
+    \end{matrix}
+\right)
+=
+\left(
+    \begin{matrix}
+    \left\langle \uparrow \right|\lambda_1 \rangle & \left\langle \uparrow \right|\lambda_2\rangle \\
+    \left\langle \downarrow \right|\lambda_1 \rangle & \left\langle \downarrow \right|\lambda_2\rangle
+    \end{matrix}
+\right)
+=
+\left(
+    \begin{matrix}
+    \cos\frac{\theta}{2} & e^{i\phi}\sin\frac{\theta}{2} \\
+    e^{i\phi}\sin\frac{\theta}{2} & -\cos\frac{\theta}{2}
+    \end{matrix}
+\right)
+\end{equation*}
+\begin{equation*}
+\Lambda^{\dagger} = \left(
+    \begin{matrix}
+    \langle \lambda_1 \left|\uparrow\right \rangle& \langle \lambda_1\left|\downarrow\right \rangle\\
+    \langle \lambda_2 \left|\uparrow\right \rangle& \langle \lambda_2\left|\downarrow\right \rangle
+    \end{matrix}
+\right)
+=
+\left(
+    \begin{matrix}
+    \cos\frac{\theta}{2} & e^{-i\phi}\sin\frac{\theta}{2} \\
+    e^{-i\phi}\sin\frac{\theta}{2} & -\cos\frac{\theta}{2}
+    \end{matrix}
+\right)
+\end{equation*}
+
+\begin{equation*}
+\det(\Lambda) = -e^{i\phi}\left(e^{-i\phi}\cos^2\frac{\theta}{2} + e^{i\phi}\sin^2\frac{\theta}{2}\right)
+\end{equation*}
+
+*** Time Evolution
+
+$U(t) = e^{-iHt}$
+
+$U^\dagger(t) U(t) =1$
+
+\begin{equation*}
+|\psi (t)\rangle = e^{-iHt}|\psi(0)\rangle = \sum_{k=1}^2 e^{-i\lambda_k t}|\lambda_k\rangle\langle \lambda_k | \psi(0)\rangle =  \sum_{k=1}^2 c_k e^{-i\lambda_k t}|\lambda_k\rangle
+\end{equation*}
+
+\begin{equation*}
+c_k = \langle\lambda_k|\psi(0)\rangle
+\end{equation*}
+
+**** Matrix Elements
+\begin{equation*}
+\langle j |e^{-iHt} | k \rangle
+=
+\sum_{\ell}^2 e^{-i\lambda_\ell t}\langle j|\lambda_\ell\rangle\langle \lambda_\ell | k\rangle
+\end{equation*}
+
+\begin{equation*}
+U = \Lambda
+\left(\end{matrix}
+e^{-i\lambda_1 t}
+&
+0
+\\
+0
+&
+e^{-i\lambda_2 t}
+\end{matrix}\right)
+\Lambda^{\dagger}
+\end{equation*}
+
+\begin{equation*}
+U_{jk}(t) = \sum_{\ell}e^{i\lambda_\ell t}\Lambda_{j\ell}\Lambda^{\dagger}_{\ell k}
+\end{equation*}
+
+\begin{equation*}
+U = 
+\left[
+    \end{matrix}
+    \cos^2\frac{\theta}{2}e^{-i\lambda_1 t} + \sin^2\frac{\theta}{2}e^{-i\lambda_2 t}
+    &
+    \frac{1}{2}\sin\theta(e^{-i\phi} e^{-i\lambda_1 t} - e^{i\phi} e^{-i\lambda_2 t})
+    \\
+    \frac{1}{2}\sin\theta(e^{i\phi} e^{-i\lambda_1 t} - e^{-i\phi} e^{-i\lambda_2 t})
+    &
+    \sin^2\frac{\theta}{2}e^{-i\lambda_1 t} + \cos^2\frac{\theta}{2}e^{-i\lambda_2 t}
+    \end{matrix}
+\right]
+\end{equation*}
+
+**** Transition Matrix
+\begin{equation*}
+P_{i\to f}(t) = |U_{jk}|^2(t)
+\end{equation*}
+
+** General State Evolution
+
+Starting with the initial state:
+\begin{equation*}
+|\psi(0)\rangle = |\theta_0,\phi_0\rangle = \cos\frac{\theta_0}{2}\left|\uparrow\right \rangle+ e^{i\phi_0}\sin\frac{\theta_0}{2}\left|\downarrow\right \rangle
+\end{equation*}
+
+The evolution of the state under the application of the general
+Hamiltonian $H = \vec{\sigma}\cdot\vec{r}$ will become:
+\begin{equation*}
+|\psi(t)\rangle = a(t)\left|\uparrow\right \rangle+ b(t)\left|\downarrow\right \rangle
+\end{equation*}
+
+The explicit expression is given by:
+\begin{equation*}
+a(t)
+= 
+i\sin(rt)\sin(\theta)\sin\frac{\theta_0}{2}e^{i(\phi_0 - \phi)} 
++ \left[\cos(rt) - i\sin(rt)\cos(\theta)\right]\cos\frac{\theta_0}{2} 
+\end{equation*}
+
+\begin{equation*}
+b(t)
+= 
+e^{i\phi_0}\left[i\sin(rt)\sin(\theta)\cos\frac{\theta_0}{2}e^{-i(\phi_0 - \phi)} + \left[\cos(rt) + i\sin(rt)\cos\theta\right]\sin\frac{\theta_0}{2}\right]
+\end{equation*}
+
+We can rewrite this to make the coefficients more amenable to the Bloch
+sphere interpretation:
+\begin{equation*}
+|\psi(t)\rangle = |\Theta(t), \Phi(t)\rangle = \cos\frac{\Theta(t)}{2}\left|\uparrow\right \rangle+ e^{i\Phi(t)}\sin\frac{\Theta(t)}{2}\left|\downarrow\right \rangle
+\end{equation*}
+
+where $\Theta(t) = \Theta(\theta, \phi; \theta_0, \phi_0; t)$ and
+$\Phi(t) = \Phi(\theta,\phi;\theta_0,\phi_0; t)$ are functions of the:
+
+- $\theta$: polar angle of $\vec{r}$
+- $\phi$: azimuthal angle of $\vec{r}$
+- $\theta_0$: initial state polar angle
+- $\phi_0$: initial state azimuthal angle
+
+
+** General Bloch Vector Evolution
+Starting with the initial Bloch vector:
+\begin{equation*}
+\vec{n}_0 = \langle \sigma_x(0) \rangle \hat{x} + \langle \sigma_y(0) \rangle \hat{y}+ \langle \sigma_z(0) \rangle \hat{z}
+\\
+=\cos\phi_0\sin\theta_0\hat{x} + \sin\phi_0\sin\theta_0\hat{y} + \cos\theta_0\hat{z}
+\end{equation*}
+
+The Bloch vector will evolve under the General Hamiltonian to:
+\begin{equation*}
+\vec{n}(t) = \langle \sigma_x(t) \rangle \hat{x} + \langle \sigma_y(t) \rangle \hat{y}+ \langle \sigma_z(t) \rangle \hat{z}
+\\
+=\cos\Phi(t)\sin\Theta(t)\hat{x} + \sin\Phi(t)\sin\Theta(t)\hat{y} + \cos\Theta(t)\hat{z}
+\end{equation*}
