@@ -1,0 +1,20 @@
+#+TITLE: Resources for Writing Blogs
+
+* [[https://css-tricks.com/advice-for-technical-writing/][Advice for technical writing]] from CSS tricks
+
+  - Write about something that is personal and important to you
+  - Write at the moment of learning
+  - Comparing technologies is an underused format
+  - Nail the intro: Tell them what you are going to tell them
+  - Choose boring titles
+  - Nail the outro: Tell them what you told them
+  - Make it scannable: break up text with lists, images, code, etc
+  - Use an active voice
+  - Avoid using words like simply, of course, just, well known, however
+  - Don't use too many words
+  - Don't stop yourself from writing
+  - Don't stop yourself from publishing
+  - The more introductory, the higher the bar
+  - Abstraction is helpful, but examples are sometimes better
+  - Add context, quotes, data to make a story
+  

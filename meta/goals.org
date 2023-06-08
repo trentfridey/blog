@@ -1,0 +1,148 @@
+#+TITLE: Blog Scheduling
+
+Blogging is a not a sprint, but an ultra-marathon.
+
+** Number of Posts
+  
+*** DONE 5 Posts 
+    CLOSED: [2021-01-31 Sun 12:06]
+   
+*** DONE 6 Posts 
+    CLOSED: [2021-03-07 Sun 12:06]
+
+*** DONE 9 Posts
+    CLOSED: [2021-10-07 Thu 21:37]
+
+*** DONE 12 Posts
+    CLOSED: [2021-12-07 Tue 23:26]
+
+*** DONE 15 Posts
+    CLOSED: [2022-05-28 Sat 00:18]
+
+*** TODO 18 Posts
+
+*** TODO 20 Posts
+    
+** Number of Outlets
+
+*** DONE 1 Post to 1 Outlet
+    CLOSED: [2021-10-07 Thu 21:38]
+    Posted in work slack
+
+*** TODO 2 Posts to 1 Outlet 
+
+*** TODO 3 Posts to 1 Outlet
+
+*** DONE 1 Post to 2 Outlets
+    CLOSED: [2021-12-07 Tue 23:30]
+
+*** TODO 2 Posts to 2 Outlets
+
+*** TODO 3 Posts to 2 Outlets
+
+*** DONE 1 Post to 3 Outlets
+    CLOSED: [2021-12-09 Thu 13:36]
+
+** Number of Newsletters
+
+*** DONE 1 Buttondown email sent
+    CLOSED: [2021-04-03 Sat 13:24]
+
+*** DONE 2 Buttondown emails sent
+    CLOSED: [2021-12-09 Thu 13:35]
+
+*** DONE 3 Buttondown emails sent
+    CLOSED: [2022-05-28 Sat 00:18]
+
+*** TODO 5 Buttondown emails sent
+
+*** TODO 7 Buttondown emails sent
+
+*** TODO 10 Buttondown emails sent
+   
+** Number of Visitors 
+*** DONE 5 Total unique visitors
+    CLOSED: [2021-10-07 Thu 21:38]
+
+*** DONE 10 Total unique visitors
+    CLOSED: [2021-12-10 Fri 18:17]
+
+*** DONE 20 Total unique visitors
+    CLOSED: [2021-12-10 Fri 18:17]
+
+*** DONE 40 Total unique visitors
+    CLOSED: [2022-05-28 Sat 00:20]
+
+*** TODO 70 Total unique visitors
+
+*** TODO 100 Total unique visitors
+
+*** TODO 10 New weekly visitors
+
+*** TODO 20 New weekly visitors
+
+*** TODO 30 New weekly visitors
+
+*** TODO 250 Total unique visitors
+
+*** TODO 50 New weekly visitors
+
+*** TODO 500 Total unique visitors
+
+*** TODO 75 New weekly visitors
+
+*** TODO 1000 Total unique visitors
+    
+** Number of Pageviews 
+
+*** TODO 15 Total Pageviews
+
+*** TODO 25 Total Pageviews
+
+*** TODO 50 Total Pageviews
+
+*** TODO 100 Total Pageviews
+
+*** TODO 150 Total Pageviews
+
+*** TODO 250 Total Pageviews
+
+*** TODO 500 Total Pageviews
+
+*** TODO 1000 Total Pageviews
+
+*** TODO 10 pageviews weekly
+
+*** TODO 20 pageviews weekly
+
+*** TODO 30 pageviews weekly
+
+*** TODO 1500 Total Pageviews
+
+** Number of Subscribers
+
+*** DONE 1 subscriber
+    CLOSED: [2021-03-18 Thu 21:38]
+
+*** DONE 2 subscribers
+    CLOSED: [2021-10-07 Thu 21:39]
+
+*** DONE 3 subscribers
+    CLOSED: [2021-10-07 Thu 21:39]
+
+*** DONE 4 subscribers
+    CLOSED: [2021-10-07 Thu 21:39]
+
+*** DONE 5 subscribers
+    CLOSED: [2021-12-05 Sun 21:17]
+
+*** DONE 6 subscribers
+    CLOSED: [2022-05-28 Sat 00:20]
+
+*** TODO 7 subscribers
+
+*** TODO 8 subscribers
+
+*** TODO 9 subscribers
+    
+*** TODO 10 subscribers

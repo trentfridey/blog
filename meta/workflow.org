@@ -1,0 +1,90 @@
+#+TITLE: Workflow for Blogging
+
+* Authoring Posts with Org Mode
+  
+** Headers
+
+   You can insert the standard headers for a blog post using the =SPC i s= and then selecting =<blog=.
+
+   You can also use all the frontmatter that Hugo allows as documented [[https://gohugo.io/content-management/front-matter/][here]]
+  
+** Content
+
+*** Equations
+
+    The site uses MathJax for rendering equations.
+    The support table is [[http://docs.mathjax.org/en/latest/input/tex/macros/][here]]
+    It supports automatic equation numbering and references -- see [[http://docs.mathjax.org/en/latest/input/tex/eqnumbers.html?highlight=reference#automatic-equation-numbering][docs]]
+
+**** Inserting 
+    Inserting equations can be done with the standard LaTeX delimiters ~$~ and ~\[ \]~.
+**** Previewing
+    You can preview a LaTeX equation by having the point on the equation and typing =, T x=
+    To enable LaTeX previews on startup, add the header =#+STARTUP: latexpreview=
+**** Labelling
+
+Org mode links work like =[[eq:1]]= to refer to an equation with header =#+NAME: eq:1= according to this [[https://emacs.stackexchange.com/questions/14923/label-and-reference-latex-equations-in-org-mode][post]] on stackexchange
+     
+   In equation [[eq:sample]] we find the value of an
+interesting integral:
+
+#+NAME: eq:sample
+\begin{equation}
+  \int_0^\infty \frac{x^3}{e^x-1}\,dx = \frac{\pi^4}{15}
+\end{equation}
+
+However, the links do not render correctly on export to HTML -- therefore the suggested fallback is to use =\label{}= and =\eqref{}=
+
+*** Sections - Needs Testing
+
+    Sections follow the normal org-mode ways.
+
+    You can reference internal sections by using the =[[**Section Name]]= (where Section Name is a second-level headline).
+   
+*** Code Blocks
+
+    You can use the header parameters to control which code blocks make it to the final rendered document:
+
+    =:exports none= will omit both the code and the results from the final
+
+    =:exports results= will omit the code block from the final
+    
+*** References 
+
+    References can be inserted like [[Footnotes]]
+    
+*** Footnotes 
+
+    You can insert footnotes with the shortcut =SPC m i f= 
+   
+*** Plots
+
+    Basic plots using python and matplotlib can be inserted using the =<plot= snippet.
+    Insert the snippet by =SPC i s=
+    You will also have to add the export snippet (=<savefig=) somewhere on the file.
+    Once inserted, you need to choose a name for the exported file.
+    You can edit the code in its own buffer with =, '=
+    You can jump back to org mode with =, c= once you have finished.
+    Evaluation of the code is done with =C-c C-c=
+
+    You can preview the produced image by toggling on inline image preview with =, T i=.
+    This can also be enabled at the file level on startup with =#+STARTUP: inlineimages=
+    You can add a caption to the produced plot by adding the property =#+CAPTION:Insert caption here=
+
+   
+*** Tables
+
+    
+** Metadata
+   
+* Site Generation
+
+Use Hugo for static site generation. It is ridiculously fast.
+
+* Deploying
+
+Use Netlify for deploying automatically upon pushing to the master branch of [[https://github.com/trentfridey/blog][the blog repository]].
+
+* Newsletter Authoring
+
+  Use [[https://buttondown.email/account][ButtonDown]] for authoring and sending newsletters.
