@@ -1,0 +1,148 @@
++++
+title = "QuTiP Virtual Lab Dev Log #6"
+author = ["Trent Fridey"]
+date = 2023-07-20
+tags = ["quantum", "python", "javascript"]
+draft = false
++++
+
+In this week of developing the QuTiP Virtual Lab, I ran into an obstacle with the build system.
+It seems like the latest update to `empack` actually broke the ability to compile QuTiP into WebAssembly.
+So during this week, I focused on the user interface instead of the simulation logic.
+
+Since the application is meant to be used cross-platform, I started thinking about the user experience for tablets.
+Initially I thought that the application would feature a canvas with tools for a user to drag-and-drop, but as it turns out, drag-and-drop is not intuitive on a tablet.
+Do I tap the tool and then drag, or just put my finger down and drag in a single motion?
+It's confusing.
+Besides this, the ability to place items on a canvas at any position is secondary to the main goal of the application, which is simulation.
+
+So I abandoned the drag-and-drop and proceeded in a new direction.
+The canvas would feature slots for up to 4 qubits that the user could tap to activate.
+Once the qubit was activated, the user could then tap the qubit to bring up the tool menu.
+
+{{< figure src="/ox-hugo/qubit-slots.gif" >}}
+
+Among other items, the menu includes the ability to add interactions between two qubits.
+This was actually fairly complex to implement, so it took most of my development time this week.
+The work was composed of two parts: (1) render the interaction on the canvas and (2) implementing the state machine to guide a user through setting up an interaction.
+
+
+## Rendering the Interaction to the Canvas {#rendering-the-interaction-to-the-canvas}
+
+Our canvas library is React-konva, which has a `Line` primitive that is useful for well, drawing lines between things.
+We can feed it the coordinates of the two qubits that are interacting, and it will render a line connecting them.
+Since we allow multiple interaction operators, we also want to add a label to the line with the interaction operator symbol.
+In order for this to be legible, we want to place the label slightly adjacent to the line instead of directly on top of it.
+We can do this by nudging the label coordinates in the direction of the line's normal vector:
+
+```javascript
+const x1 = qubit1Position.x;
+const y1 = qubit1Position.y;
+const x2 = qubit2Position.x;
+const y2 = qubit2Position.y;
+const abs = (q) => Math.sqrt(Math.pow(q.x, 2) + Math.pow(q.y, 2));
+
+const lineMidpointPosition = { x: x1 + (x2 - x1) / 2, y: y1 + (y2 - y1) / 2 };
+const lineNormal = {
+    x1: -y1 / abs(qubit1Position),
+    y1: x1 / abs(qubit1Position),
+  };
+const labelPosition = {
+    x: lineMidpointPosition.x + 30*lineNormal.x1,
+    y: lineMidpointPosition.y + 30*lineNormal.y1
+}
+```
+
+The normal line can be determined by multiplying the vector \\(\begin{pmatrix}x \\ y\end{pmatrix}\\) with the 2D rotation matrix at \\(\pi/2\\):
+
+\begin{pmatrix}
+\cos{\pi/2} & -\sin{\pi/2} \\\\\\
+\sin{\pi/2} & \cos{\pi/2}
+\end{pmatrix}
+
+=
+
+\begin{pmatrix}
+0 & -1 \\\\\\
+1 & 0
+\end{pmatrix}
+
+I then played with the amount of offset until I settled on \\(30\\).
+
+
+## Implementing the Interaction Setup {#implementing-the-interaction-setup}
+
+The user flow for setting up an interaction between two qubits can be broken down into steps:
+
+1.  The user taps on an active qubit to bring up the menu
+2.  The user selects 'Add an Interaction' from the menu
+3.  The user selects a different qubit to indicate the pair
+4.  A modal is shown to allow the user to select an operator, and the coupling strength of the interaction. User selects and taps 'submit'
+5.  Done! The interaction is saved and rendered.
+
+This flow is simple enough that it can be implemented using React's `useState` hook.
+I might try to refactor this later, but each step listed above maps to a state variable that we can track using `useState`:
+
+```javascript
+const [qubitSelected, setQubitSelected] = useState();
+const [isAddingInteraction, setIsAddingInteraction] = useState(false);
+const initInteractionModalState = {
+  visible: false,
+  qubit1: null,
+  qubit2: null,
+  operator: null,
+  scalar: 0,
+};
+const [interactionModal, setInteractionModal] = useState(
+  initInteractionModalState
+  );
+const [interactions, setInteractions] = useState([]);
+```
+
+The first item in brackets is the state variable, and the second is the setter, which is used to update the state.
+We can link each step to the next by implementing handlers:
+
+```javascript
+  const handleSelectQubit = (key) => {
+  if (isAddingInteraction) {
+    setInteractionModal(() => ({
+      visible: true,
+      qubit1: interactionSourceQubit,
+      qubit2: key,
+      operator: null,
+      scalar: 1,
+    }));
+  } else setQubitSelected((selected) => (selected === key ? null : key));
+};
+
+const handleAddInteraction = (key) => {
+  setQubitSelected(null);
+  setIsAddingInteraction(true);
+  setInteractionSourceQubit(key);
+};
+const handleCancelAddInteraction = () => {
+  setIsAddingInteraction(false);
+  setInteractionSourceQubit(null);
+  setInteractionModal(initInteractionModalState)
+};
+
+const handleFinishAddInteraction = () => {
+  setIsAddingInteraction(false);
+  setInteractionSourceQubit(null);
+  const { qubit1, qubit2, operator, scalar } = interactionModal;
+  setInteractions((interactions) => [
+    ...interactions,
+    { qubit1, qubit2, operator, scalar },
+  ]);
+  setInteractionModal(initInteractionModalState);
+};
+```
+
+All we have to do to bind this to the UI is to pass the handlers to the `onClick` props in our markup, and voila, we've implemented the interaction form!
+
+{{< figure src="/ox-hugo/qubit-interaction.gif" >}}
+
+
+## Next Steps {#next-steps}
+
+Next week I plan on implementing the code to link the canvas to the simulation. Most of this is just plumbing and will not be seen by the user, but the application is getting closer to fully allowing a user to simulate a quantum system by just tapping on a graphical interface. Also -- hopefully the `empack` bug will be fixed by then!
